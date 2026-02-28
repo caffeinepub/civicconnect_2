@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 35,
+  "projectStateVersion": 37,
   "summary": "Multi-page React website for YMW Compliance Services LLP — India's #1 Trusted Compliance & Registration Partner based in Dhanbad, Jharkhand. Pages: Home, About, Services, Blog, Contact, Grievance Section, Social Media, Signup/Login, Customer Dashboard, and Admin Panel. Home page includes Hero Section, About Preview, Services Preview (15 services), Why Choose Us stats, Our Strengths section, and Contact Preview. Includes navigation, grievance submission form, blog listing, services showcase, social media links, customer authentication system (signup with Full Name, Mobile, Email, Password, Business Name; login with Email/Password), protected customer dashboard (welcome message, profile info, service selection, document upload, WhatsApp support), persistent customer accounts in backend, and admin panel to view registered customers and service requests. Color scheme: Dark Navy Blue (#0a1628) background, Golden Yellow (#f5c518) accent, white text, green WhatsApp button, diagonal stripe texture on hero.",
   "architectural_notes": [
     "Multi-page React app with client-side routing",
@@ -14,9 +14,10 @@
   ],
   "known_issues": [
     "Services page/preview not showing all 15 services — some are hidden or missing after recent changes",
-    "Auth bug: after login, service request submission fails with 'Unauthorized: Anonymous callers cannot submit service requests' — session not properly passed to backend API call"
+    "Auth bug: after login, service request submission fails with 'Unauthorized: Anonymous callers cannot submit service requests' — session not properly passed to backend API call",
+    "Services page: service cards have inconsistent vertical spacing, some cards start lower than others, content alignment inside cards is inconsistent"
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-persistent-top-navigation-bar-with-links-to-all-pages-home-about-services-blog-contact-grievance-social-media-and-signup-the-nav-should-highlight-the-active-page-and-collapse-into-a-mobile-friendly-hamburger-menu-on-small-screens",
@@ -521,6 +522,46 @@
         "REQ-66"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-services-tsx-fix-the-service-card-grid-layout-so-that-all-15-service-category-cards-align-to-the-top-of-their-grid-cells-use-css-grid-with-items-start-align-items-start-on-the-grid-container-so-no-card-is-pushed-down-relative-to-its-row-neighbors-remove-any-fixed-height-or-min-height-set-on-individual-service-cards-and-allow-each-card-to-size-dynamically-based-on-its-content",
+      "title": "In frontend/src/pages/Services.tsx, fix the service card grid layout so that all 15 service category cards align to the top of their grid cells. Use CSS grid with `items-start` (align-items: start) on the grid container so no card is pushed down relative to its row neighbors. Remove any fixed height or min-height set on individual service cards and allow each card to size dynamically based on its content.",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-services-tsx-replace-the-existing-card-grid-container-with-a-clean-responsive-css-grid-using-tailwind-classes-grid-grid-cols-1-sm-grid-cols-2-lg-grid-cols-3-gap-6-or-equivalent-ensure-equal-column-widths-consistent-row-gap-and-consistent-column-gap-across-all-breakpoints-remove-any-irregular-margin-or-padding-on-individual-cards-that-causes-uneven-spacing-between-cards",
+      "title": "In frontend/src/pages/Services.tsx, replace the existing card grid container with a clean responsive CSS grid using Tailwind classes: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6` (or equivalent). Ensure equal column widths, consistent row gap, and consistent column gap across all breakpoints. Remove any irregular margin or padding on individual cards that causes uneven spacing between cards.",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-services-tsx-apply-uniform-internal-padding-to-every-service-card-using-a-consistent-tailwind-padding-class-e-g-p-6-applied-identically-to-all-cards-ensure-the-padding-on-top-bottom-left-and-right-is-equal-for-all-cards-remove-any-per-card-padding-overrides-that-differ-between-cards",
+      "title": "In frontend/src/pages/Services.tsx, apply uniform internal padding to every service card using a consistent Tailwind padding class (e.g., `p-6`) applied identically to all cards. Ensure the padding on top, bottom, left, and right is equal for all cards. Remove any per-card padding overrides that differ between cards.",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-services-tsx-enforce-uniform-vertical-spacing-between-the-internal-elements-of-every-service-card-in-a-consistent-order-icon-title-description-sub-service-list-use-consistent-tailwind-spacing-utilities-e-g-mb-3-or-space-y-3-applied-identically-across-all-15-cards-so-the-gap-between-each-element-pair-is-the-same-on-every-card",
+      "title": "In frontend/src/pages/Services.tsx, enforce uniform vertical spacing between the internal elements of every service card in a consistent order: icon → title → description → sub-service list. Use consistent Tailwind spacing utilities (e.g., `mb-3` or `space-y-3`) applied identically across all 15 cards so the gap between each element pair is the same on every card.",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-frontend-src-pages-services-tsx-verify-that-the-fixed-layout-consistent-padding-and-top-aligned-grid-display-correctly-across-desktop-1024px-tablet-640px-1023px-and-mobile-640px-screen-sizes-ensure-no-card-overflows-overlaps-or-misaligns-on-any-breakpoint-maintain-all-existing-dark-navy-0a1628-background-golden-yellow-f5c518-accent-colors-card-border-shadow-styles-icons-and-branding-only-layout-and-spacing-must-change",
+      "title": "In frontend/src/pages/Services.tsx, verify that the fixed layout, consistent padding, and top-aligned grid display correctly across desktop (≥ 1024px), tablet (640px–1023px), and mobile (< 640px) screen sizes. Ensure no card overflows, overlaps, or misaligns on any breakpoint. Maintain all existing dark navy (#0a1628) background, golden yellow (#f5c518) accent colors, card border/shadow styles, icons, and branding — only layout and spacing must change.",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -755,6 +796,12 @@
     {
       "id": "AR-43",
       "summary": "Expand remaining 7 Services page category cards with detailed sub-services: FSSAI License (5), Trademark Registration (7), Pollution Control Board (10), Tender Services (10), Digital Signature Certificate (5), Agreement & Contract (7), Small Business Support Service (7). Cards must auto-height based on content, no empty space.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-44",
+      "summary": "Fix Services page card layout: align all cards to top, remove fixed heights, use dynamic content-based height, consistent responsive grid with equal column/row spacing, uniform internal padding, no extra margins causing gaps, uniform spacing between icon/title/description/service list across desktop/tablet/mobile",
       "reqIds": [],
       "status": "pending"
     }

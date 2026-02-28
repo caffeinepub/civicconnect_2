@@ -306,17 +306,18 @@ export default function Services() {
       {/* Services Grid */}
       <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
             {SERVICES.map((service) => (
               <div
                 key={service.title}
-                className="p-6 rounded-2xl flex flex-col gap-4 hover:scale-105 transition-transform duration-200"
+                className="p-6 rounded-2xl hover:scale-105 transition-transform duration-200"
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <div className="flex items-start justify-between">
+                {/* Icon & Badge Row */}
+                <div className="flex items-start justify-between mb-3">
                   <span className="text-3xl">{service.icon}</span>
                   <span
                     className="text-xs font-bold px-2 py-1 rounded-full"
@@ -325,11 +326,15 @@ export default function Services() {
                     {service.badge}
                   </span>
                 </div>
-                <div>
-                  <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
-                  <p className="text-sm text-gray-400 mb-3">{service.desc}</p>
-                </div>
-                <ul className="flex flex-col gap-1.5 mt-auto">
+
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
+
+                {/* Description */}
+                <p className="text-sm text-gray-400 mb-4">{service.desc}</p>
+
+                {/* Features List */}
+                <ul className="space-y-2">
                   {service.features.map((feature) => (
                     <li key={feature} className="flex items-center gap-2 text-xs text-gray-300">
                       <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: '#f5c518' }} />

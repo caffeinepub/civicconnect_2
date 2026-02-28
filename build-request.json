@@ -1,57 +1,125 @@
 {
   "kind": "build_request",
-  "title": "Expand remaining 7 service category cards with complete sub-service lists on Services page",
+  "title": "Fix Services page card layout alignment and remove inconsistent gaps",
   "projectName": "YMW Compliance Services",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-66",
-      "text": "Update the Services page (frontend/src/pages/Services.tsx) to replace the existing sub-service items in the following 7 service category cards with the exact lists provided below. Do not change the card layout, design, icons, grid structure, or any other section of the page — only replace the sub-service bullet/list items within each card:\n\n1. FSSAI License — replace existing sub-items with: FSSAI Registration, FSSAI State License, FSSAI Central License, FPO Mark Certification, FSSAI Annual Return Filing.\n\n2. Trademark Registration — replace existing sub-items with: Trademark Registration, Trademark Objection / Opposition Reply, Trademark Hearing, Brand Name Registration, Design Registration, Copyright Registration, Patent Registration.\n\n3. Pollution Control Board — replace existing sub-items with: CGWA Water Boring, CTE / CTO Certificate, EPR Registration, Plastic Waste Authorization, E-Waste Recycling Authorization, Biomedical Waste License, Hazardous Waste Management NOC, Solid Waste Management Authorization, Battery Waste Management, Ferrous & Non-Ferrous Import Pollution NOC.\n\n4. Tender Services — replace existing sub-items with: GeM Registration, Vendor Assessment, Vendor Assessment OEM, Catalogue Upload on GeM, IREPS Registration, E-Procurement Registration, State Procurement Portal Registration, MSTC / E-Auction Portal Registration, Coal E-Auction Service, Tender Submission Service.\n\n5. Digital Signature Certificate — replace existing sub-items with: Digital Signature (Organization), Digital Signature (Signing), Digital Signature (Signing + Encryption), DGFT Digital Signature, NRI Digital Signature.\n\n6. Agreement & Contract — replace existing sub-items with: Non Disclosure Agreement, Partnership Deed, Residential Rent Agreement, Joint Venture Agreement, Commercial Rent Agreement, Affidavits, LLP Deed.\n\n7. Small Business Support Service — replace existing sub-items with: Website Design, Logo Maker, Billing Software, Letter Pad Design, Visiting Card Design, Product Booklet, Business Booklet.\n\nAll sub-service items must be fully visible — no truncation, no 'show more' collapse, no items hidden. Each card's height must adjust dynamically based on its number of sub-services with no empty whitespace. The remaining 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service) must remain exactly unchanged. Maintain the dark navy (#0a1628) background and golden yellow (#f5c518) accent styling. The layout must remain fully responsive (single column on mobile < 640px, multi-column grid on larger screens).",
+      "id": "REQ-67",
+      "text": "In frontend/src/pages/Services.tsx, fix the service card grid layout so that all 15 service category cards align to the top of their grid cells. Use CSS grid with `items-start` (align-items: start) on the grid container so no card is pushed down relative to its row neighbors. Remove any fixed height or min-height set on individual service cards and allow each card to size dynamically based on its content.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-3"
         ],
         "quotes": [
-          "Expand the following service category cards and add the complete sub-service lists exactly as provided.",
-          "Each service card height should adjust dynamically based on number of sub-services, without empty space.",
-          "Update existing service cards only",
-          "Do not change page layout or design",
-          "Keep same card structure",
-          "Just expand sub-service lists"
+          "Set all service cards to align at the top using vertical alignment: top.",
+          "Remove any fixed height from service cards. Use dynamic height based on content.",
+          "Some cards start lower than others."
         ]
       },
       "acceptanceCriteria": [
-        "FSSAI License card displays exactly 5 sub-service items: FSSAI Registration, FSSAI State License, FSSAI Central License, FPO Mark Certification, FSSAI Annual Return Filing",
-        "Trademark Registration card displays exactly 7 sub-service items: Trademark Registration, Trademark Objection / Opposition Reply, Trademark Hearing, Brand Name Registration, Design Registration, Copyright Registration, Patent Registration",
-        "Pollution Control Board card displays exactly 10 sub-service items including CGWA Water Boring, CTE / CTO Certificate, EPR Registration, Plastic Waste Authorization, E-Waste Recycling Authorization, Biomedical Waste License, Hazardous Waste Management NOC, Solid Waste Management Authorization, Battery Waste Management, Ferrous & Non-Ferrous Import Pollution NOC",
-        "Tender Services card displays exactly 10 sub-service items including GeM Registration, Vendor Assessment, Vendor Assessment OEM, Catalogue Upload on GeM, IREPS Registration, E-Procurement Registration, State Procurement Portal Registration, MSTC / E-Auction Portal Registration, Coal E-Auction Service, Tender Submission Service",
-        "Digital Signature Certificate card displays exactly 5 sub-service items: Digital Signature (Organization), Digital Signature (Signing), Digital Signature (Signing + Encryption), DGFT Digital Signature, NRI Digital Signature",
-        "Agreement & Contract card displays exactly 7 sub-service items: Non Disclosure Agreement, Partnership Deed, Residential Rent Agreement, Joint Venture Agreement, Commercial Rent Agreement, Affidavits, LLP Deed",
-        "Small Business Support Service card displays exactly 7 sub-service items: Website Design, Logo Maker, Billing Software, Letter Pad Design, Visiting Card Design, Product Booklet, Business Booklet",
-        "No sub-service items are truncated, hidden behind a 'show more' button, or collapsed",
-        "Card height expands dynamically to fit all sub-service items with no empty whitespace at the bottom",
-        "The other 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service) are unchanged",
-        "Card layout, icons, grid structure, and overall page design are unchanged",
-        "Dark navy (#0a1628) background and golden yellow (#f5c518) accent styling are maintained",
-        "All 15 service cards are visible and responsive on mobile (single column < 640px) and desktop (multi-column grid)"
+        "All 15 service cards start from the same top edge within their grid row.",
+        "No card has a fixed height or min-height CSS property applied.",
+        "Cards with fewer sub-service items are not stretched to match taller neighbors.",
+        "Cards with more sub-service items expand naturally without overflow or clipping."
+      ]
+    },
+    {
+      "id": "REQ-68",
+      "text": "In frontend/src/pages/Services.tsx, replace the existing card grid container with a clean responsive CSS grid using Tailwind classes: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6` (or equivalent). Ensure equal column widths, consistent row gap, and consistent column gap across all breakpoints. Remove any irregular margin or padding on individual cards that causes uneven spacing between cards.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Use a clean responsive grid layout with: Equal column width, Consistent row spacing, Consistent column spacing",
+          "Remove extra margin or padding causing uneven gaps.",
+          "Uneven gaps make the layout look unprofessional."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All columns have equal width at each breakpoint.",
+        "The gap between all adjacent cards (both horizontal and vertical) is identical.",
+        "No individual card has extra margin-top, margin-bottom, or padding overrides that differ from siblings.",
+        "Grid renders as 1 column on mobile (< 640px), 2 columns on tablet (640px–1023px), and 3 columns on desktop (≥ 1024px)."
+      ]
+    },
+    {
+      "id": "REQ-69",
+      "text": "In frontend/src/pages/Services.tsx, apply uniform internal padding to every service card using a consistent Tailwind padding class (e.g., `p-6`) applied identically to all cards. Ensure the padding on top, bottom, left, and right is equal for all cards. Remove any per-card padding overrides that differ between cards.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Apply consistent internal padding for all cards: Top padding: equal, Bottom padding: equal, Left and right padding: equal",
+          "Content alignment inside cards is inconsistent."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Every service card uses the same padding value on all four sides.",
+        "No individual card has a different padding class or inline style overriding the shared padding.",
+        "Card content does not touch the card border on any side."
+      ]
+    },
+    {
+      "id": "REQ-70",
+      "text": "In frontend/src/pages/Services.tsx, enforce uniform vertical spacing between the internal elements of every service card in a consistent order: icon → title → description → sub-service list. Use consistent Tailwind spacing utilities (e.g., `mb-3` or `space-y-3`) applied identically across all 15 cards so the gap between each element pair is the same on every card.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Maintain uniform spacing between: Icon, Title, Description, Service list",
+          "Content alignment inside cards is inconsistent."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The gap between the icon and the card title is identical on all 15 cards.",
+        "The gap between the title and the description is identical on all 15 cards.",
+        "The gap between the description and the sub-service list is identical on all 15 cards.",
+        "Sub-service list items have consistent spacing between them on all cards."
+      ]
+    },
+    {
+      "id": "REQ-71",
+      "text": "In frontend/src/pages/Services.tsx, verify that the fixed layout, consistent padding, and top-aligned grid display correctly across desktop (≥ 1024px), tablet (640px–1023px), and mobile (< 640px) screen sizes. Ensure no card overflows, overlaps, or misaligns on any breakpoint. Maintain all existing dark navy (#0a1628) background, golden yellow (#f5c518) accent colors, card border/shadow styles, icons, and branding — only layout and spacing must change.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Ensure professional alignment across all screen sizes: Desktop, Tablet, Mobile",
+          "Maintain existing design, colors, and branding.",
+          "Optimize layout to look clean, compact, and professional like top compliance websites (IndiaFilings, LegalKart style)."
+        ]
+      },
+      "acceptanceCriteria": [
+        "On desktop (≥ 1024px): 3-column grid with all cards top-aligned and evenly spaced.",
+        "On tablet (640px–1023px): 2-column grid with all cards top-aligned and evenly spaced.",
+        "On mobile (< 640px): 1-column stack with uniform card padding and no horizontal overflow.",
+        "All existing card colors, icons, typography, border radius, and shadow styles are unchanged.",
+        "No card content is truncated or hidden due to the layout changes."
       ]
     }
   ],
   "constraints": [
-    "Do not change the Services page layout, grid structure, card design, or icons",
-    "Do not modify the 8 previously expanded service cards: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service",
-    "Do not alter any other page, component, or file outside of frontend/src/pages/Services.tsx",
-    "No backend changes required",
-    "Sub-service items must never be hidden, truncated, or placed behind a 'show more' toggle"
+    "Do not change the content (sub-service lists, icons, titles, descriptions) of any service card.",
+    "Do not alter the existing dark navy (#0a1628) background or golden yellow (#f5c518) accent colors.",
+    "Do not modify any file outside of frontend/src/pages/Services.tsx for this fix.",
+    "Do not add 'show more' or collapse behavior — all sub-service items must remain fully visible."
   ],
   "nonGoals": [
-    "Creating individual sub-pages per service",
-    "Adding new service categories beyond the existing 15",
-    "Modifying the Home page Services Preview section",
-    "Changing the Navigation Services dropdown",
-    "Any backend data model changes",
-    "Adding pricing, icons, or descriptions to individual sub-service items"
+    "Adding new service cards or changing service content.",
+    "Modifying the FreeConsultationSection or hero section on the Services page.",
+    "Changes to Navigation, Footer, or any other page component.",
+    "Backend changes of any kind.",
+    "Changing fonts, color tokens, or the global CSS theme."
   ],
   "imageRequirements": {
     "required": [],

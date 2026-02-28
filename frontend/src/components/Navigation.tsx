@@ -3,6 +3,24 @@ import { Link, useRouterState, useNavigate } from '@tanstack/react-router';
 import { Menu, X, Phone, User, LogIn, UserPlus, ChevronDown } from 'lucide-react';
 import { useCustomerSession } from '../hooks/useCustomerSession';
 
+const SERVICE_ITEMS = [
+  'Business Registration',
+  'Tax & GST',
+  'ISO Certification',
+  'Compliance Service',
+  'Government License',
+  'Government Registration',
+  'Labour Department',
+  'Startup Service',
+  'FSSAI License',
+  'Trademark Registration',
+  'Pollution Control Board',
+  'Tender Services',
+  'Digital Signature Certificate',
+  'Agreement & Contract',
+  'Small Business Support Service',
+];
+
 const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'Services', path: '/services' },
@@ -18,7 +36,13 @@ const secondaryLinks = [
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [servicesHovered, setServicesHovered] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const servicesMenuRef = useRef<HTMLDivElement>(null);
+  const servicesHoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
   const { session } = useCustomerSession();
@@ -29,16 +53,30 @@ export default function Navigation() {
     return currentPath.startsWith(path);
   };
 
-  // Close dropdown when clicking outside
+  // Close Sign Up dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setDropdownOpen(false);
       }
+      if (servicesMenuRef.current && !servicesMenuRef.current.contains(event.target as Node)) {
+        setServicesHovered(false);
+      }
     }
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  const handleServicesMouseEnter = () => {
+    if (servicesHoverTimeout.current) clearTimeout(servicesHoverTimeout.current);
+    setServicesHovered(true);
+  };
+
+  const handleServicesMouseLeave = () => {
+    servicesHoverTimeout.current = setTimeout(() => {
+      setServicesHovered(false);
+    }, 150);
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 shadow-lg" style={{ backgroundColor: 'oklch(0.14 0.06 255)' }}>
@@ -67,22 +105,88 @@ export default function Navigation() {
 
           {/* Desktop Nav — centered */}
           <nav className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-150 ${
-                  isActive(link.path)
-                    ? 'font-semibold'
-                    : 'hover:bg-white/10'
-                }`}
-                style={{
-                  color: isActive(link.path) ? 'oklch(0.82 0.18 85)' : 'white',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.label === 'Services') {
+                return (
+                  <div
+                    key={link.path}
+                    className="relative"
+                    ref={servicesMenuRef}
+                    onMouseEnter={handleServicesMouseEnter}
+                    onMouseLeave={handleServicesMouseLeave}
+                  >
+                    {/* Services trigger */}
+                    <Link
+                      to={link.path}
+                      className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-150 ${
+                        isActive(link.path) ? 'font-semibold' : 'hover:bg-white/10'
+                      }`}
+                      style={{
+                        color: isActive(link.path) ? 'oklch(0.82 0.18 85)' : 'white',
+                      }}
+                    >
+                      Services
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${servicesHovered ? 'rotate-180' : ''}`}
+                        style={{ color: 'oklch(0.82 0.18 85)' }}
+                      />
+                    </Link>
+
+                    {/* Services dropdown */}
+                    {servicesHovered && (
+                      <div
+                        className="absolute left-0 top-full mt-1 w-64 rounded-xl shadow-2xl border border-white/10 overflow-hidden z-50"
+                        style={{ backgroundColor: 'oklch(0.14 0.06 255)' }}
+                        onMouseEnter={handleServicesMouseEnter}
+                        onMouseLeave={handleServicesMouseLeave}
+                      >
+                        <div className="py-1">
+                          {SERVICE_ITEMS.map((service) => (
+                            <Link
+                              key={service}
+                              to="/services"
+                              onClick={() => setServicesHovered(false)}
+                              className="block px-4 py-2.5 text-sm font-medium text-white transition-all duration-150"
+                              style={{}}
+                              onMouseEnter={(e) => {
+                                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'oklch(0.20 0.06 255)';
+                                (e.currentTarget as HTMLAnchorElement).style.color = 'oklch(0.82 0.18 85)';
+                                (e.currentTarget as HTMLAnchorElement).style.paddingLeft = '20px';
+                              }}
+                              onMouseLeave={(e) => {
+                                (e.currentTarget as HTMLAnchorElement).style.backgroundColor = '';
+                                (e.currentTarget as HTMLAnchorElement).style.color = 'white';
+                                (e.currentTarget as HTMLAnchorElement).style.paddingLeft = '';
+                              }}
+                            >
+                              {service}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-150 ${
+                    isActive(link.path)
+                      ? 'font-semibold'
+                      : 'hover:bg-white/10'
+                  }`}
+                  style={{
+                    color: isActive(link.path) ? 'oklch(0.82 0.18 85)' : 'white',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right side: phone + auth + CTA */}
@@ -203,7 +307,82 @@ export default function Navigation() {
           style={{ backgroundColor: 'oklch(0.14 0.06 255)' }}
         >
           <nav className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-1">
-            {[...navLinks, ...secondaryLinks].map((link) => (
+            {navLinks.map((link) => {
+              if (link.label === 'Services') {
+                return (
+                  <div key={link.path}>
+                    {/* Services accordion trigger */}
+                    <button
+                      onClick={() => setMobileServicesOpen((prev) => !prev)}
+                      className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                        isActive(link.path) ? 'font-semibold bg-white/10' : 'hover:bg-white/10'
+                      }`}
+                      style={{
+                        color: isActive(link.path) ? 'oklch(0.82 0.18 85)' : 'white',
+                      }}
+                    >
+                      <span>Services</span>
+                      <ChevronDown
+                        size={16}
+                        className={`transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`}
+                        style={{ color: 'oklch(0.82 0.18 85)' }}
+                      />
+                    </button>
+
+                    {/* Mobile services submenu */}
+                    {mobileServicesOpen && (
+                      <div
+                        className="ml-4 mt-1 mb-1 rounded-lg overflow-hidden border border-white/10"
+                        style={{ backgroundColor: 'oklch(0.12 0.05 255)' }}
+                      >
+                        {SERVICE_ITEMS.map((service, idx) => (
+                          <Link
+                            key={service}
+                            to="/services"
+                            onClick={() => {
+                              setMobileServicesOpen(false);
+                              setMobileOpen(false);
+                            }}
+                            className={`block px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-white/10 ${
+                              idx < SERVICE_ITEMS.length - 1 ? 'border-b border-white/5' : ''
+                            }`}
+                            onMouseEnter={(e) => {
+                              (e.currentTarget as HTMLAnchorElement).style.color = 'oklch(0.82 0.18 85)';
+                            }}
+                            onMouseLeave={(e) => {
+                              (e.currentTarget as HTMLAnchorElement).style.color = 'white';
+                            }}
+                          >
+                            {service}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setMobileOpen(false)}
+                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+                    isActive(link.path)
+                      ? 'font-semibold bg-white/10'
+                      : 'hover:bg-white/10'
+                  }`}
+                  style={{
+                    color: isActive(link.path) ? 'oklch(0.82 0.18 85)' : 'white',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+
+            {/* Secondary links */}
+            {secondaryLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}

@@ -1,57 +1,24 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-28T10:57:39.664Z",
+  "generatedAt": "2026-02-28T11:57:38.529Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 4,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-55",
-        "summary": "Update the Navigation component (frontend/src/components/Navigation.tsx) to remove 'Social Media' from the primary navigation links entirely — it must not appear in either the desktop nav or the mobile hamburger menu.",
+        "id": "REQ-66",
+        "summary": "Update the Services page (frontend/src/pages/Services.tsx) to replace the existing sub-service items in the following 7 service category cards with the exact lists provided below. Do not change the card layout, design, icons, grid structure, or any other section of the page — only replace the sub-service bullet/list items within each card:\n\n1. FSSAI License — replace existing sub-items with: FSSAI Registration, FSSAI State License, FSSAI Central License, FPO Mark Certification, FSSAI Annual Return Filing.\n\n2. Trademark Registration — replace existing sub-items with: Trademark Registration, Trademark Objection / Opposition Reply, Trademark Hearing, Brand Name Registration, Design Registration, Copyright Registration, Patent Registration.\n\n3. Pollution Control Board — replace existing sub-items with: CGWA Water Boring, CTE / CTO Certificate, EPR Registration, Plastic Waste Authorization, E-Waste Recycling Authorization, Biomedical Waste License, Hazardous Waste Management NOC, Solid Waste Management Authorization, Battery Waste Management, Ferrous & Non-Ferrous Import Pollution NOC.\n\n4. Tender Services — replace existing sub-items with: GeM Registration, Vendor Assessment, Vendor Assessment OEM, Catalogue Upload on GeM, IREPS Registration, E-Procurement Registration, State Procurement Portal Registration, MSTC / E-Auction Portal Registration, Coal E-Auction Service, Tender Submission Service.\n\n5. Digital Signature Certificate — replace existing sub-items with: Digital Signature (Organization), Digital Signature (Signing), Digital Signature (Signing + Encryption), DGFT Digital Signature, NRI Digital Signature.\n\n6. Agreement & Contract — replace existing sub-items with: Non Disclosure Agreement, Partnership Deed, Residential Rent Agreement, Joint Venture Agreement, Commercial Rent Agreement, Affidavits, LLP Deed.\n\n7. Small Business Support Service — replace existing sub-items with: Website Design, Logo Maker, Billing Software, Letter Pad Design, Visiting Card Design, Product Booklet, Business Booklet.\n\nAll sub-service items must be fully visible — no truncation, no 'show more' collapse, no items hidden. Each card's height must adjust dynamically based on its number of sub-services with no empty whitespace. The remaining 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service) must remain exactly unchanged. Maintain the dark navy (#0a1628) background and golden yellow (#f5c518) accent styling. The layout must remain fully responsive (single column on mobile < 640px, multi-column grid on larger screens).",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/Services.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/components/Navigation.tsx"
-        ]
-      },
-      {
-        "id": "REQ-56",
-        "summary": "Remove the separate standalone 'Login' link from the Navigation component (frontend/src/components/Navigation.tsx). The login option must only be accessible via the 'Sign Up' dropdown described in REQ-57, not as a top-level nav item. This applies to both the desktop nav and the mobile hamburger menu.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Navigation.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Navigation.tsx"
-        ]
-      },
-      {
-        "id": "REQ-57",
-        "summary": "In the Navigation component (frontend/src/components/Navigation.tsx), replace the current 'Sign Up' and 'Login' individual links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu with exactly two options: (1) 'Sign Up' (primary option, styled prominently) which navigates to /customer-signup, and (2) 'Login' (secondary option below Sign Up) which navigates to /customer-login. The dropdown should appear on click or hover with a clean, professional dark navy (#0a1628) background and white text for the dropdown items, with golden yellow hover highlight. On desktop, position this button on the right side of the nav alongside the phone number. In the mobile hamburger menu, show the same two options (Sign Up and Login) as separate tappable rows without a dropdown — they can be rendered as direct links in the expanded mobile menu. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button entirely and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Navigation.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Navigation.tsx"
-        ]
-      },
-      {
-        "id": "REQ-58",
-        "summary": "Ensure the final desktop Navigation layout in frontend/src/components/Navigation.tsx follows this structure: Logo (YMW branding) on the far left; navigation links (Home, Services, About, Blog, Contact) centered in the middle; phone number (+91 8102906339) and the 'Sign Up' primary CTA button (with dropdown) on the far right. No other top-level links should appear between the centered nav links and the right-side elements. The layout must remain fully responsive — collapsing into the hamburger menu on mobile screens.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/Navigation.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/Services.tsx"
         ]
       }
     ]
@@ -61,7 +28,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/Navigation.tsx",
+    "frontend/src/pages/Services.tsx",
     "frontend/src/utils/urlParams.ts",
     "project_state.json",
     "scratch/component-selection.json",

@@ -31,14 +31,14 @@ export const CustomerProfile = IDL.Record({
   'fullName' : IDL.Text,
   'mobileNumber' : IDL.Text,
   'email' : IDL.Text,
-  'customerId' : IDL.Nat,
+  'customerId' : IDL.Text,
 });
 export const ServiceRequest = IDL.Record({
   'serviceName' : IDL.Text,
-  'requestId' : IDL.Nat,
+  'requestId' : IDL.Text,
   'createdAt' : Timestamp,
   'notes' : IDL.Text,
-  'customerId' : IDL.Nat,
+  'customerId' : IDL.Text,
 });
 export const BlogPost = IDL.Record({
   'id' : IDL.Text,
@@ -127,12 +127,12 @@ export const idlService = IDL.Service({
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
   'getCustomerProfile' : IDL.Func(
-      [IDL.Nat],
+      [IDL.Text],
       [IDL.Opt(CustomerProfile)],
       ['query'],
     ),
   'getServiceRequestsByCustomer' : IDL.Func(
-      [IDL.Nat],
+      [IDL.Text],
       [IDL.Vec(ServiceRequest)],
       ['query'],
     ),
@@ -174,7 +174,7 @@ export const idlService = IDL.Service({
       [],
     ),
   'submitServiceRequest' : IDL.Func(
-      [IDL.Nat, IDL.Text, IDL.Text],
+      [IDL.Text, IDL.Text, IDL.Text],
       [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
       [],
     ),
@@ -206,14 +206,14 @@ export const idlFactory = ({ IDL }) => {
     'fullName' : IDL.Text,
     'mobileNumber' : IDL.Text,
     'email' : IDL.Text,
-    'customerId' : IDL.Nat,
+    'customerId' : IDL.Text,
   });
   const ServiceRequest = IDL.Record({
     'serviceName' : IDL.Text,
-    'requestId' : IDL.Nat,
+    'requestId' : IDL.Text,
     'createdAt' : Timestamp,
     'notes' : IDL.Text,
-    'customerId' : IDL.Nat,
+    'customerId' : IDL.Text,
   });
   const BlogPost = IDL.Record({
     'id' : IDL.Text,
@@ -303,12 +303,12 @@ export const idlFactory = ({ IDL }) => {
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
     'getCustomerProfile' : IDL.Func(
-        [IDL.Nat],
+        [IDL.Text],
         [IDL.Opt(CustomerProfile)],
         ['query'],
       ),
     'getServiceRequestsByCustomer' : IDL.Func(
-        [IDL.Nat],
+        [IDL.Text],
         [IDL.Vec(ServiceRequest)],
         ['query'],
       ),
@@ -354,7 +354,7 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     'submitServiceRequest' : IDL.Func(
-        [IDL.Nat, IDL.Text, IDL.Text],
+        [IDL.Text, IDL.Text, IDL.Text],
         [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
         [],
       ),

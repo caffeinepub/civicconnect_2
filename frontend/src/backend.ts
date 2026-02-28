@@ -91,10 +91,10 @@ export class ExternalBlob {
 }
 export interface ServiceRequest {
     serviceName: string;
-    requestId: bigint;
+    requestId: string;
     createdAt: Timestamp;
     notes: string;
-    customerId: bigint;
+    customerId: string;
 }
 export interface BlogPost {
     id: string;
@@ -132,7 +132,7 @@ export interface CustomerProfile {
     fullName: string;
     mobileNumber: string;
     email: string;
-    customerId: bigint;
+    customerId: string;
 }
 export interface ConsultationRequest {
     id: string;
@@ -182,8 +182,8 @@ export interface backendInterface {
     getBlogPost(id: string): Promise<BlogPost>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
-    getCustomerProfile(customerId: bigint): Promise<CustomerProfile | null>;
-    getServiceRequestsByCustomer(customerId: bigint): Promise<Array<ServiceRequest>>;
+    getCustomerProfile(customerId: string): Promise<CustomerProfile | null>;
+    getServiceRequestsByCustomer(customerId: string): Promise<Array<ServiceRequest>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     listBlogPosts(): Promise<Array<BlogPost>>;
@@ -209,7 +209,7 @@ export interface backendInterface {
     submitConsultationRequest(fullName: string, phoneNumber: string, selectedService: string, cityState: string, utmSource: string | null): Promise<string>;
     submitContactMessage(name: string, email: string, subject: string, message: string): Promise<string>;
     submitGrievance(name: string, email: string, category: GrievanceCategory, description: string): Promise<string>;
-    submitServiceRequest(customerId: bigint, serviceName: string, notes: string): Promise<{
+    submitServiceRequest(customerId: string, serviceName: string, notes: string): Promise<{
         __kind__: "ok";
         ok: string;
     } | {
@@ -416,7 +416,7 @@ export class Backend implements backendInterface {
             return from_candid_UserRole_n11(this._uploadFile, this._downloadFile, result);
         }
     }
-    async getCustomerProfile(arg0: bigint): Promise<CustomerProfile | null> {
+    async getCustomerProfile(arg0: string): Promise<CustomerProfile | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getCustomerProfile(arg0);
@@ -430,7 +430,7 @@ export class Backend implements backendInterface {
             return from_candid_opt_n13(this._uploadFile, this._downloadFile, result);
         }
     }
-    async getServiceRequestsByCustomer(arg0: bigint): Promise<Array<ServiceRequest>> {
+    async getServiceRequestsByCustomer(arg0: string): Promise<Array<ServiceRequest>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getServiceRequestsByCustomer(arg0);
@@ -638,7 +638,7 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async submitServiceRequest(arg0: bigint, arg1: string, arg2: string): Promise<{
+    async submitServiceRequest(arg0: string, arg1: string, arg2: string): Promise<{
         __kind__: "ok";
         ok: string;
     } | {

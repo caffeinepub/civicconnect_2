@@ -1,77 +1,31 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update header navigation: remove Social Media & Login links, add Sign Up dropdown with Login option",
+  "title": "Expand remaining 7 service category cards with complete sub-service lists on Services page",
   "requirements": [
     {
-      "id": "REQ-55",
-      "summary": "Remove 'Social Media' link from Navigation component entirely (both desktop nav and mobile hamburger menu)",
+      "id": "REQ-66",
+      "summary": "Update the Services page to replace sub-service items in 7 service category cards (FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service) with exact lists provided, ensuring all items are fully visible with dynamic card heights and no changes to other 8 cards or page layout",
       "acceptanceCriteria": [
-        "The 'Social Media' link is absent from the desktop navigation bar.",
-        "The 'Social Media' link is absent from the mobile hamburger menu.",
-        "All other existing nav links (Home, Services, About, Blog, Contact) remain intact."
+        "FSSAI License card displays exactly 5 sub-service items: FSSAI Registration, FSSAI State License, FSSAI Central License, FPO Mark Certification, FSSAI Annual Return Filing",
+        "Trademark Registration card displays exactly 7 sub-service items: Trademark Registration, Trademark Objection / Opposition Reply, Trademark Hearing, Brand Name Registration, Design Registration, Copyright Registration, Patent Registration",
+        "Pollution Control Board card displays exactly 10 sub-service items including CGWA Water Boring, CTE / CTO Certificate, EPR Registration, Plastic Waste Authorization, E-Waste Recycling Authorization, Biomedical Waste License, Hazardous Waste Management NOC, Solid Waste Management Authorization, Battery Waste Management, Ferrous & Non-Ferrous Import Pollution NOC",
+        "Tender Services card displays exactly 10 sub-service items including GeM Registration, Vendor Assessment, Vendor Assessment OEM, Catalogue Upload on GeM, IREPS Registration, E-Procurement Registration, State Procurement Portal Registration, MSTC / E-Auction Portal Registration, Coal E-Auction Service, Tender Submission Service",
+        "Digital Signature Certificate card displays exactly 5 sub-service items: Digital Signature (Organization), Digital Signature (Signing), Digital Signature (Signing + Encryption), DGFT Digital Signature, NRI Digital Signature",
+        "Agreement & Contract card displays exactly 7 sub-service items: Non Disclosure Agreement, Partnership Deed, Residential Rent Agreement, Joint Venture Agreement, Commercial Rent Agreement, Affidavits, LLP Deed",
+        "Small Business Support Service card displays exactly 7 sub-service items: Website Design, Logo Maker, Billing Software, Letter Pad Design, Visiting Card Design, Product Booklet, Business Booklet",
+        "No sub-service items are truncated, hidden behind a 'show more' button, or collapsed",
+        "Card height expands dynamically to fit all sub-service items with no empty whitespace at the bottom",
+        "The other 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service) are unchanged",
+        "Card layout, icons, grid structure, and overall page design are unchanged",
+        "Dark navy (#0a1628) background and golden yellow (#f5c518) accent styling are maintained",
+        "All 15 service cards are visible and responsive on mobile (single column < 640px) and desktop (multi-column grid)"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/Navigation.tsx",
+          "path": "frontend/src/pages/Services.tsx",
           "operation": "modify",
-          "description": "Remove the 'Social Media' navigation link from both the desktop navigation array and the mobile menu rendering logic. Ensure the link does not appear in either the desktop nav bar or the mobile hamburger menu, while preserving all other nav links (Home, Services, About, Blog, Contact)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-56",
-      "summary": "Remove standalone 'Login' link from Navigation component (both desktop and mobile)",
-      "acceptanceCriteria": [
-        "No standalone 'Login' link exists in the desktop navigation bar.",
-        "No standalone 'Login' link exists in the mobile hamburger menu.",
-        "Removing it does not break any other navigation element."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Navigation.tsx",
-          "operation": "modify",
-          "description": "Remove the standalone 'Login' link from both the desktop navigation bar and the mobile hamburger menu. Ensure the removal does not affect other navigation elements or session-aware logic. The login option will only be accessible via the Sign Up dropdown created in REQ-57."
-        }
-      ]
-    },
-    {
-      "id": "REQ-57",
-      "summary": "Replace 'Sign Up' and 'Login' links with a single golden yellow 'Sign Up' primary CTA button with dropdown menu",
-      "acceptanceCriteria": [
-        "A single 'Sign Up' button with golden yellow (#f5c518) background appears on the right side of the desktop nav.",
-        "Clicking or hovering the 'Sign Up' button opens a dropdown with two options: 'Sign Up' and 'Login'.",
-        "Clicking 'Sign Up' in the dropdown navigates to /customer-signup.",
-        "Clicking 'Login' in the dropdown navigates to /customer-login.",
-        "The dropdown has a dark navy background with white text and golden yellow hover highlight.",
-        "On mobile, the hamburger menu contains 'Sign Up' and 'Login' as direct tappable links.",
-        "If a customer session is active, the Sign Up dropdown is replaced by a 'My Account' link to /customer-dashboard.",
-        "The phone number remains visible in the header to the right of the nav links.",
-        "The 'Get Free Consultation' button (if present in the existing nav) is unaffected."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Navigation.tsx",
-          "operation": "modify",
-          "description": "Replace the individual 'Sign Up' and 'Login' links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu on click or hover. The dropdown should display two options: (1) 'Sign Up' (styled prominently) linking to /customer-signup, and (2) 'Login' (secondary option) linking to /customer-login. Style the dropdown with a dark navy (#0a1628) background, white text, and golden yellow hover highlight. Position this button on the right side of the desktop nav alongside the phone number. In the mobile hamburger menu, render 'Sign Up' and 'Login' as separate tappable rows without a dropdown. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic. Verify that the phone number and any 'Get Free Consultation' button remain unaffected."
-        }
-      ]
-    },
-    {
-      "id": "REQ-58",
-      "summary": "Ensure final desktop Navigation layout follows the structure: Logo (left), nav links (center), phone number and Sign Up button (right), with full responsive support",
-      "acceptanceCriteria": [
-        "Logo is on the far left of the navigation bar.",
-        "Navigation links (Home, Services, About, Blog, Contact) are centered.",
-        "Phone number and Sign Up button are on the far right.",
-        "Layout is fully responsive and collapses into a hamburger menu on mobile.",
-        "No extra top-level links appear between the centered links and the right-side elements."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/Navigation.tsx",
-          "operation": "modify",
-          "description": "Verify and ensure the final desktop Navigation layout follows this structure: YMW branding logo on the far left, navigation links (Home, Services, About, Blog, Contact) centered in the middle, and phone number (+91 8102906339) with the 'Sign Up' primary CTA button on the far right. Ensure no other top-level links appear between the centered nav links and the right-side elements. Confirm the layout remains fully responsive and collapses into the hamburger menu on mobile screens."
+          "description": "Replace the sub-service item arrays for 7 service category cards with the exact lists provided in the requirement. Locate the service objects for 'FSSAI License', 'Trademark Registration', 'Pollution Control Board', 'Tender Services', 'Digital Signature Certificate', 'Agreement & Contract', and 'Small Business Support Service', then update their features arrays with the complete sub-service lists. Ensure no changes are made to the other 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service). Verify that all sub-service items render without truncation and that card heights adjust dynamically based on content. Maintain the existing card layout, grid structure, icons, dark navy background (#0a1628), and golden yellow accent (#f5c518) styling. Preserve the responsive behavior (single column on mobile < 640px, multi-column grid on larger screens). Do not add any 'show more' toggles or collapse functionality—all items must be fully visible at all times."
         }
       ]
     }

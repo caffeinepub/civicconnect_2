@@ -42,7 +42,7 @@ export interface CustomerProfile {
   'fullName' : string,
   'mobileNumber' : string,
   'email' : string,
-  'customerId' : bigint,
+  'customerId' : string,
 }
 export interface Grievance {
   'id' : string,
@@ -60,10 +60,10 @@ export type GrievanceCategory = { 'safety' : null } |
   { 'cleanliness' : null };
 export interface ServiceRequest {
   'serviceName' : string,
-  'requestId' : bigint,
+  'requestId' : string,
   'createdAt' : Timestamp,
   'notes' : string,
-  'customerId' : bigint,
+  'customerId' : string,
 }
 export type Timestamp = bigint;
 export interface UserProfile { 'name' : string, 'email' : string }
@@ -105,8 +105,8 @@ export interface _SERVICE {
   'getBlogPost' : ActorMethod<[string], BlogPost>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
-  'getCustomerProfile' : ActorMethod<[bigint], [] | [CustomerProfile]>,
-  'getServiceRequestsByCustomer' : ActorMethod<[bigint], Array<ServiceRequest>>,
+  'getCustomerProfile' : ActorMethod<[string], [] | [CustomerProfile]>,
+  'getServiceRequestsByCustomer' : ActorMethod<[string], Array<ServiceRequest>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'listBlogPosts' : ActorMethod<[], Array<BlogPost>>,
@@ -138,7 +138,7 @@ export interface _SERVICE {
     string
   >,
   'submitServiceRequest' : ActorMethod<
-    [bigint, string, string],
+    [string, string, string],
     { 'ok' : string } |
       { 'err' : string }
   >,

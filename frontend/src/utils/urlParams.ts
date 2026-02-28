@@ -196,12 +196,15 @@ export function getSecretParameter(paramName: string): string | null {
     return getSecretFromHash(paramName);
 }
 
+/**
+ * UTM parameter names to capture and persist
+ */
 const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 const UTM_STORAGE_PREFIX = 'ymw_utm_';
 
 /**
- * Captures all UTM parameters from the current URL and persists them in sessionStorage.
- * Should be called once on app load.
+ * Captures all UTM parameters from the current URL and persists them to sessionStorage.
+ * Should be called once on app load (e.g., in App.tsx useEffect).
  */
 export function captureUTMParams(): void {
     UTM_PARAMS.forEach((param) => {
@@ -214,7 +217,8 @@ export function captureUTMParams(): void {
 
 /**
  * Retrieves the stored UTM source value from sessionStorage.
- * Returns null if no UTM source was captured.
+ *
+ * @returns The utm_source value if previously captured, null otherwise
  */
 export function getUTMSource(): string | null {
     return getSessionParameter(UTM_STORAGE_PREFIX + 'utm_source');

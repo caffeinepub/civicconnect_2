@@ -1,18 +1,18 @@
 import Map "mo:core/Map";
 import Array "mo:core/Array";
 import Text "mo:core/Text";
-import Nat "mo:core/Nat";
 import Time "mo:core/Time";
-import List "mo:core/List";
 import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
-import Iter "mo:core/Iter";
 import Principal "mo:core/Principal";
+import Iter "mo:core/Iter";
+
 
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
+
 
 actor {
   // Include authorization system
@@ -55,7 +55,7 @@ actor {
 
   // Customer-related types and state
   public type CustomerAccount = {
-    customerId : Nat;
+    customerId : Text;
     fullName : Text;
     mobileNumber : Text;
     email : Text;
@@ -65,7 +65,7 @@ actor {
   };
 
   public type CustomerProfile = {
-    customerId : Nat;
+    customerId : Text;
     fullName : Text;
     email : Text;
     mobileNumber : Text;
@@ -74,19 +74,16 @@ actor {
   };
 
   public type ServiceRequest = {
-    requestId : Nat;
-    customerId : Nat;
+    requestId : Text;
+    customerId : Text;
     serviceName : Text;
     notes : Text;
     createdAt : Timestamp;
   };
 
-  // Maps for customer accounts and service requests
-  var nextCustomerId = 1;
+  let customers = Map.empty<Text, CustomerAccount>();
+  let serviceRequests = Map.empty<Text, ServiceRequest>();
   var nextRequestId = 1;
-
-  let customers = Map.empty<Nat, CustomerAccount>();
-  let serviceRequests = Map.empty<Nat, ServiceRequest>();
 
   // Password hash function (with fixed salt)
   func hashPassword(password : Text) : Text {
@@ -120,7 +117,8 @@ actor {
       };
       case (null) {
         // Create new customer
-        let customerId = nextCustomerId;
+        let nextCustomerId = customers.values().size() + 1;
+        let customerId = nextCustomerId.toText();
         let newCustomer : CustomerAccount = {
           customerId;
           fullName;
@@ -132,7 +130,6 @@ actor {
         };
 
         customers.add(customerId, newCustomer);
-        nextCustomerId += 1;
         #ok(customerId.toText());
       };
     };
@@ -167,7 +164,7 @@ actor {
   };
 
   // Query Customer Profile by customerId — open to any caller (profile lookup)
-  public query ({ caller }) func getCustomerProfile(customerId : Nat) : async ?CustomerProfile {
+  public query ({ caller }) func getCustomerProfile(customerId : Text) : async ?CustomerProfile {
     switch (customers.get(customerId)) {
       case (null) { null };
       case (?customer) {
@@ -202,20 +199,21 @@ actor {
     ).toArray();
   };
 
-  // Submit Service Request — requires non-anonymous caller
-  public shared ({ caller }) func submitServiceRequest(customerId : Nat, serviceName : Text, notes : Text) : async {
+  // Submit Service Request — accepts customerId, ensures it exists in customers
+  public shared ({ caller }) func submitServiceRequest(
+    customerId : Text,
+    serviceName : Text,
+    notes : Text,
+  ) : async {
     #ok : Text;
     #err : Text;
   } {
-    if (caller.isAnonymous()) {
-      Runtime.trap("Unauthorized: Anonymous callers cannot submit service requests");
-    };
     switch (customers.get(customerId)) {
       case (null) {
         #err("Invalid customer id. Customer not found.");
       };
       case (?_) {
-        let serviceRequestId = nextRequestId;
+        let serviceRequestId = nextRequestId.toText();
         let newRequest : ServiceRequest = {
           requestId = serviceRequestId;
           customerId;
@@ -226,13 +224,13 @@ actor {
 
         serviceRequests.add(serviceRequestId, newRequest);
         nextRequestId += 1;
-        #ok(serviceRequestId.toText());
+        #ok(serviceRequestId);
       };
     };
   };
 
   // Get Service Requests by Customer — open to any caller (customerId acts as access token)
-  public query ({ caller }) func getServiceRequestsByCustomer(customerId : Nat) : async [ServiceRequest] {
+  public query ({ caller }) func getServiceRequestsByCustomer(customerId : Text) : async [ServiceRequest] {
     serviceRequests.values().filter(
       func(request : ServiceRequest) : Bool { request.customerId == customerId }
     ).toArray();

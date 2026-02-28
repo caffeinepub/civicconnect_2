@@ -1,108 +1,57 @@
 {
   "kind": "build_request",
-  "title": "Update header navigation: remove Social Media & Login links, add Sign Up dropdown with Login option",
+  "title": "Expand remaining 7 service category cards with complete sub-service lists on Services page",
   "projectName": "YMW Compliance Services",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-55",
-      "text": "Update the Navigation component (frontend/src/components/Navigation.tsx) to remove 'Social Media' from the primary navigation links entirely — it must not appear in either the desktop nav or the mobile hamburger menu.",
+      "id": "REQ-66",
+      "text": "Update the Services page (frontend/src/pages/Services.tsx) to replace the existing sub-service items in the following 7 service category cards with the exact lists provided below. Do not change the card layout, design, icons, grid structure, or any other section of the page — only replace the sub-service bullet/list items within each card:\n\n1. FSSAI License — replace existing sub-items with: FSSAI Registration, FSSAI State License, FSSAI Central License, FPO Mark Certification, FSSAI Annual Return Filing.\n\n2. Trademark Registration — replace existing sub-items with: Trademark Registration, Trademark Objection / Opposition Reply, Trademark Hearing, Brand Name Registration, Design Registration, Copyright Registration, Patent Registration.\n\n3. Pollution Control Board — replace existing sub-items with: CGWA Water Boring, CTE / CTO Certificate, EPR Registration, Plastic Waste Authorization, E-Waste Recycling Authorization, Biomedical Waste License, Hazardous Waste Management NOC, Solid Waste Management Authorization, Battery Waste Management, Ferrous & Non-Ferrous Import Pollution NOC.\n\n4. Tender Services — replace existing sub-items with: GeM Registration, Vendor Assessment, Vendor Assessment OEM, Catalogue Upload on GeM, IREPS Registration, E-Procurement Registration, State Procurement Portal Registration, MSTC / E-Auction Portal Registration, Coal E-Auction Service, Tender Submission Service.\n\n5. Digital Signature Certificate — replace existing sub-items with: Digital Signature (Organization), Digital Signature (Signing), Digital Signature (Signing + Encryption), DGFT Digital Signature, NRI Digital Signature.\n\n6. Agreement & Contract — replace existing sub-items with: Non Disclosure Agreement, Partnership Deed, Residential Rent Agreement, Joint Venture Agreement, Commercial Rent Agreement, Affidavits, LLP Deed.\n\n7. Small Business Support Service — replace existing sub-items with: Website Design, Logo Maker, Billing Software, Letter Pad Design, Visiting Card Design, Product Booklet, Business Booklet.\n\nAll sub-service items must be fully visible — no truncation, no 'show more' collapse, no items hidden. Each card's height must adjust dynamically based on its number of sub-services with no empty whitespace. The remaining 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service) must remain exactly unchanged. Maintain the dark navy (#0a1628) background and golden yellow (#f5c518) accent styling. The layout must remain fully responsive (single column on mobile < 640px, multi-column grid on larger screens).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-1"
         ],
         "quotes": [
-          "Remove \"Social Media\" from the top header navigation completely."
+          "Expand the following service category cards and add the complete sub-service lists exactly as provided.",
+          "Each service card height should adjust dynamically based on number of sub-services, without empty space.",
+          "Update existing service cards only",
+          "Do not change page layout or design",
+          "Keep same card structure",
+          "Just expand sub-service lists"
         ]
       },
       "acceptanceCriteria": [
-        "The 'Social Media' link is absent from the desktop navigation bar.",
-        "The 'Social Media' link is absent from the mobile hamburger menu.",
-        "All other existing nav links (Home, Services, About, Blog, Contact) remain intact."
-      ]
-    },
-    {
-      "id": "REQ-56",
-      "text": "Remove the separate standalone 'Login' link from the Navigation component (frontend/src/components/Navigation.tsx). The login option must only be accessible via the 'Sign Up' dropdown described in REQ-57, not as a top-level nav item. This applies to both the desktop nav and the mobile hamburger menu.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Remove the separate \"Login\" link from the main header."
-        ]
-      },
-      "acceptanceCriteria": [
-        "No standalone 'Login' link exists in the desktop navigation bar.",
-        "No standalone 'Login' link exists in the mobile hamburger menu.",
-        "Removing it does not break any other navigation element."
-      ]
-    },
-    {
-      "id": "REQ-57",
-      "text": "In the Navigation component (frontend/src/components/Navigation.tsx), replace the current 'Sign Up' and 'Login' individual links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu with exactly two options: (1) 'Sign Up' (primary option, styled prominently) which navigates to /customer-signup, and (2) 'Login' (secondary option below Sign Up) which navigates to /customer-login. The dropdown should appear on click or hover with a clean, professional dark navy (#0a1628) background and white text for the dropdown items, with golden yellow hover highlight. On desktop, position this button on the right side of the nav alongside the phone number. In the mobile hamburger menu, show the same two options (Sign Up and Login) as separate tappable rows without a dropdown — they can be rendered as direct links in the expanded mobile menu. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button entirely and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Keep only one primary button in the header named \"Sign Up\".",
-          "Create a dropdown under the \"Sign Up\" button with two options: Sign Up (primary option), Login (secondary option below Sign Up)",
-          "Sign Up → redirect to /signup page",
-          "Login → redirect to /login page",
-          "Make the Sign Up button highlighted as primary call-to-action."
-        ]
-      },
-      "acceptanceCriteria": [
-        "A single 'Sign Up' button with golden yellow (#f5c518) background appears on the right side of the desktop nav.",
-        "Clicking or hovering the 'Sign Up' button opens a dropdown with two options: 'Sign Up' and 'Login'.",
-        "Clicking 'Sign Up' in the dropdown navigates to /customer-signup.",
-        "Clicking 'Login' in the dropdown navigates to /customer-login.",
-        "The dropdown has a dark navy background with white text and golden yellow hover highlight.",
-        "On mobile, the hamburger menu contains 'Sign Up' and 'Login' as direct tappable links.",
-        "If a customer session is active, the Sign Up dropdown is replaced by a 'My Account' link to /customer-dashboard.",
-        "The phone number remains visible in the header to the right of the nav links.",
-        "The 'Get Free Consultation' button (if present in the existing nav) is unaffected."
-      ]
-    },
-    {
-      "id": "REQ-58",
-      "text": "Ensure the final desktop Navigation layout in frontend/src/components/Navigation.tsx follows this structure: Logo (YMW branding) on the far left; navigation links (Home, Services, About, Blog, Contact) centered in the middle; phone number (+91 8102906339) and the 'Sign Up' primary CTA button (with dropdown) on the far right. No other top-level links should appear between the centered nav links and the right-side elements. The layout must remain fully responsive — collapsing into the hamburger menu on mobile screens.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Maintain a clean and professional layout with: Logo on left, Menu in center (Home, Services, About, Blog, Contact), Phone number and Sign Up button on right",
-          "Keep the phone number visible in the header."
-        ]
-      },
-      "acceptanceCriteria": [
-        "Logo is on the far left of the navigation bar.",
-        "Navigation links (Home, Services, About, Blog, Contact) are centered.",
-        "Phone number and Sign Up button are on the far right.",
-        "Layout is fully responsive and collapses into a hamburger menu on mobile.",
-        "No extra top-level links appear between the centered links and the right-side elements."
+        "FSSAI License card displays exactly 5 sub-service items: FSSAI Registration, FSSAI State License, FSSAI Central License, FPO Mark Certification, FSSAI Annual Return Filing",
+        "Trademark Registration card displays exactly 7 sub-service items: Trademark Registration, Trademark Objection / Opposition Reply, Trademark Hearing, Brand Name Registration, Design Registration, Copyright Registration, Patent Registration",
+        "Pollution Control Board card displays exactly 10 sub-service items including CGWA Water Boring, CTE / CTO Certificate, EPR Registration, Plastic Waste Authorization, E-Waste Recycling Authorization, Biomedical Waste License, Hazardous Waste Management NOC, Solid Waste Management Authorization, Battery Waste Management, Ferrous & Non-Ferrous Import Pollution NOC",
+        "Tender Services card displays exactly 10 sub-service items including GeM Registration, Vendor Assessment, Vendor Assessment OEM, Catalogue Upload on GeM, IREPS Registration, E-Procurement Registration, State Procurement Portal Registration, MSTC / E-Auction Portal Registration, Coal E-Auction Service, Tender Submission Service",
+        "Digital Signature Certificate card displays exactly 5 sub-service items: Digital Signature (Organization), Digital Signature (Signing), Digital Signature (Signing + Encryption), DGFT Digital Signature, NRI Digital Signature",
+        "Agreement & Contract card displays exactly 7 sub-service items: Non Disclosure Agreement, Partnership Deed, Residential Rent Agreement, Joint Venture Agreement, Commercial Rent Agreement, Affidavits, LLP Deed",
+        "Small Business Support Service card displays exactly 7 sub-service items: Website Design, Logo Maker, Billing Software, Letter Pad Design, Visiting Card Design, Product Booklet, Business Booklet",
+        "No sub-service items are truncated, hidden behind a 'show more' button, or collapsed",
+        "Card height expands dynamically to fit all sub-service items with no empty whitespace at the bottom",
+        "The other 8 service cards (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service) are unchanged",
+        "Card layout, icons, grid structure, and overall page design are unchanged",
+        "Dark navy (#0a1628) background and golden yellow (#f5c518) accent styling are maintained",
+        "All 15 service cards are visible and responsive on mobile (single column < 640px) and desktop (multi-column grid)"
       ]
     }
   ],
   "constraints": [
-    "Do not alter any existing navigation links: Home, Services, About, Blog, Contact must remain in the center nav.",
-    "Do not remove the phone number (+91 8102906339) from the header.",
-    "The /customer-signup and /customer-login routes must not be changed — only the nav links pointing to them are being updated.",
-    "Do not modify any files listed in frontend.immutablePaths.",
-    "The Social Media page (/social-media) must continue to exist as a route — only the nav link is removed."
+    "Do not change the Services page layout, grid structure, card design, or icons",
+    "Do not modify the 8 previously expanded service cards: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service",
+    "Do not alter any other page, component, or file outside of frontend/src/pages/Services.tsx",
+    "No backend changes required",
+    "Sub-service items must never be hidden, truncated, or placed behind a 'show more' toggle"
   ],
   "nonGoals": [
-    "Changing the Social Media page itself.",
-    "Modifying the /signup (Internet Identity) page or route.",
-    "Altering the Footer component.",
-    "Changing any page content or layout outside the Navigation component.",
-    "Adding new backend endpoints."
+    "Creating individual sub-pages per service",
+    "Adding new service categories beyond the existing 15",
+    "Modifying the Home page Services Preview section",
+    "Changing the Navigation Services dropdown",
+    "Any backend data model changes",
+    "Adding pricing, icons, or descriptions to individual sub-service items"
   ],
   "imageRequirements": {
     "required": [],

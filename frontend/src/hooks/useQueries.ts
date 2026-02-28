@@ -192,16 +192,16 @@ export function useLoginCustomer() {
   });
 }
 
-export function useCustomerProfile(customerId: bigint | null) {
+export function useCustomerProfile(customerId: string | null) {
   const { actor, isFetching } = useActor();
 
   return useQuery<CustomerProfile | null>({
-    queryKey: ['customerProfile', customerId?.toString()],
+    queryKey: ['customerProfile', customerId],
     queryFn: async () => {
-      if (!actor || customerId === null) return null;
+      if (!actor || !customerId) return null;
       return actor.getCustomerProfile(customerId);
     },
-    enabled: !!actor && !isFetching && customerId !== null,
+    enabled: !!actor && !isFetching && !!customerId,
   });
 }
 
@@ -210,30 +210,61 @@ export function useSubmitServiceRequest() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: { customerId: bigint; serviceName: string; notes: string }) => {
+    mutationFn: async (data: { serviceName: string; notes: string }) => {
+      // Read customerId from active session
+      const SESSION_KEY = 'ymw_customer_session';
+      let customerId: string | null = null;
+      try {
+        const raw = sessionStorage.getItem(SESSION_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          customerId = parsed?.customerId ?? null;
+        }
+      } catch {
+        customerId = null;
+      }
+
+      if (!customerId) {
+        throw new Error('No active session. Please log in.');
+      }
+
       if (!actor) throw new Error('Actor not available');
-      const result = await actor.submitServiceRequest(data.customerId, data.serviceName, data.notes);
+
+      const result = await actor.submitServiceRequest(customerId, data.serviceName, data.notes);
       if (result.__kind__ === 'err') {
         throw new Error(result.err);
       }
       return result.ok;
     },
-    onSuccess: (_data, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['serviceRequestsByCustomer', variables.customerId.toString()] });
+    onSuccess: () => {
+      // Invalidate service requests for the current session's customer
+      const SESSION_KEY = 'ymw_customer_session';
+      try {
+        const raw = sessionStorage.getItem(SESSION_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          const customerId = parsed?.customerId;
+          if (customerId) {
+            queryClient.invalidateQueries({ queryKey: ['serviceRequestsByCustomer', customerId] });
+          }
+        }
+      } catch {
+        // ignore
+      }
     },
   });
 }
 
-export function useGetServiceRequestsByCustomer(customerId: bigint | null) {
+export function useGetServiceRequestsByCustomer(customerId: string | null) {
   const { actor, isFetching } = useActor();
 
   return useQuery<ServiceRequest[]>({
-    queryKey: ['serviceRequestsByCustomer', customerId?.toString()],
+    queryKey: ['serviceRequestsByCustomer', customerId],
     queryFn: async () => {
-      if (!actor || customerId === null) return [];
+      if (!actor || !customerId) return [];
       return actor.getServiceRequestsByCustomer(customerId);
     },
-    enabled: !!actor && !isFetching && customerId !== null,
+    enabled: !!actor && !isFetching && !!customerId,
   });
 }
 

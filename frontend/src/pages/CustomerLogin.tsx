@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from '@tanstack/react-router';
 import { Loader2, LogIn, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { useLoginCustomer } from '../hooks/useQueries';
-import { useCustomerSession } from '../hooks/useCustomerSession';
+import { setCustomerSession } from '../hooks/useCustomerSession';
 import FreeConsultationSection from '../components/FreeConsultationSection';
 
 export default function CustomerLogin() {
   const navigate = useNavigate();
   const loginMutation = useLoginCustomer();
-  const { setSession } = useCustomerSession();
 
   const [form, setForm] = useState({ email: '', password: '' });
   const [showPassword, setShowPassword] = useState(false);
@@ -29,17 +28,22 @@ export default function CustomerLogin() {
         password: form.password,
       });
 
-      setSession({
-        customerId: profile.customerId.toString(),
+      // Persist full session to sessionStorage before navigating
+      const sessionData = {
+        customerId: String(profile.customerId),
         fullName: profile.fullName,
         email: profile.email,
         mobileNumber: profile.mobileNumber,
         businessName: profile.businessName,
-      });
+      };
 
+      setCustomerSession(sessionData);
+
+      // Navigate only after session is written
       navigate({ to: '/customer-dashboard' });
     } catch (err: unknown) {
-      setErrorMessage('Invalid email or password. Please try again.');
+      const msg = err instanceof Error ? err.message : 'Invalid email or password. Please try again.';
+      setErrorMessage(msg);
     }
   };
 

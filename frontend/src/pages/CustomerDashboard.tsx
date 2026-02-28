@@ -15,7 +15,7 @@ import {
   Phone,
   Mail,
 } from 'lucide-react';
-import { useCustomerSession } from '../hooks/useCustomerSession';
+import { getCustomerSession, clearCustomerSession } from '../hooks/useCustomerSession';
 import { useSubmitServiceRequest, useGetServiceRequestsByCustomer } from '../hooks/useQueries';
 import { formatTimestampShort } from '../lib/utils';
 
@@ -39,24 +39,28 @@ const SERVICES = [
 
 export default function CustomerDashboard() {
   const navigate = useNavigate();
-  const { session, clearSession } = useCustomerSession();
+
+  // Read session once on mount using the standalone getter
+  const session = getCustomerSession();
 
   const [selectedService, setSelectedService] = useState('');
   const [serviceSuccess, setServiceSuccess] = useState('');
   const [serviceError, setServiceError] = useState('');
 
   const submitServiceRequest = useSubmitServiceRequest();
-  const customerId = session ? BigInt(session.customerId) : null;
+
+  // Use string customerId directly from session
+  const customerId = session?.customerId ?? null;
   const { data: serviceRequests, isLoading: requestsLoading } = useGetServiceRequestsByCustomer(customerId);
 
   // Redirect if not logged in
   useEffect(() => {
-    if (!session) {
+    if (!session || !session.customerId) {
       navigate({ to: '/customer-login' });
     }
-  }, [session, navigate]);
+  }, [navigate]);
 
-  if (!session) {
+  if (!session || !session.customerId) {
     return (
       <div
         className="min-h-screen flex items-center justify-center"
@@ -68,7 +72,7 @@ export default function CustomerDashboard() {
   }
 
   const handleLogout = () => {
-    clearSession();
+    clearCustomerSession();
     navigate({ to: '/customer-login' });
   };
 
@@ -82,7 +86,6 @@ export default function CustomerDashboard() {
 
     try {
       const refId = await submitServiceRequest.mutateAsync({
-        customerId: BigInt(session.customerId),
         serviceName: selectedService,
         notes: '',
       });

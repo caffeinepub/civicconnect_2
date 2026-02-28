@@ -9,10 +9,10 @@ export interface None {
 export type Option<T> = Some<T> | None;
 export interface ServiceRequest {
     serviceName: string;
-    requestId: bigint;
+    requestId: string;
     createdAt: Timestamp;
     notes: string;
-    customerId: bigint;
+    customerId: string;
 }
 export interface BlogPost {
     id: string;
@@ -47,7 +47,7 @@ export interface CustomerProfile {
     fullName: string;
     mobileNumber: string;
     email: string;
-    customerId: bigint;
+    customerId: string;
 }
 export interface ConsultationRequest {
     id: string;
@@ -82,8 +82,8 @@ export interface backendInterface {
     getBlogPost(id: string): Promise<BlogPost>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
-    getCustomerProfile(customerId: bigint): Promise<CustomerProfile | null>;
-    getServiceRequestsByCustomer(customerId: bigint): Promise<Array<ServiceRequest>>;
+    getCustomerProfile(customerId: string): Promise<CustomerProfile | null>;
+    getServiceRequestsByCustomer(customerId: string): Promise<Array<ServiceRequest>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     listBlogPosts(): Promise<Array<BlogPost>>;
@@ -109,7 +109,7 @@ export interface backendInterface {
     submitConsultationRequest(fullName: string, phoneNumber: string, selectedService: string, cityState: string, utmSource: string | null): Promise<string>;
     submitContactMessage(name: string, email: string, subject: string, message: string): Promise<string>;
     submitGrievance(name: string, email: string, category: GrievanceCategory, description: string): Promise<string>;
-    submitServiceRequest(customerId: bigint, serviceName: string, notes: string): Promise<{
+    submitServiceRequest(customerId: string, serviceName: string, notes: string): Promise<{
         __kind__: "ok";
         ok: string;
     } | {

@@ -12,19 +12,30 @@ export function clearCustomerSession(): void {
   sessionStorage.removeItem(SESSION_KEY);
 }
 
+export function getCustomerSession(): CustomerSession | null {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (!raw || raw.trim() === '') return null;
+    const parsed = JSON.parse(raw) as CustomerSession;
+    // Validate required fields
+    if (!parsed || !parsed.customerId) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export function setCustomerSession(data: CustomerSession): void {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify(data));
+}
+
 export function useCustomerSession() {
   const getSession = (): CustomerSession | null => {
-    try {
-      const raw = sessionStorage.getItem(SESSION_KEY);
-      if (!raw) return null;
-      return JSON.parse(raw) as CustomerSession;
-    } catch {
-      return null;
-    }
+    return getCustomerSession();
   };
 
   const setSession = (data: CustomerSession): void => {
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(data));
+    setCustomerSession(data);
   };
 
   const clearSession = (): void => {
@@ -33,5 +44,5 @@ export function useCustomerSession() {
 
   const session = getSession();
 
-  return { session, setSession, clearSession };
+  return { session, setSession, clearSession, getSession };
 }

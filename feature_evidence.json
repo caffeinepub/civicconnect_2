@@ -1,0 +1,105 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-update-the-home-page-hero-section-with-title-ymw-compliance-services-subtitle-india-s-1-trusted-compliance-registration-partner-and-two-cta-buttons-contact-us-links-to-contact-and-whatsapp-now-links-to-whatsapp-number-8102906339",
+      "featureTitle": "Update the Home page Hero Section with: Title 'YMW Compliance Services', Subtitle 'India's #1 Trusted Compliance & Registration Partner', and two CTA buttons — 'Contact Us' (links to /contact) and 'WhatsApp Now' (links to WhatsApp number 8102906339).",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-an-about-preview-section-on-the-home-page-with-the-heading-dhanbad-s-most-trusted-compliance-partner-and-the-full-descriptive-text-about-ymw-compliance-services-llp-including-details-about-being-a-dhanbad-jharkhand-based-startup-offering-100-professional-services-being-a-one-stop-solution-for-legal-registrations-and-compliance-and-being-a-subsidiary-of-ymw-group-under-the-leadership-of-mr-kundan-kumar-with-15-years-of-experience-include-a-learn-more-button-linking-to-the-about-page",
+      "featureTitle": "Add an About Preview section on the Home page with the heading 'Dhanbad's Most Trusted Compliance Partner' and the full descriptive text about YMW Compliance Services LLP, including details about being a Dhanbad, Jharkhand-based startup offering 100+ professional services, being a one-stop solution for legal registrations and compliance, and being a subsidiary of YMW Group under the leadership of Mr. Kundan Kumar with 15+ years of experience. Include a 'Learn More' button linking to the /about page.",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-13"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-services-preview-section-on-the-home-page-displaying-all-15-services-as-cards-or-a-grid-business-registration-tax-gst-iso-certification-compliance-service-government-license-government-registration-labour-department-startup-service-fssai-license-trademark-registration-pollution-control-board-tender-services-digital-signature-certificate-agreement-contract-small-business-support-service-include-a-view-all-services-button-linking-to-services",
+      "featureTitle": "Add a Services Preview section on the Home page displaying all 15 services as cards or a grid: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Include a 'View All Services' button linking to /services.",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-14"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-why-choose-us-section-on-the-home-page-with-three-stat-highlights-20-000-happy-clients-15-years-experience-and-5-star-rating-displayed-as-visually-prominent-stat-cards-or-badges",
+      "featureTitle": "Add a 'Why Choose Us' section on the Home page with three stat highlights: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating', displayed as visually prominent stat cards or badges.",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-15"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-contact-preview-section-on-the-home-page-displaying-phone-numbers-92792-42122-and-9241136368-whatsapp-numbers-8102906339-and-8102901690-and-business-hours-monday-to-saturday-10-00-am-6-30-pm-sunday-closed-national-holidays-closed-include-a-contact-us-button-linking-to-contact",
+      "featureTitle": "Add a Contact Preview section on the Home page displaying: Phone numbers 92792 42122 and 9241136368, WhatsApp numbers 8102906339 and 8102901690, and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Include a 'Contact Us' button linking to /contact.",
+      "files": [
+        "frontend/src/pages/Home.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-16"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

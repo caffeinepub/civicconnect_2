@@ -1,0 +1,145 @@
+{
+  "kind": "build_request",
+  "title": "Update Home Page with YMW Compliance Services Content Sections",
+  "projectName": "YMW Compliance Services",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-12",
+      "text": "Update the Home page Hero Section with: Title 'YMW Compliance Services', Subtitle 'India's #1 Trusted Compliance & Registration Partner', and two CTA buttons — 'Contact Us' (links to /contact) and 'WhatsApp Now' (links to WhatsApp number 8102906339).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Title: YMW Compliance Services",
+          "Subtitle: India's #1 Trusted Compliance & Registration Partner",
+          "Buttons: Contact Us, WhatsApp Now"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Hero section displays 'YMW Compliance Services' as the main heading",
+        "'India's #1 Trusted Compliance & Registration Partner' is shown as the subtitle",
+        "'Contact Us' button navigates to the Contact page",
+        "'WhatsApp Now' button opens WhatsApp with number 8102906339 in a new tab"
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "text": "Add an About Preview section on the Home page with the heading 'Dhanbad's Most Trusted Compliance Partner' and the full descriptive text about YMW Compliance Services LLP, including details about being a Dhanbad, Jharkhand-based startup offering 100+ professional services, being a one-stop solution for legal registrations and compliance, and being a subsidiary of YMW Group under the leadership of Mr. Kundan Kumar with 15+ years of experience. Include a 'Learn More' button linking to the /about page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Dhanbad's Most Trusted Compliance Partner",
+          "YMW Compliance Services LLP is a Dhanbad, Jharkhand-based startup dedicated to providing comprehensive compliance, licensing, and legal support solutions for businesses across India.",
+          "YMW Compliance Services LLP is a proud subsidiary of YMW Group, established under the leadership of Mr. Kundan Kumar"
+        ]
+      },
+      "acceptanceCriteria": [
+        "About Preview section appears on the Home page below the Hero section",
+        "Heading 'Dhanbad's Most Trusted Compliance Partner' is displayed",
+        "All three paragraphs of the about text are rendered",
+        "A 'Learn More' or similar CTA button links to the About page"
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Add a Services Preview section on the Home page displaying all 15 services as cards or a grid: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Include a 'View All Services' button linking to /services.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Services Preview",
+          "Business Registration",
+          "Tax & GST",
+          "ISO Certification",
+          "Compliance Service",
+          "Government License",
+          "Government Registration",
+          "Labour Department",
+          "Startup Service",
+          "FSSAI License",
+          "Trademark Registration",
+          "Pollution Control Board",
+          "Tender Services",
+          "Digital Signature Certificate",
+          "Agreement & Contract",
+          "Small Business Support Service"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Services Preview section appears on the Home page",
+        "All 15 services are displayed as cards or grid items",
+        "Each service card shows the service name and a relevant icon",
+        "A 'View All Services' button links to the Services page"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Add a 'Why Choose Us' section on the Home page with three stat highlights: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating', displayed as visually prominent stat cards or badges.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Why Choose Us",
+          "20,000+ Happy Clients",
+          "15+ Years Experience",
+          "5 Star Rating"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Why Choose Us section appears on the Home page",
+        "Three stat items are displayed: '20,000+ Happy Clients', '15+ Years Experience', '5 Star Rating'",
+        "Stats are visually prominent and styled consistently with the site theme"
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "text": "Add a Contact Preview section on the Home page displaying: Phone numbers 92792 42122 and 9241136368, WhatsApp numbers 8102906339 and 8102901690, and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Include a 'Contact Us' button linking to /contact.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Contact Preview",
+          "Phone: 92792 42122 / 9241136368",
+          "WhatsApp: 8102906339 / 8102901690",
+          "Business hours: Monday to Saturday: 10:00 AM -- 6:30 PM",
+          "Sunday: Closed",
+          "National Holidays: Closed"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Contact Preview section appears on the Home page",
+        "Both phone numbers are displayed",
+        "Both WhatsApp numbers are displayed",
+        "Business hours are shown with Monday–Saturday, Sunday, and National Holidays entries",
+        "A 'Contact Us' button links to the Contact page"
+      ]
+    }
+  ],
+  "constraints": [
+    "All user-facing text must be in English exactly as provided",
+    "Do not modify backend data models or endpoints",
+    "Do not alter immutable frontend paths (hooks, main.tsx, ui components)",
+    "Preserve existing page structure and navigation"
+  ],
+  "nonGoals": [
+    "Modifying any other pages (About, Services, Contact, Blog, Grievance, Social Media, Signup)",
+    "Adding new backend endpoints",
+    "Changing the site-wide visual theme or navigation"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

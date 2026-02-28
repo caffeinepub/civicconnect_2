@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Multi-page React website for YMW Compliance Services LLP — India's #1 Trusted Compliance & Registration Partner based in Dhanbad, Jharkhand. Pages: Home, About, Services, Blog, Contact, Grievance Section, Social Media, and Signup. Home page includes Hero Section (title, subtitle, CTA buttons), About Preview, Services Preview (15 services), Why Choose Us stats, and Contact Preview. Includes navigation, grievance submission form, blog listing, services showcase, social media links, and signup form with Internet Identity authentication.",
+  "architectural_notes": [
+    "Multi-page React app with client-side routing",
+    "Internet Identity authentication for Signup"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-persistent-top-navigation-bar-with-links-to-all-pages-home-about-services-blog-contact-grievance-social-media-and-signup-the-nav-should-highlight-the-active-page-and-collapse-into-a-mobile-friendly-hamburger-menu-on-small-screens",
+      "title": "Create a persistent top navigation bar with links to all pages: Home, About, Services, Blog, Contact, Grievance, Social Media, and Signup. The nav should highlight the active page and collapse into a mobile-friendly hamburger menu on small screens.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-home-page-with-a-hero-section-headline-sub-headline-and-a-call-to-action-button-a-brief-overview-section-highlighting-key-site-offerings-and-a-footer",
+      "title": "Create a Home page with a hero section (headline, sub-headline, and a call-to-action button), a brief overview section highlighting key site offerings, and a footer.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-about-page-with-a-mission-statement-team-organization-introduction-section-and-core-values-displayed-as-a-grid-of-cards",
+      "title": "Create an About page with a mission statement, team/organization introduction section, and core values displayed as a grid of cards.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-services-page-that-showcases-available-services-as-a-grid-of-cards-each-with-an-icon-title-and-short-description",
+      "title": "Create a Services page that showcases available services as a grid of cards, each with an icon, title, and short description.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-blog-page-that-lists-blog-post-previews-title-date-excerpt-and-a-read-more-link-each-post-should-open-a-detail-view-or-expand-inline-store-blog-posts-in-the-motoko-backend-with-endpoints-to-list-and-retrieve-posts",
+      "title": "Create a Blog page that lists blog post previews (title, date, excerpt, and a 'Read More' link). Each post should open a detail view or expand inline. Store blog posts in the Motoko backend with endpoints to list and retrieve posts.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-contact-page-with-a-contact-form-name-email-subject-message-fields-and-a-submit-button-submitted-contact-messages-should-be-stored-in-the-motoko-backend",
+      "title": "Create a Contact page with a contact form (Name, Email, Subject, Message fields) and a submit button. Submitted contact messages should be stored in the Motoko backend.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-grievance-section-page-with-a-grievance-submission-form-name-email-grievance-category-dropdown-description-textarea-and-submit-button-store-submitted-grievances-in-the-motoko-backend-with-a-unique-id-and-timestamp-display-a-confirmation-with-a-reference-number-after-submission",
+      "title": "Create a Grievance Section page with a grievance submission form (Name, Email, Grievance Category dropdown, Description textarea, and Submit button). Store submitted grievances in the Motoko backend with a unique ID and timestamp. Display a confirmation with a reference number after submission.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-social-media-page-that-displays-a-grid-of-social-media-platform-cards-e-g-twitter-x-facebook-instagram-linkedin-youtube-each-with-a-platform-icon-name-handle-description-and-an-external-link-button",
+      "title": "Create a Social Media page that displays a grid of social media platform cards (e.g., Twitter/X, Facebook, Instagram, LinkedIn, YouTube), each with a platform icon, name, handle/description, and an external link button.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-signup-page-with-internet-identity-authentication-the-page-should-show-a-prominent-sign-up-login-with-internet-identity-button-after-successful-authentication-display-the-user-s-principal-id-and-a-welcome-message-allow-the-authenticated-principal-to-be-stored-in-the-backend-upon-first-login",
+      "title": "Create a Signup page with Internet Identity authentication. The page should show a prominent 'Sign Up / Login with Internet Identity' button. After successful authentication, display the user's principal ID and a welcome message. Allow the authenticated principal to be stored in the backend upon first login.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-modern-civic-professional-visual-theme-across-all-pages-use-a-warm-neutral-palette-with-a-strong-accent-color-e-g-deep-teal-or-forest-green-clean-sans-serif-typography-consistent-card-and-section-styling-and-a-professional-layout-that-conveys-trust-and-community-engagement",
+      "title": "Apply a cohesive, modern civic/professional visual theme across all pages: use a warm neutral palette with a strong accent color (e.g., deep teal or forest green), clean sans-serif typography, consistent card and section styling, and a professional layout that conveys trust and community engagement.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-render-a-hero-background-banner-image-for-the-home-page-and-a-site-logo-icon-stored-as-static-assets-in-frontend-public-assets-generated",
+      "title": "Generate and render a hero background banner image for the Home page and a site logo/icon, stored as static assets in frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-home-page-hero-section-with-title-ymw-compliance-services-subtitle-india-s-1-trusted-compliance-registration-partner-and-two-cta-buttons-contact-us-links-to-contact-and-whatsapp-now-links-to-whatsapp-number-8102906339",
+      "title": "Update the Home page Hero Section with: Title 'YMW Compliance Services', Subtitle 'India's #1 Trusted Compliance & Registration Partner', and two CTA buttons — 'Contact Us' (links to /contact) and 'WhatsApp Now' (links to WhatsApp number 8102906339).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-about-preview-section-on-the-home-page-with-the-heading-dhanbad-s-most-trusted-compliance-partner-and-the-full-descriptive-text-about-ymw-compliance-services-llp-including-details-about-being-a-dhanbad-jharkhand-based-startup-offering-100-professional-services-being-a-one-stop-solution-for-legal-registrations-and-compliance-and-being-a-subsidiary-of-ymw-group-under-the-leadership-of-mr-kundan-kumar-with-15-years-of-experience-include-a-learn-more-button-linking-to-the-about-page",
+      "title": "Add an About Preview section on the Home page with the heading 'Dhanbad's Most Trusted Compliance Partner' and the full descriptive text about YMW Compliance Services LLP, including details about being a Dhanbad, Jharkhand-based startup offering 100+ professional services, being a one-stop solution for legal registrations and compliance, and being a subsidiary of YMW Group under the leadership of Mr. Kundan Kumar with 15+ years of experience. Include a 'Learn More' button linking to the /about page.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-services-preview-section-on-the-home-page-displaying-all-15-services-as-cards-or-a-grid-business-registration-tax-gst-iso-certification-compliance-service-government-license-government-registration-labour-department-startup-service-fssai-license-trademark-registration-pollution-control-board-tender-services-digital-signature-certificate-agreement-contract-small-business-support-service-include-a-view-all-services-button-linking-to-services",
+      "title": "Add a Services Preview section on the Home page displaying all 15 services as cards or a grid: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Include a 'View All Services' button linking to /services.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-why-choose-us-section-on-the-home-page-with-three-stat-highlights-20-000-happy-clients-15-years-experience-and-5-star-rating-displayed-as-visually-prominent-stat-cards-or-badges",
+      "title": "Add a 'Why Choose Us' section on the Home page with three stat highlights: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating', displayed as visually prominent stat cards or badges.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-contact-preview-section-on-the-home-page-displaying-phone-numbers-92792-42122-and-9241136368-whatsapp-numbers-8102906339-and-8102901690-and-business-hours-monday-to-saturday-10-00-am-6-30-pm-sunday-closed-national-holidays-closed-include-a-contact-us-button-linking-to-contact",
+      "title": "Add a Contact Preview section on the Home page displaying: Phone numbers 92792 42122 and 9241136368, WhatsApp numbers 8102906339 and 8102901690, and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Include a 'Contact Us' button linking to /contact.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-2",
+      "summary": "About page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Services page with services showcase",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Blog page with blog listing",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Contact page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Grievance Section page with submission form",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Social Media page with social media links",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Signup page with Internet Identity authentication",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Navigation linking all pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Update Home page with: Hero Section (YMW Compliance Services title, India's #1 subtitle, Contact Us + WhatsApp Now buttons), About Preview section, Services Preview (15 services listed), Why Choose Us stats (20,000+ clients, 15+ years, 5-star rating), Contact Preview (phone/WhatsApp numbers, business hours)",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "CivicConnect",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

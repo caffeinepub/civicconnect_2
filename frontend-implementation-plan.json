@@ -1,0 +1,92 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Update Home Page with YMW Compliance Services Content Sections",
+  "requirements": [
+    {
+      "id": "REQ-12",
+      "summary": "Update the Home page Hero Section with YMW Compliance Services branding, subtitle, and two CTA buttons (Contact Us and WhatsApp Now)",
+      "acceptanceCriteria": [
+        "Hero section displays 'YMW Compliance Services' as the main heading",
+        "'India's #1 Trusted Compliance & Registration Partner' is shown as the subtitle",
+        "'Contact Us' button navigates to the Contact page",
+        "'WhatsApp Now' button opens WhatsApp with number 8102906339 in a new tab"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Replace the existing hero section with YMW Compliance Services branding. Update the title to 'YMW Compliance Services', subtitle to 'India's #1 Trusted Compliance & Registration Partner'. Replace existing CTA buttons with 'Contact Us' (routing to /contact via Link) and 'WhatsApp Now' (opening https://wa.me/918102906339 in a new tab). Use the generated hero banner image at frontend/public/assets/generated/hero-banner.dim_1400x500.png as the hero background."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Add an About Preview section on the Home page with heading, full YMW description text (three paragraphs), and Learn More button",
+      "acceptanceCriteria": [
+        "About Preview section appears on the Home page below the Hero section",
+        "Heading 'Dhanbad's Most Trusted Compliance Partner' is displayed",
+        "All three paragraphs of the about text are rendered",
+        "A 'Learn More' or similar CTA button links to the About page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Add an About Preview section below the hero. Include the heading 'Dhanbad's Most Trusted Compliance Partner' and render three paragraphs: (1) YMW Compliance Services LLP is a Dhanbad, Jharkhand-based startup offering 100+ professional services across legal registrations, compliance, and licensing for businesses throughout India. (2) As a one-stop solution provider, the company simplifies complex legal processes with expertise and dedication. (3) YMW is a proud subsidiary of YMW Group, established under the leadership of Mr. Kundan Kumar, bringing 15+ years of experience. Add a 'Learn More' button using Link to route to /about."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Add a Services Preview section on the Home page displaying all 15 YMW services as cards or grid, with a View All Services button",
+      "acceptanceCriteria": [
+        "Services Preview section appears on the Home page",
+        "All 15 services are displayed as cards or grid items",
+        "Each service card shows the service name and a relevant icon",
+        "A 'View All Services' button links to the Services page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Add a Services Preview section displaying all 15 services: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Render each service as a card with an appropriate icon from lucide-react (e.g., FileText, Calculator, Award, Shield, ScrollText, Building, Users, Rocket, Utensils, Stamp, Leaf, FileCheck, KeyRound, FileSignature, Store). Include a 'View All Services' button linking to /services using Link."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Add a Why Choose Us section on the Home page with three stat highlights displayed as prominent cards",
+      "acceptanceCriteria": [
+        "Why Choose Us section appears on the Home page",
+        "Three stat items are displayed: '20,000+ Happy Clients', '15+ Years Experience', '5 Star Rating'",
+        "Stats are visually prominent and styled consistently with the site theme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Add a Why Choose Us section with three stat cards: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating'. Style each stat as a visually prominent card or badge using the existing civic color scheme. Use icons from lucide-react (e.g., Users for clients, Calendar for experience, Star for rating) to enhance each stat card."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Add a Contact Preview section on the Home page displaying phone numbers, WhatsApp numbers, business hours, and a Contact Us button",
+      "acceptanceCriteria": [
+        "Contact Preview section appears on the Home page",
+        "Both phone numbers are displayed",
+        "Both WhatsApp numbers are displayed",
+        "Business hours are shown with Monday–Saturday, Sunday, and National Holidays entries",
+        "A 'Contact Us' button links to the Contact page"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/Home.tsx",
+          "operation": "modify",
+          "description": "Add a Contact Preview section displaying contact information: Phone numbers (92792 42122, 9241136368), WhatsApp numbers (8102906339, 8102901690), and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Use icons from lucide-react (Phone, MessageCircle, Clock). Include a 'Contact Us' button linking to /contact using Link. Make WhatsApp numbers clickable with https://wa.me/91 prefix links opening in new tabs."
+        }
+      ]
+    }
+  ]
+}

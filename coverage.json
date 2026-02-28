@@ -1,0 +1,82 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-28T07:02:15.722Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 5,
+    "implemented": 5,
+    "items": [
+      {
+        "id": "REQ-12",
+        "summary": "Update the Home page Hero Section with: Title 'YMW Compliance Services', Subtitle 'India's #1 Trusted Compliance & Registration Partner', and two CTA buttons — 'Contact Us' (links to /contact) and 'WhatsApp Now' (links to WhatsApp number 8102906339).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ]
+      },
+      {
+        "id": "REQ-13",
+        "summary": "Add an About Preview section on the Home page with the heading 'Dhanbad's Most Trusted Compliance Partner' and the full descriptive text about YMW Compliance Services LLP, including details about being a Dhanbad, Jharkhand-based startup offering 100+ professional services, being a one-stop solution for legal registrations and compliance, and being a subsidiary of YMW Group under the leadership of Mr. Kundan Kumar with 15+ years of experience. Include a 'Learn More' button linking to the /about page.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ]
+      },
+      {
+        "id": "REQ-14",
+        "summary": "Add a Services Preview section on the Home page displaying all 15 services as cards or a grid: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Include a 'View All Services' button linking to /services.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ]
+      },
+      {
+        "id": "REQ-15",
+        "summary": "Add a 'Why Choose Us' section on the Home page with three stat highlights: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating', displayed as visually prominent stat cards or badges.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ]
+      },
+      {
+        "id": "REQ-16",
+        "summary": "Add a Contact Preview section on the Home page displaying: Phone numbers 92792 42122 and 9241136368, WhatsApp numbers 8102906339 and 8102901690, and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Include a 'Contact Us' button linking to /contact.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/Home.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "build-request.json",
+    "build-template/README.md",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/pages/Home.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

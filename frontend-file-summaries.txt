@@ -1,0 +1,19 @@
+{
+  "frontend/src/index.css": "Global styles with a civic/professional OKLCH color system featuring deep teal primary, forest green accent, warm off-white backgrounds, and custom component classes for buttons, cards, navigation, and typography using Inter and Playfair Display fonts.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with custom civic color tokens (teal, green, warm, slate), Playfair Display display font, custom shadow utilities, and a fade-in animation.",
+  "frontend/src/App.tsx": "Main app component using TanStack Router with a root layout (Navigation + Outlet + Footer) and routes for all 8 pages: Home, About, Services, Blog, Contact, Grievance, SocialMedia, and Signup.",
+  "frontend/src/components/Navigation.tsx": "Sticky top navigation bar with logo, all 8 page links with active state highlighting, and a mobile-responsive hamburger menu using TanStack Router's useRouterState.",
+  "frontend/src/components/Footer.tsx": "Full-width footer with brand info, quick links, support links, contact details, copyright year, and caffeine.ai attribution with UTM tracking.",
+  "frontend/src/components/Card.tsx": "Reusable civic-styled card component with hover effects, consistent border radius, shadow, and optional className override.",
+  "frontend/src/components/ProfileSetupModal.tsx": "Modal dialog for first-time user profile setup (name + email), using the useSaveUserProfile mutation with validation and loading states.",
+  "frontend/src/hooks/useQueries.ts": "Centralized React Query hooks for all backend operations: user profile (get/save), sign-up, blog posts (list/get), contact message submission, and grievance submission.",
+  "frontend/src/lib/utils.ts": "Utility functions including cn() for class merging and formatTimestamp/formatTimestampShort for converting nanosecond bigint timestamps to readable date strings.",
+  "frontend/src/pages/Home.tsx": "Home page for YMW Compliance Services featuring five sections in order — Hero (title, subtitle, Contact Us & WhatsApp Now CTAs), About Preview (three-paragraph description with stat cards and Learn More link), Services Preview (15 service cards with icons and View All Services link), Why Choose Us (three stat highlight cards), and Contact Preview (phone, WhatsApp, business hours, and Contact Us button).",
+  "frontend/src/pages/About.tsx": "About page with a page hero, mission statement with stats grid, 6-card core values section, and a 4-member team showcase.",
+  "frontend/src/pages/Services.tsx": "Services page with a page hero, 8-card services grid (each with icon, badge, description, and link), and a CTA banner.",
+  "frontend/src/pages/Blog.tsx": "Blog page that fetches posts from the backend via useListBlogPosts, renders expandable post cards with loading skeletons and empty/error states.",
+  "frontend/src/pages/Contact.tsx": "Contact page with contact info panel and a validated 4-field form (name, email, subject, message) that submits to the backend and shows a success confirmation with reference ID.",
+  "frontend/src/pages/Grievance.tsx": "Grievance page with a step-by-step info panel and a validated form (name, email, category dropdown, description) that submits to the backend and displays a reference number on success.",
+  "frontend/src/pages/SocialMedia.tsx": "Social Media page displaying 6 platform cards (X, Facebook, Instagram, LinkedIn, YouTube, GitHub) with brand icons, follower counts, descriptions, and external links opening in new tabs.",
+  "frontend/src/pages/Signup.tsx": "Signup page with Internet Identity authentication, showing login/logout UI, user profile display after login, and triggering the ProfileSetupModal for first-time users."
+}

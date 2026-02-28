@@ -1,425 +1,586 @@
+import React, { useState } from 'react';
 import { Link } from '@tanstack/react-router';
 import {
-  Phone,
-  MessageCircle,
-  Clock,
-  Users,
-  Calendar,
-  Star,
-  FileText,
-  Calculator,
-  Award,
-  Shield,
-  ScrollText,
-  Building,
-  Rocket,
-  Utensils,
-  Stamp,
-  Leaf,
-  FileCheck,
-  KeyRound,
-  FileSignature,
-  Store,
-  ChevronRight,
-  ArrowRight,
+  CheckCircle, Phone, ArrowRight, Star, Users, Award, Clock, Loader2, ChevronDown,
+  Briefcase, MapPin, Tag, Globe, Shield, MessageCircle
 } from 'lucide-react';
+import { useSubmitConsultationRequest } from '../hooks/useQueries';
+import { getUTMSource } from '../utils/urlParams';
 
-const services = [
-  { name: 'Business Registration', icon: FileText },
-  { name: 'Tax & GST', icon: Calculator },
-  { name: 'ISO Certification', icon: Award },
-  { name: 'Compliance Service', icon: Shield },
-  { name: 'Government License', icon: ScrollText },
-  { name: 'Government Registration', icon: Building },
-  { name: 'Labour Department', icon: Users },
-  { name: 'Startup Service', icon: Rocket },
-  { name: 'FSSAI License', icon: Utensils },
-  { name: 'Trademark Registration', icon: Stamp },
-  { name: 'Pollution Control Board', icon: Leaf },
-  { name: 'Tender Services', icon: FileCheck },
-  { name: 'Digital Signature Certificate', icon: KeyRound },
-  { name: 'Agreement & Contract', icon: FileSignature },
-  { name: 'Small Business Support Service', icon: Store },
+const SERVICES = [
+  'Business Registration',
+  'Tax & GST',
+  'ISO Certification',
+  'Compliance Service',
+  'Government License',
+  'Government Registration',
+  'Labour Department',
+  'Startup Service',
+  'FSSAI License',
+  'Trademark Registration',
+  'Pollution Control Board',
+  'Tender Services',
+  'Digital Signature Certificate',
+  'Agreement & Contract',
+  'Small Business Support Service',
 ];
 
-const whyChooseUs = [
-  { icon: Users, stat: '20,000+', label: 'Happy Clients' },
-  { icon: Calendar, stat: '15+', label: 'Years Experience' },
-  { icon: Star, stat: '5 Star', label: 'Rating' },
+const FEATURED_SERVICES = [
+  { icon: '🏢', title: 'Business Registration', desc: 'Private Ltd, LLP, OPC, Partnership & more', badge: 'Most Popular' },
+  { icon: '📊', title: 'Tax & GST', desc: 'GST registration, filing & tax compliance', badge: 'Fast Track' },
+  { icon: '🏆', title: 'ISO Certification', desc: 'ISO 9001, 14001, 22000 & more', badge: 'Certified' },
+  { icon: '📋', title: 'Compliance Service', desc: 'Annual filings & statutory compliance', badge: 'Annual' },
+  { icon: '🏛️', title: 'Government License', desc: 'Trade, drug, shop & establishment licenses', badge: 'Official' },
+  { icon: '📝', title: 'Government Registration', desc: 'MSME/Udyam, DPIIT & statutory registrations', badge: 'Required' },
+  { icon: '👷', title: 'Labour Department', desc: 'PF, ESI, labour license & compliance', badge: 'Mandatory' },
+  { icon: '🚀', title: 'Startup Service', desc: 'End-to-end startup support & compliance', badge: 'New' },
+  { icon: '🍽️', title: 'FSSAI License', desc: 'Food business license & compliance', badge: 'Food Safety' },
+  { icon: '™️', title: 'Trademark Registration', desc: 'Protect your brand identity', badge: 'Legal' },
+  { icon: '🌿', title: 'Pollution Control Board', desc: 'CTE & CTO certificates for industries', badge: 'Environment' },
+  { icon: '📑', title: 'Tender Services', desc: 'Government tender filing & bid management', badge: 'Government' },
+  { icon: '🔐', title: 'Digital Signature Certificate', desc: 'Class 2 & Class 3 DSC for all needs', badge: 'DSC' },
+  { icon: '📜', title: 'Agreement & Contract', desc: 'Drafting & registration of legal documents', badge: 'Legal' },
+  { icon: '🤝', title: 'Small Business Support Service', desc: 'Comprehensive support for SMEs & micro-enterprises', badge: 'SME' },
 ];
+
+const STATS = [
+  { value: '15,000+', label: 'Happy Clients', icon: <Users className="w-5 h-5" /> },
+  { value: '100+', label: 'Services Offered', icon: <Award className="w-5 h-5" /> },
+  { value: '12+', label: 'Years Experience', icon: <Clock className="w-5 h-5" /> },
+  { value: '5★', label: 'Client Rating', icon: <Star className="w-5 h-5" /> },
+];
+
+const STRENGTHS = [
+  {
+    icon: <Briefcase className="w-7 h-7" />,
+    title: 'Expert Professionals',
+    desc: 'CA, CS & legal experts with years of industry experience',
+  },
+  {
+    icon: <MapPin className="w-7 h-7" />,
+    title: 'Pan India Service',
+    desc: 'Serving clients across all 28 states & Union Territories',
+  },
+  {
+    icon: <Tag className="w-7 h-7" />,
+    title: 'Affordable Pricing',
+    desc: 'Transparent pricing with no hidden charges whatsoever',
+  },
+  {
+    icon: <Clock className="w-7 h-7" />,
+    title: 'Fast Processing',
+    desc: 'Quick turnaround with dedicated relationship managers',
+  },
+  {
+    icon: <Shield className="w-7 h-7" />,
+    title: 'End-to-End Support',
+    desc: "From registration to annual compliance, we're with you",
+  },
+  {
+    icon: <Globe className="w-7 h-7" />,
+    title: '100% Online Process',
+    desc: 'Submit documents & track status from anywhere online',
+  },
+];
+
+// WhatsApp SVG icon component
+function WhatsAppIcon({ className }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    phoneNumber: '',
+    selectedService: '',
+    cityState: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [submittedId, setSubmittedId] = useState('');
+
+  const submitMutation = useSubmitConsultationRequest();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.fullName || !formData.phoneNumber || !formData.selectedService || !formData.cityState) return;
+
+    try {
+      const utmSource = getUTMSource();
+      const id = await submitMutation.mutateAsync({
+        ...formData,
+        utmSource,
+      });
+      setSubmittedId(id);
+      setSubmitted(true);
+    } catch {
+      // error handled by mutation state
+    }
+  };
+
   return (
-    <div className="animate-fade-in">
-      {/* ── Hero Section ── */}
-      <section className="relative min-h-[540px] flex items-center overflow-hidden">
+    <div style={{ backgroundColor: '#0a1628' }}>
+      {/* Hero Section */}
+      <section
+        className="relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, #0a1628 0%, #0d1f3c 50%, #0a1628 100%)',
+          minHeight: '100vh',
+        }}
+      >
+        {/* Background texture */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(/assets/generated/hero-banner.dim_1400x500.png)' }}
-        />
-        <div
-          className="absolute inset-0"
+          className="absolute inset-0 opacity-5"
           style={{
-            background:
-              'linear-gradient(135deg, oklch(0.18 0.10 195 / 0.93) 0%, oklch(0.28 0.12 195 / 0.87) 55%, oklch(0.24 0.10 160 / 0.82) 100%)',
+            backgroundImage: 'repeating-linear-gradient(45deg, #f5c518 0, #f5c518 1px, transparent 0, transparent 50%)',
+            backgroundSize: '20px 20px',
           }}
         />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="max-w-2xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            {/* Left Column */}
+            <div className="flex flex-col gap-6">
+              {/* Badge */}
+              <div className="flex items-center gap-2">
+                <span
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518', border: '1px solid rgba(245,197,24,0.3)' }}
+                >
+                  <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                  India's Trusted Compliance Partner
+                </span>
+              </div>
+
+              {/* Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-white">
+                Your Business,{' '}
+                <span style={{ color: '#f5c518' }}>Our Compliance</span>{' '}
+                Expertise
+              </h1>
+
+              <p className="text-lg text-gray-300 leading-relaxed max-w-xl">
+                From business registration to GST, ISO certification to trademark — we handle all your compliance needs across India. Fast, affordable, and 100% reliable.
+              </p>
+
+              {/* Checkmarks */}
+              <div className="flex flex-col sm:flex-row gap-3 flex-wrap">
+                {['Free Consultation', 'Pan India Service', '12+ Years Experience'].map((item) => (
+                  <div key={item} className="flex items-center gap-2">
+                    <CheckCircle className="w-5 h-5 flex-shrink-0" style={{ color: '#f5c518' }} />
+                    <span className="text-sm font-medium text-gray-200">{item}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href="tel:9279242122"
+                  className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[52px]"
+                  style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+                >
+                  <Phone className="w-5 h-5" />
+                  Call Now: 9279242122
+                </a>
+                <a
+                  href="https://wa.me/918102906339"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[52px]"
+                  style={{ backgroundColor: '#25D366', color: '#fff' }}
+                >
+                  <WhatsAppIcon className="w-5 h-5" />
+                  WhatsApp Us
+                </a>
+              </div>
+
+              {/* Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4">
+                {STATS.map((stat) => (
+                  <div
+                    key={stat.label}
+                    className="flex flex-col items-center gap-1 p-3 rounded-xl text-center"
+                    style={{ backgroundColor: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
+                  >
+                    <span style={{ color: '#f5c518' }}>{stat.icon}</span>
+                    <span className="text-xl font-extrabold text-white">{stat.value}</span>
+                    <span className="text-xs text-gray-400">{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Scroll hint */}
+              <div className="flex items-center gap-2 text-gray-500 text-xs mt-2">
+                <ChevronDown className="w-4 h-4 animate-bounce" />
+                <span>Scroll to explore our services</span>
+              </div>
+            </div>
+
+            {/* Right Column - Consultation Form */}
             <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold mb-6 border"
+              className="rounded-2xl p-6 md:p-8 shadow-2xl"
               style={{
-                backgroundColor: 'oklch(1 0 0 / 0.10)',
-                borderColor: 'oklch(1 0 0 / 0.22)',
-                color: 'oklch(0.92 0.04 195)',
+                backgroundColor: '#fff',
+                border: '1px solid rgba(245,197,24,0.3)',
               }}
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-              India's #1 Trusted Compliance Partner
-            </div>
-
-            <h1
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-5 text-white"
-              style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            >
-              YMW{' '}
-              <span style={{ color: 'oklch(0.82 0.12 195)' }}>Compliance</span>{' '}
-              Services
-            </h1>
-
-            <p
-              className="text-lg sm:text-xl leading-relaxed mb-8"
-              style={{ color: 'oklch(0.88 0.03 195)' }}
-            >
-              India's #1 Trusted Compliance &amp; Registration Partner
-            </p>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to="/contact"
-                className="civic-btn-primary text-base px-8 py-3 shadow-civic-lg"
-              >
-                Contact Us
-                <ArrowRight size={18} />
-              </Link>
-              <a
-                href="https://wa.me/918102906339"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-base font-semibold border-2 transition-all duration-200"
-                style={{
-                  borderColor: 'oklch(1 0 0 / 0.50)',
-                  color: 'white',
-                  backgroundColor: 'oklch(1 0 0 / 0.08)',
-                }}
-              >
-                <MessageCircle size={18} />
-                WhatsApp Now
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── About Preview ── */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Text */}
-            <div>
-              <span
-                className="inline-block text-xs font-semibold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-                style={{
-                  backgroundColor: 'oklch(var(--civic-teal) / 0.10)',
-                  color: 'oklch(var(--civic-teal))',
-                }}
-              >
-                About Us
-              </span>
-              <h2
-                className="text-3xl sm:text-4xl font-bold mb-6"
-                style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-              >
-                Dhanbad's Most Trusted Compliance Partner
-              </h2>
-              <div className="space-y-4 text-base leading-relaxed" style={{ color: 'oklch(var(--civic-slate))' }}>
-                <p>
-                  YMW Compliance Services LLP is a Dhanbad, Jharkhand-based startup dedicated to providing
-                  comprehensive compliance, licensing, and legal support solutions for businesses across India.
-                  We offer <strong>100+ professional services</strong> designed to help entrepreneurs, startups,
-                  MSMEs, and established businesses operate smoothly while staying fully compliant with applicable
-                  laws and regulations.
-                </p>
-                <p>
-                  We are a one-stop solution for all your legal registrations, licenses, and compliance
-                  requirements — ensuring efficiency, accuracy, and reliability in every service we deliver.
-                </p>
-                <p>
-                  YMW Compliance Services LLP is a proud subsidiary of <strong>YMW Group</strong>, established
-                  under the leadership of <strong>Mr. Kundan Kumar</strong> — a highly skilled, well-educated,
-                  and visionary entrepreneur with more than 15 years of industry experience in compliance,
-                  mining, and diverse business sectors.
-                </p>
-              </div>
-              <div className="mt-8">
-                <Link to="/about" className="civic-btn-primary text-base px-8 py-3">
-                  Learn More
-                  <ChevronRight size={18} />
-                </Link>
-              </div>
-            </div>
-
-            {/* Decorative stat cards */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: '100+', label: 'Professional Services' },
-                { value: '20,000+', label: 'Happy Clients' },
-                { value: '15+', label: 'Years Experience' },
-                { value: 'Pan India', label: 'Service Coverage' },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="civic-card p-6 text-center"
-                  style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.05)' }}
-                >
-                  <div
-                    className="text-3xl font-bold mb-1"
-                    style={{ color: 'oklch(var(--civic-teal))' }}
-                  >
-                    {item.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{item.label}</div>
+              {submitted ? (
+                <div className="flex flex-col items-center gap-4 py-8 text-center">
+                  <CheckCircle className="w-16 h-16 text-green-500" />
+                  <h3 className="text-2xl font-bold" style={{ color: '#0a1628' }}>Thank You!</h3>
+                  <p className="text-gray-600 max-w-sm">
+                    Your consultation request has been submitted. Our team will contact you shortly.
+                  </p>
+                  {submittedId && (
+                    <div
+                      className="px-4 py-2 rounded-lg text-sm font-medium"
+                      style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#0a1628' }}
+                    >
+                      Reference ID: {submittedId.slice(-8)}
+                    </div>
+                  )}
                 </div>
-              ))}
+              ) : (
+                <>
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-bold mb-1" style={{ color: '#0a1628' }}>
+                      Get Free Consultation
+                    </h2>
+                    <p className="text-sm text-gray-500">Fill the form — our expert will call you back</p>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Enter your full name"
+                        value={formData.fullName}
+                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                        className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
+                        style={{
+                          border: '1.5px solid #e5e7eb',
+                          color: '#0a1628',
+                          backgroundColor: '#f9fafb',
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">Phone Number *</label>
+                      <div className="flex">
+                        <span
+                          className="flex items-center px-3 rounded-l-lg text-sm font-medium min-h-[44px]"
+                          style={{ backgroundColor: '#f3f4f6', border: '1.5px solid #e5e7eb', borderRight: 'none', color: '#374151' }}
+                        >
+                          +91
+                        </span>
+                        <input
+                          type="tel"
+                          required
+                          placeholder="10-digit mobile number"
+                          value={formData.phoneNumber}
+                          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                          className="flex-1 px-4 py-3 rounded-r-lg text-sm outline-none min-h-[44px]"
+                          style={{
+                            border: '1.5px solid #e5e7eb',
+                            borderLeft: 'none',
+                            color: '#0a1628',
+                            backgroundColor: '#f9fafb',
+                          }}
+                          maxLength={10}
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">Select Service *</label>
+                      <select
+                        required
+                        value={formData.selectedService}
+                        onChange={(e) => setFormData({ ...formData, selectedService: e.target.value })}
+                        className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
+                        style={{
+                          border: '1.5px solid #e5e7eb',
+                          color: formData.selectedService ? '#0a1628' : '#9ca3af',
+                          backgroundColor: '#f9fafb',
+                        }}
+                      >
+                        <option value="">Choose a service...</option>
+                        {SERVICES.map((service) => (
+                          <option key={service} value={service}>{service}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1">City / State *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Dhanbad, Jharkhand"
+                        value={formData.cityState}
+                        onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
+                        className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
+                        style={{
+                          border: '1.5px solid #e5e7eb',
+                          color: '#0a1628',
+                          backgroundColor: '#f9fafb',
+                        }}
+                      />
+                    </div>
+
+                    {submitMutation.isError && (
+                      <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
+                    )}
+
+                    <button
+                      type="submit"
+                      disabled={submitMutation.isPending}
+                      className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60 min-h-[52px]"
+                      style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+                    >
+                      {submitMutation.isPending ? (
+                        <>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        <>
+                          Get Free Consultation
+                          <ArrowRight className="w-5 h-5" />
+                        </>
+                      )}
+                    </button>
+
+                    <p className="text-center text-xs text-gray-400">
+                      🔒 100% Free &amp; Confidential. No spam, ever.
+                    </p>
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Services Preview ── */}
-      <section
-        className="py-20"
-        style={{ backgroundColor: 'oklch(var(--civic-green-light))' }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Services Section */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span
-              className="inline-block text-xs font-semibold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{
-                backgroundColor: 'oklch(var(--civic-teal) / 0.12)',
-                color: 'oklch(var(--civic-teal))',
-              }}
+              className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
             >
               Our Services
             </span>
-            <h2
-              className="text-3xl sm:text-4xl font-bold mb-3"
-              style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-            >
-              Comprehensive Compliance Solutions
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Comprehensive <span style={{ color: '#f5c518' }}>Compliance Solutions</span>
             </h2>
-            <p className="text-base max-w-xl mx-auto" style={{ color: 'oklch(var(--civic-slate))' }}>
-              From business registration to government licenses — we handle it all so you can focus on growth.
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              End-to-end compliance services for businesses of all sizes across India
             </p>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {services.map(({ name, icon: Icon }) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {FEATURED_SERVICES.map((service) => (
               <div
-                key={name}
-                className="civic-card p-4 flex flex-col items-center text-center gap-3 group hover:shadow-civic-lg transition-all duration-200"
+                key={service.title}
+                className="p-6 rounded-2xl hover:scale-105 transition-transform duration-200 cursor-pointer"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
               >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
-                  style={{
-                    backgroundColor: 'oklch(var(--civic-teal) / 0.10)',
-                  }}
-                >
-                  <Icon size={22} style={{ color: 'oklch(var(--civic-teal))' }} />
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-3xl">{service.icon}</span>
+                  <span
+                    className="text-xs font-bold px-2 py-1 rounded-full"
+                    style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
+                  >
+                    {service.badge}
+                  </span>
                 </div>
-                <span className="text-xs font-semibold leading-snug text-foreground">{name}</span>
+                <h3 className="font-bold text-white mb-1 text-sm leading-snug">{service.title}</h3>
+                <p className="text-xs text-gray-400 leading-relaxed">{service.desc}</p>
               </div>
             ))}
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/services" className="civic-btn-primary text-base px-8 py-3">
+            <Link
+              to="/services"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all"
+              style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+            >
               View All Services
-              <ArrowRight size={18} />
+              <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Why Choose Us ── */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Why Choose Us / Stats Section */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0a1628' }}>
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span
-              className="inline-block text-xs font-semibold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{
-                backgroundColor: 'oklch(var(--civic-teal) / 0.10)',
-                color: 'oklch(var(--civic-teal))',
-              }}
+              className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
             >
               Why Choose Us
             </span>
-            <h2
-              className="text-3xl sm:text-4xl font-bold"
-              style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-            >
-              Trusted by Thousands Across India
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Trusted by <span style={{ color: '#f5c518' }}>15,000+ Businesses</span>
             </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              We combine expertise, technology, and dedication to deliver the best compliance experience
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            {whyChooseUs.map(({ icon: Icon, stat, label }) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {STATS.map((stat) => (
               <div
-                key={label}
-                className="civic-card p-8 text-center group"
-                style={{ borderTop: '4px solid oklch(var(--civic-teal))' }}
+                key={stat.label}
+                className="flex flex-col items-center gap-3 p-6 rounded-2xl text-center"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
               >
-                <div
-                  className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 transition-transform duration-200 group-hover:scale-110"
-                  style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.10)' }}
+                <span
+                  className="w-12 h-12 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
                 >
-                  <Icon size={30} style={{ color: 'oklch(var(--civic-teal))' }} />
-                </div>
-                <div
-                  className="text-4xl font-bold mb-2"
-                  style={{ color: 'oklch(var(--civic-teal-dark))' }}
-                >
-                  {stat}
-                </div>
-                <div className="text-base font-medium text-muted-foreground">{label}</div>
+                  {stat.icon}
+                </span>
+                <span className="text-3xl font-extrabold text-white">{stat.value}</span>
+                <span className="text-sm text-gray-400">{stat.label}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Contact Preview ── */}
-      <section
-        className="py-20"
-        style={{ backgroundColor: 'oklch(var(--civic-teal-dark))' }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Our Strengths Section */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span
-              className="inline-block text-xs font-semibold uppercase tracking-widest mb-3 px-3 py-1 rounded-full"
-              style={{
-                backgroundColor: 'oklch(1 0 0 / 0.12)',
-                color: 'oklch(0.90 0.04 195)',
-              }}
+              className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+              style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
             >
-              Get In Touch
+              Our Strengths
             </span>
-            <h2
-              className="text-3xl sm:text-4xl font-bold text-white"
-              style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
-            >
-              We're Here to Help
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              What Makes Us <span style={{ color: '#f5c518' }}>Different</span>
             </h2>
+            <p className="text-gray-400 max-w-2xl mx-auto">
+              Our commitment to excellence sets us apart from the rest
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-10">
-            {/* Phone */}
-            <div
-              className="rounded-2xl p-6 flex flex-col items-center text-center gap-3"
-              style={{ backgroundColor: 'oklch(1 0 0 / 0.07)', border: '1px solid oklch(1 0 0 / 0.12)' }}
-            >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {STRENGTHS.map((strength) => (
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: 'oklch(1 0 0 / 0.12)' }}
+                key={strength.title}
+                className="flex flex-col gap-4 p-6 rounded-2xl"
+                style={{
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                }}
               >
-                <Phone size={22} className="text-white" />
-              </div>
-              <h3 className="font-semibold text-white text-base">Phone</h3>
-              <div className="space-y-1">
-                <a
-                  href="tel:+919279242122"
-                  className="block text-sm transition-colors"
-                  style={{ color: 'oklch(0.82 0.06 195)' }}
+                <span
+                  className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
                 >
-                  92792 42122
-                </a>
-                <a
-                  href="tel:+919241136368"
-                  className="block text-sm transition-colors"
-                  style={{ color: 'oklch(0.82 0.06 195)' }}
-                >
-                  9241136368
-                </a>
+                  {strength.icon}
+                </span>
+                <div>
+                  <h3 className="font-bold text-white text-lg mb-1">{strength.title}</h3>
+                  <p className="text-sm text-gray-400 leading-relaxed">{strength.desc}</p>
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* WhatsApp */}
-            <div
-              className="rounded-2xl p-6 flex flex-col items-center text-center gap-3"
-              style={{ backgroundColor: 'oklch(1 0 0 / 0.07)', border: '1px solid oklch(1 0 0 / 0.12)' }}
+      {/* Get in Touch / CTA Section — Golden Yellow Banner */}
+      <section className="w-full py-16 px-4" style={{ backgroundColor: '#f5c518' }}>
+        <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
+          {/* Heading */}
+          <div className="flex flex-col gap-3">
+            <h2
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight"
+              style={{ color: '#0a1628', fontFamily: 'Poppins, Inter, sans-serif' }}
             >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: 'oklch(1 0 0 / 0.12)' }}
-              >
-                <MessageCircle size={22} className="text-white" />
-              </div>
-              <h3 className="font-semibold text-white text-base">WhatsApp</h3>
-              <div className="space-y-1">
-                <a
-                  href="https://wa.me/918102906339"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm transition-colors"
-                  style={{ color: 'oklch(0.82 0.06 195)' }}
-                >
-                  8102906339
-                </a>
-                <a
-                  href="https://wa.me/918102901690"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-sm transition-colors"
-                  style={{ color: 'oklch(0.82 0.06 195)' }}
-                >
-                  8102901690
-                </a>
-              </div>
-            </div>
-
-            {/* Business Hours */}
-            <div
-              className="rounded-2xl p-6 flex flex-col items-center text-center gap-3"
-              style={{ backgroundColor: 'oklch(1 0 0 / 0.07)', border: '1px solid oklch(1 0 0 / 0.12)' }}
+              Ready to Start Your Business Journey?
+            </h2>
+            <p
+              className="text-base sm:text-lg font-normal"
+              style={{ color: '#0a1628' }}
             >
-              <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: 'oklch(1 0 0 / 0.12)' }}
-              >
-                <Clock size={22} className="text-white" />
-              </div>
-              <h3 className="font-semibold text-white text-base">Business Hours</h3>
-              <div className="space-y-1 text-sm" style={{ color: 'oklch(0.82 0.06 195)' }}>
-                <p>Mon – Sat: 10:00 AM – 6:30 PM</p>
-                <p>Sunday: Closed</p>
-                <p>National Holidays: Closed</p>
-              </div>
-            </div>
+              Get expert guidance today — 100% free consultation, no obligations
+            </p>
           </div>
 
-          <div className="text-center">
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-base font-semibold transition-all duration-200"
-              style={{
-                backgroundColor: 'oklch(0.62 0.12 195)',
-                color: 'white',
-              }}
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+            {/* Get Free Consultation */}
+            <a
+              href="tel:9279242122"
+              className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[54px] min-w-[220px]"
+              style={{ backgroundColor: '#0a1628', color: '#ffffff' }}
             >
-              Contact Us
-              <ArrowRight size={18} />
-            </Link>
+              <Phone className="w-5 h-5 flex-shrink-0" />
+              Get Free Consultation
+            </a>
+
+            {/* Call Button */}
+            <a
+              href="tel:9279242122"
+              className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[54px] min-w-[220px]"
+              style={{ backgroundColor: '#0d1f3c', color: '#ffffff' }}
+            >
+              <Phone className="w-5 h-5 flex-shrink-0" />
+              Call: +91 8102906339
+            </a>
+
+            {/* WhatsApp Button */}
+            <a
+              href="https://wa.me/918102906339"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[54px] min-w-[180px]"
+              style={{ backgroundColor: '#22c55e', color: '#ffffff' }}
+            >
+              <WhatsAppIcon className="w-5 h-5 flex-shrink-0" />
+              WhatsApp Us
+            </a>
+          </div>
+
+          {/* Trust Badges */}
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+            {[
+              'No registration fee',
+              'Expert advice',
+              'Response within 30 minutes',
+            ].map((badge) => (
+              <span
+                key={badge}
+                className="flex items-center gap-1.5 text-sm font-medium"
+                style={{ color: '#0a1628' }}
+              >
+                <span className="font-bold text-base">✓</span>
+                {badge}
+              </span>
+            ))}
           </div>
         </div>
       </section>

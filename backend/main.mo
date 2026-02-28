@@ -11,6 +11,9 @@ import AccessControl "authorization/access-control";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
 
+
+
+
 actor {
   // Include authorization system
   let accessControlState = AccessControl.initState();
@@ -18,7 +21,7 @@ actor {
 
   include MixinStorage();
 
-  // Timestamp for unique IDs and sorting
+  // Timestamps for unique IDs and sorting
   public type Timestamp = Time.Time;
 
   // --- User Profile Types and State ---
@@ -112,7 +115,6 @@ actor {
 
   let contactState = Map.empty<Text, ContactMessage>();
 
-  // Anyone (including guests) can submit a contact message
   public shared func submitContactMessage(name : Text, email : Text, subject : Text, message : Text) : async Text {
     let id = Time.now().toText();
     let contactMessage = {
@@ -127,7 +129,6 @@ actor {
     id;
   };
 
-  // Admin-only: list all contact messages
   public shared ({ caller }) func listContactMessages() : async [ContactMessage] {
     if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
       Runtime.trap("Unauthorized: Only admins can view contact messages");
@@ -156,7 +157,6 @@ actor {
 
   let grievanceState = Map.empty<Text, Grievance>();
 
-  // Anyone (including guests) can submit a grievance
   public shared func submitGrievance(name : Text, email : Text, category : GrievanceCategory, description : Text) : async Text {
     let id = Time.now().toText();
     let referenceNumber = id;
@@ -173,7 +173,6 @@ actor {
     referenceNumber;
   };
 
-  // Admin-only: list all grievances
   public shared ({ caller }) func listGrievances() : async [Grievance] {
     if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
       Runtime.trap("Unauthorized: Only admins can view grievances");
@@ -181,13 +180,53 @@ actor {
     grievanceState.values().toArray();
   };
 
+  // --- Consultation Request Types and State ---
+  public type ConsultationRequest = {
+    id : Text;
+    fullName : Text;
+    phoneNumber : Text;
+    selectedService : Text;
+    cityState : Text;
+    timestamp : Timestamp;
+    utmSource : ?Text;
+  };
+
+  let consultationRequestState = Map.empty<Text, ConsultationRequest>();
+
+  public shared ({ caller }) func submitConsultationRequest(
+    fullName : Text,
+    phoneNumber : Text,
+    selectedService : Text,
+    cityState : Text,
+    utmSource : ?Text,
+  ) : async Text {
+    let id = Time.now().toText();
+    let request : ConsultationRequest = {
+      id;
+      fullName;
+      phoneNumber;
+      selectedService;
+      cityState;
+      timestamp = Time.now();
+      utmSource;
+    };
+    consultationRequestState.add(id, request);
+    id;
+  };
+
+  // Admin-only: list all consultation requests
+  public shared ({ caller }) func listConsultationRequests() : async [ConsultationRequest] {
+    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+      Runtime.trap("Unauthorized: Only admins can view consultation requests");
+    };
+    consultationRequestState.values().toArray();
+  };
+
   // --- Authentication - Account Creation / Sign Up with Internet Identity ---
-  // Registers the caller as a #user role upon first login
   public shared ({ caller }) func signUpWithInternetIdentity() : async Principal {
     if (caller.isAnonymous()) {
       Runtime.trap("Authentication failed: anonymous principals cannot sign up");
     };
-    // Assign #user role if not already assigned
     AccessControl.assignRole(accessControlState, caller, caller, #user);
     caller;
   };

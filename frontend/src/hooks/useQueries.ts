@@ -1,8 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { BlogPost, ContactMessage, Grievance, GrievanceCategory, UserProfile } from '../backend';
-
-// ─── User Profile ────────────────────────────────────────────────────────────
+import type { BlogPost, ConsultationRequest, UserProfile, GrievanceCategory } from '../backend';
 
 export function useGetCallerUserProfile() {
   const { actor, isFetching: actorFetching } = useActor();
@@ -39,23 +37,23 @@ export function useSaveUserProfile() {
   });
 }
 
-// ─── Sign Up ─────────────────────────────────────────────────────────────────
-
 export function useSignUp() {
   const { actor } = useActor();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: async () => {
       if (!actor) throw new Error('Actor not available');
       return actor.signUpWithInternetIdentity();
     },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] });
+    },
   });
 }
 
-// ─── Blog Posts ───────────────────────────────────────────────────────────────
-
 export function useListBlogPosts() {
-  const { actor, isFetching: actorFetching } = useActor();
+  const { actor, isFetching } = useActor();
 
   return useQuery<BlogPost[]>({
     queryKey: ['blogPosts'],
@@ -63,12 +61,12 @@ export function useListBlogPosts() {
       if (!actor) return [];
       return actor.listBlogPosts();
     },
-    enabled: !!actor && !actorFetching,
+    enabled: !!actor && !isFetching,
   });
 }
 
 export function useGetBlogPost(id: string) {
-  const { actor, isFetching: actorFetching } = useActor();
+  const { actor, isFetching } = useActor();
 
   return useQuery<BlogPost>({
     queryKey: ['blogPost', id],
@@ -76,60 +74,76 @@ export function useGetBlogPost(id: string) {
       if (!actor) throw new Error('Actor not available');
       return actor.getBlogPost(id);
     },
-    enabled: !!actor && !actorFetching && !!id,
+    enabled: !!actor && !isFetching && !!id,
   });
 }
-
-// ─── Contact ──────────────────────────────────────────────────────────────────
 
 export function useSubmitContactMessage() {
   const { actor } = useActor();
+  const queryClient = useQueryClient();
 
-  return useMutation<string, Error, { name: string; email: string; subject: string; message: string }>({
-    mutationFn: async ({ name, email, subject, message }) => {
+  return useMutation({
+    mutationFn: async (data: { name: string; email: string; subject: string; message: string }) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.submitContactMessage(name, email, subject, message);
+      return actor.submitContactMessage(data.name, data.email, data.subject, data.message);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['contactMessages'] });
     },
   });
 }
-
-// ─── Grievance ────────────────────────────────────────────────────────────────
 
 export function useSubmitGrievance() {
   const { actor } = useActor();
+  const queryClient = useQueryClient();
 
-  return useMutation<string, Error, { name: string; email: string; category: GrievanceCategory; description: string }>({
-    mutationFn: async ({ name, email, category, description }) => {
+  return useMutation({
+    mutationFn: async (data: { name: string; email: string; category: GrievanceCategory; description: string }) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.submitGrievance(name, email, category, description);
+      return actor.submitGrievance(data.name, data.email, data.category, data.description);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['grievances'] });
     },
   });
 }
 
-// ─── Admin ────────────────────────────────────────────────────────────────────
+export function useSubmitConsultationRequest() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
 
-export function useListContactMessages() {
-  const { actor, isFetching: actorFetching } = useActor();
-
-  return useQuery<ContactMessage[]>({
-    queryKey: ['contactMessages'],
-    queryFn: async () => {
+  return useMutation({
+    mutationFn: async (data: {
+      fullName: string;
+      phoneNumber: string;
+      selectedService: string;
+      cityState: string;
+      utmSource?: string | null;
+    }) => {
       if (!actor) throw new Error('Actor not available');
-      return actor.listContactMessages();
+      return actor.submitConsultationRequest(
+        data.fullName,
+        data.phoneNumber,
+        data.selectedService,
+        data.cityState,
+        data.utmSource ?? null
+      );
     },
-    enabled: !!actor && !actorFetching,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['consultationRequests'] });
+    },
   });
 }
 
-export function useListGrievances() {
-  const { actor, isFetching: actorFetching } = useActor();
+export function useListConsultationRequests() {
+  const { actor, isFetching } = useActor();
 
-  return useQuery<Grievance[]>({
-    queryKey: ['grievances'],
+  return useQuery<ConsultationRequest[]>({
+    queryKey: ['consultationRequests'],
     queryFn: async () => {
-      if (!actor) throw new Error('Actor not available');
-      return actor.listGrievances();
+      if (!actor) return [];
+      return actor.listConsultationRequests();
     },
-    enabled: !!actor && !actorFetching,
+    enabled: !!actor && !isFetching,
   });
 }

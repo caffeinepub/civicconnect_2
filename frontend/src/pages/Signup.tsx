@@ -1,24 +1,22 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useQueryClient } from '@tanstack/react-query';
-import { LogIn, LogOut, Loader2, UserCircle, ShieldCheck, Users } from 'lucide-react';
-import { useInternetIdentity } from '@/hooks/useInternetIdentity';
-import { useGetCallerUserProfile, useSignUp } from '@/hooks/useQueries';
-import ProfileSetupModal from '@/components/ProfileSetupModal';
-import { Button } from '@/components/ui/button';
+import { LogIn, LogOut, Shield, Loader2 } from 'lucide-react';
+import { useGetCallerUserProfile, useSignUp } from '../hooks/useQueries';
+import ProfileSetupModal from '../components/ProfileSetupModal';
+import FreeConsultationSection from '../components/FreeConsultationSection';
 
 export default function Signup() {
-  const { login, clear, loginStatus, identity, isLoggingIn, isInitializing } = useInternetIdentity();
+  const { login, clear, loginStatus, identity, isInitializing } = useInternetIdentity();
   const queryClient = useQueryClient();
+  const { data: userProfile, isLoading: profileLoading, isFetched } = useGetCallerUserProfile();
+  const signUp = useSignUp();
+  const [profileModalDismissed, setProfileModalDismissed] = useState(false);
 
   const isAuthenticated = !!identity;
-
-  const {
-    data: userProfile,
-    isLoading: profileLoading,
-    isFetched: profileFetched,
-  } = useGetCallerUserProfile();
-
-  const signUp = useSignUp();
+  const isLoggingIn = loginStatus === 'logging-in';
+  const showProfileSetup =
+    isAuthenticated && !profileLoading && isFetched && userProfile === null && !profileModalDismissed;
 
   // Register user on first login
   useEffect(() => {
@@ -27,247 +25,157 @@ export default function Signup() {
     }
   }, [isAuthenticated]);
 
-  const showProfileSetup =
-    isAuthenticated && !profileLoading && profileFetched && userProfile === null;
-
-  const handleLogin = async () => {
-    try {
-      await login();
-    } catch (error: unknown) {
-      if (error instanceof Error && error.message === 'User is already authenticated') {
-        await clear();
-        setTimeout(() => login(), 300);
+  const handleAuth = async () => {
+    if (isAuthenticated) {
+      await clear();
+      queryClient.clear();
+    } else {
+      try {
+        await login();
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message === 'User is already authenticated') {
+          await clear();
+          setTimeout(() => login(), 300);
+        }
       }
     }
   };
 
-  const handleLogout = async () => {
-    await clear();
-    queryClient.clear();
-  };
-
-  const principalStr = identity?.getPrincipal().toString();
-
   return (
-    <div className="animate-fade-in">
+    <div style={{ backgroundColor: '#0a1628' }}>
       {/* Page Hero */}
-      <section className="page-hero py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1
-            className="text-4xl sm:text-5xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+      <section
+        className="py-16 px-4 text-center"
+        style={{ background: 'linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%)' }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <span
+            className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+            style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
           >
-            {isAuthenticated ? 'Welcome Back!' : 'Join CivicConnect'}
+            Account
+          </span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            {isAuthenticated ? 'Your ' : 'Sign In to Your '}
+            <span style={{ color: '#f5c518' }}>Account</span>
           </h1>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'oklch(0.88 0.04 195)' }}>
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
             {isAuthenticated
-              ? 'You are signed in and ready to engage with your community.'
-              : 'Create your account to access all civic services and community features.'}
+              ? 'Manage your compliance services and track your requests.'
+              : 'Sign in to access your compliance dashboard and track your service requests.'}
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Benefits Panel */}
-            <div className="space-y-6">
-              <div>
-                <h2 className="section-heading text-2xl sm:text-3xl mb-3">
-                  {isAuthenticated ? 'Your Account' : 'Why Sign Up?'}
-                </h2>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {isAuthenticated
-                    ? 'Manage your profile and access all CivicConnect features.'
-                    : 'Join thousands of community members making a difference.'}
-                </p>
+      {/* Auth Content */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-md mx-auto">
+          <div
+            className="p-8 rounded-2xl"
+            style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+          >
+            {isInitializing ? (
+              <div className="flex flex-col items-center gap-4 py-8">
+                <Loader2
+                  className="w-10 h-10 animate-spin"
+                  style={{ color: '#f5c518' }}
+                />
+                <p className="text-gray-400 text-sm">Initializing...</p>
               </div>
-
-              {!isAuthenticated && (
-                <div className="space-y-4">
-                  {[
-                    {
-                      icon: ShieldCheck,
-                      title: 'Secure & Private',
-                      desc: 'Internet Identity provides cryptographic security without passwords.',
-                      color: 'oklch(var(--civic-teal))',
-                      bg: 'oklch(var(--civic-teal) / 0.1)',
-                    },
-                    {
-                      icon: Users,
-                      title: 'Community Access',
-                      desc: 'Participate in forums, submit grievances, and engage with local government.',
-                      color: 'oklch(var(--civic-green))',
-                      bg: 'oklch(var(--civic-green) / 0.1)',
-                    },
-                    {
-                      icon: UserCircle,
-                      title: 'Personalized Experience',
-                      desc: 'Get updates and notifications tailored to your community and interests.',
-                      color: 'oklch(0.55 0.15 250)',
-                      bg: 'oklch(0.55 0.15 250 / 0.1)',
-                    },
-                  ].map((item) => {
-                    const Icon = item.icon;
-                    return (
-                      <div key={item.title} className="flex items-start gap-4">
-                        <div
-                          className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                          style={{ backgroundColor: item.bg }}
-                        >
-                          <Icon size={18} style={{ color: item.color }} />
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-foreground mb-0.5">{item.title}</p>
-                          <p className="text-xs text-muted-foreground">{item.desc}</p>
-                        </div>
-                      </div>
-                    );
-                  })}
+            ) : isAuthenticated && userProfile ? (
+              <div className="flex flex-col items-center gap-6 text-center">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center text-3xl font-bold"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
+                >
+                  {userProfile.name.charAt(0).toUpperCase()}
                 </div>
-              )}
-
-              {isAuthenticated && userProfile && (
-                <div className="civic-card p-6 space-y-4">
-                  <div className="flex items-center gap-4">
-                    <div
-                      className="w-14 h-14 rounded-full flex items-center justify-center text-xl font-bold text-white"
-                      style={{ backgroundColor: 'oklch(var(--civic-teal))' }}
-                    >
-                      {userProfile.name.charAt(0).toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground text-base">{userProfile.name}</p>
-                      <p className="text-sm text-muted-foreground">{userProfile.email}</p>
-                    </div>
-                  </div>
-                  <div
-                    className="rounded-lg px-4 py-3"
-                    style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.06)' }}
-                  >
-                    <p className="text-xs text-muted-foreground mb-1 font-semibold uppercase tracking-wider">Principal ID</p>
-                    <p className="text-xs font-mono break-all text-foreground">{principalStr}</p>
-                  </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-1">{userProfile.name}</h2>
+                  <p className="text-gray-400 text-sm">{userProfile.email}</p>
                 </div>
-              )}
-            </div>
-
-            {/* Auth Card */}
-            <div className="civic-card p-8">
-              {isInitializing ? (
-                <div className="flex flex-col items-center justify-center py-12 gap-4">
-                  <Loader2 size={32} className="animate-spin" style={{ color: 'oklch(var(--civic-teal))' }} />
-                  <p className="text-sm text-muted-foreground">Initializing...</p>
-                </div>
-              ) : isAuthenticated ? (
-                <div className="text-center space-y-6">
-                  <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mx-auto"
-                    style={{ backgroundColor: 'oklch(var(--civic-green) / 0.12)' }}
-                  >
-                    {userProfile ? (
-                      <span className="text-3xl font-bold" style={{ color: 'oklch(var(--civic-green))' }}>
-                        {userProfile.name.charAt(0).toUpperCase()}
-                      </span>
-                    ) : (
-                      <UserCircle size={40} style={{ color: 'oklch(var(--civic-green))' }} />
-                    )}
-                  </div>
-
-                  <div>
-                    <h3
-                      className="text-xl font-bold mb-1"
-                      style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-                    >
-                      {profileLoading
-                        ? 'Loading...'
-                        : userProfile
-                        ? `Welcome, ${userProfile.name}!`
-                        : 'Welcome!'}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      You're signed in to CivicConnect.
+                <div
+                  className="w-full p-4 rounded-xl flex items-center gap-3"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.08)', border: '1px solid rgba(245,197,24,0.2)' }}
+                >
+                  <Shield className="w-5 h-5 flex-shrink-0" style={{ color: '#f5c518' }} />
+                  <div className="text-left">
+                    <p className="text-xs text-gray-400">Principal ID</p>
+                    <p className="text-xs text-gray-300 font-mono break-all">
+                      {identity?.getPrincipal().toString()}
                     </p>
                   </div>
-
-                  <div
-                    className="rounded-xl px-5 py-4 text-left"
-                    style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.06)', border: '1px solid oklch(var(--civic-teal) / 0.15)' }}
-                  >
-                    <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">
-                      Account Status
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                      <span className="text-sm font-medium text-foreground">Active & Verified</span>
-                    </div>
-                  </div>
-
-                  <Button
-                    onClick={handleLogout}
-                    variant="outline"
-                    className="w-full rounded-full border-2"
-                    style={{ borderColor: 'oklch(var(--destructive))', color: 'oklch(var(--destructive))' }}
-                  >
-                    <LogOut size={16} />
-                    Sign Out
-                  </Button>
                 </div>
-              ) : (
-                <div className="text-center space-y-6">
-                  <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mx-auto"
-                    style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.1)' }}
-                  >
-                    <UserCircle size={40} style={{ color: 'oklch(var(--civic-teal))' }} />
-                  </div>
-
-                  <div>
-                    <h3
-                      className="text-xl font-bold mb-2"
-                      style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-                    >
-                      Sign Up or Log In
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Use Internet Identity for secure, passwordless authentication. No personal data is stored by the identity provider.
-                    </p>
-                  </div>
-
-                  <Button
-                    onClick={handleLogin}
-                    disabled={isLoggingIn}
-                    className="w-full rounded-full py-3 text-base font-semibold"
-                    style={{ backgroundColor: 'oklch(var(--civic-teal))', color: 'white' }}
-                  >
-                    {isLoggingIn ? (
-                      <>
-                        <Loader2 size={18} className="animate-spin" />
-                        Connecting...
-                      </>
-                    ) : (
-                      <>
-                        <LogIn size={18} />
-                        Sign Up / Log In with Internet Identity
-                      </>
-                    )}
-                  </Button>
-
-                  <p className="text-xs text-muted-foreground">
-                    By signing up, you agree to our Terms of Service and Privacy Policy.
-                    Your identity is secured by the Internet Computer blockchain.
+                <button
+                  onClick={handleAuth}
+                  className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity min-h-[52px]"
+                  style={{
+                    backgroundColor: 'rgba(255,255,255,0.08)',
+                    color: '#fff',
+                    border: '1px solid rgba(255,255,255,0.15)',
+                  }}
+                >
+                  <LogOut className="w-5 h-5" />
+                  Sign Out
+                </button>
+              </div>
+            ) : isAuthenticated && profileLoading ? (
+              <div className="flex flex-col items-center gap-4 py-8">
+                <div
+                  className="w-10 h-10 rounded-full border-4 border-t-transparent animate-spin"
+                  style={{ borderColor: '#f5c518', borderTopColor: 'transparent' }}
+                />
+                <p className="text-gray-400 text-sm">Loading your profile...</p>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-6 text-center">
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)' }}
+                >
+                  <Shield className="w-10 h-10" style={{ color: '#f5c518' }} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white mb-2">Sign In / Sign Up</h2>
+                  <p className="text-gray-400 text-sm leading-relaxed">
+                    Use Internet Identity for secure, passwordless authentication. No personal data is stored by the identity provider.
                   </p>
                 </div>
-              )}
-            </div>
+                <button
+                  onClick={handleAuth}
+                  disabled={isLoggingIn}
+                  className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60 min-h-[52px]"
+                  style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+                >
+                  {isLoggingIn ? (
+                    <>
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Connecting...
+                    </>
+                  ) : (
+                    <>
+                      <LogIn className="w-5 h-5" />
+                      Sign In with Internet Identity
+                    </>
+                  )}
+                </button>
+                <p className="text-xs text-gray-500">
+                  By signing in, you agree to our Terms of Service. Your identity is secured by the Internet Computer blockchain.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
+      {/* Profile Setup Modal */}
       <ProfileSetupModal
         open={showProfileSetup}
-        onComplete={() => queryClient.invalidateQueries({ queryKey: ['currentUserProfile'] })}
+        onComplete={() => setProfileModalDismissed(true)}
       />
+
+      {/* Free Consultation Section */}
+      <FreeConsultationSection />
     </div>
   );
 }

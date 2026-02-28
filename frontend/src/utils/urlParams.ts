@@ -104,11 +104,6 @@ export function clearSessionParameter(key: string): void {
  * Used to remove sensitive data from the address bar after extracting it
  *
  * @param paramName - The parameter to remove from the hash
- *
- * @example
- * // URL: https://app.com/#/dashboard?caffeineAdminToken=xxx&other=value
- * // After clearParamFromHash('caffeineAdminToken')
- * // URL: https://app.com/#/dashboard?other=value
  */
 function clearParamFromHash(paramName: string): void {
     if (!window.history.replaceState) {
@@ -194,15 +189,46 @@ export function getSecretFromHash(paramName: string): string | null {
  * Gets a secret parameter with fallback chain: hash -> sessionStorage
  * This is the recommended way to handle sensitive parameters like admin tokens
  *
- * Security benefits over regular URL params:
- * - Hash fragments are not sent to the server
- * - Not logged in server access logs
- * - Not sent in HTTP Referer headers
- * - Automatically cleared from URL after extraction
- *
  * @param paramName - The name of the secret parameter
  * @returns The secret value if found, null otherwise
  */
 export function getSecretParameter(paramName: string): string | null {
     return getSecretFromHash(paramName);
+}
+
+// UTM parameter keys
+const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+const UTM_STORAGE_KEY = 'ymw_utm_source';
+
+/**
+ * Captures UTM parameters from the current URL and persists them in sessionStorage.
+ * Should be called once on app load to capture any UTM data from the landing URL.
+ */
+export function captureUTMParams(): void {
+    for (const param of UTM_PARAMS) {
+        const value = getUrlParameter(param);
+        if (value !== null) {
+            storeSessionParameter(param, value);
+        }
+    }
+
+    // Also store utm_source specifically under our app key for easy retrieval
+    const utmSource = getUrlParameter('utm_source');
+    if (utmSource !== null) {
+        storeSessionParameter(UTM_STORAGE_KEY, utmSource);
+    }
+}
+
+/**
+ * Retrieves the stored UTM source value.
+ * Returns the value captured on initial page load, or null if none was present.
+ */
+export function getUTMSource(): string | null {
+    // Try the dedicated storage key first
+    const stored = getSessionParameter(UTM_STORAGE_KEY);
+    if (stored !== null) {
+        return stored;
+    }
+    // Fall back to the raw utm_source param
+    return getSessionParameter('utm_source');
 }

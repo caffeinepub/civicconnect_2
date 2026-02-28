@@ -38,6 +38,15 @@ export const UserProfile = IDL.Record({
   'name' : IDL.Text,
   'email' : IDL.Text,
 });
+export const ConsultationRequest = IDL.Record({
+  'id' : IDL.Text,
+  'cityState' : IDL.Text,
+  'fullName' : IDL.Text,
+  'utmSource' : IDL.Opt(IDL.Text),
+  'selectedService' : IDL.Text,
+  'timestamp' : Timestamp,
+  'phoneNumber' : IDL.Text,
+});
 export const ContactMessage = IDL.Record({
   'id' : IDL.Text,
   'subject' : IDL.Text,
@@ -107,10 +116,16 @@ export const idlService = IDL.Service({
     ),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'listBlogPosts' : IDL.Func([], [IDL.Vec(BlogPost)], ['query']),
+  'listConsultationRequests' : IDL.Func([], [IDL.Vec(ConsultationRequest)], []),
   'listContactMessages' : IDL.Func([], [IDL.Vec(ContactMessage)], []),
   'listGrievances' : IDL.Func([], [IDL.Vec(Grievance)], []),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'signUpWithInternetIdentity' : IDL.Func([], [IDL.Principal], []),
+  'submitConsultationRequest' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
+      [IDL.Text],
+      [],
+    ),
   'submitContactMessage' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
       [IDL.Text],
@@ -153,6 +168,15 @@ export const idlFactory = ({ IDL }) => {
     'excerpt' : IDL.Text,
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text, 'email' : IDL.Text });
+  const ConsultationRequest = IDL.Record({
+    'id' : IDL.Text,
+    'cityState' : IDL.Text,
+    'fullName' : IDL.Text,
+    'utmSource' : IDL.Opt(IDL.Text),
+    'selectedService' : IDL.Text,
+    'timestamp' : Timestamp,
+    'phoneNumber' : IDL.Text,
+  });
   const ContactMessage = IDL.Record({
     'id' : IDL.Text,
     'subject' : IDL.Text,
@@ -222,10 +246,20 @@ export const idlFactory = ({ IDL }) => {
       ),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'listBlogPosts' : IDL.Func([], [IDL.Vec(BlogPost)], ['query']),
+    'listConsultationRequests' : IDL.Func(
+        [],
+        [IDL.Vec(ConsultationRequest)],
+        [],
+      ),
     'listContactMessages' : IDL.Func([], [IDL.Vec(ContactMessage)], []),
     'listGrievances' : IDL.Func([], [IDL.Vec(Grievance)], []),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'signUpWithInternetIdentity' : IDL.Func([], [IDL.Principal], []),
+    'submitConsultationRequest' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
+        [IDL.Text],
+        [],
+      ),
     'submitContactMessage' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [IDL.Text],

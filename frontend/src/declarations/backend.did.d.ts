@@ -19,6 +19,15 @@ export interface BlogPost {
   'updatedAt' : Timestamp,
   'excerpt' : string,
 }
+export interface ConsultationRequest {
+  'id' : string,
+  'cityState' : string,
+  'fullName' : string,
+  'utmSource' : [] | [string],
+  'selectedService' : string,
+  'timestamp' : Timestamp,
+  'phoneNumber' : string,
+}
 export interface ContactMessage {
   'id' : string,
   'subject' : string,
@@ -82,10 +91,15 @@ export interface _SERVICE {
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'listBlogPosts' : ActorMethod<[], Array<BlogPost>>,
+  'listConsultationRequests' : ActorMethod<[], Array<ConsultationRequest>>,
   'listContactMessages' : ActorMethod<[], Array<ContactMessage>>,
   'listGrievances' : ActorMethod<[], Array<Grievance>>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'signUpWithInternetIdentity' : ActorMethod<[], Principal>,
+  'submitConsultationRequest' : ActorMethod<
+    [string, string, string, string, [] | [string]],
+    string
+  >,
   'submitContactMessage' : ActorMethod<
     [string, string, string, string],
     string

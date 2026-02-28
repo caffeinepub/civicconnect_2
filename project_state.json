@@ -1,12 +1,18 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 5,
-  "summary": "Multi-page React website for YMW Compliance Services LLP — India's #1 Trusted Compliance & Registration Partner based in Dhanbad, Jharkhand. Pages: Home, About, Services, Blog, Contact, Grievance Section, Social Media, and Signup. Home page includes Hero Section (title, subtitle, CTA buttons), About Preview, Services Preview (15 services), Why Choose Us stats, and Contact Preview. Includes navigation, grievance submission form, blog listing, services showcase, social media links, and signup form with Internet Identity authentication.",
+  "projectStateVersion": 19,
+  "summary": "Multi-page React website for YMW Compliance Services LLP — India's #1 Trusted Compliance & Registration Partner based in Dhanbad, Jharkhand. Pages: Home, About, Services, Blog, Contact, Grievance Section, Social Media, and Signup. Home page includes Hero Section (title, subtitle, CTA buttons), About Preview, Services Preview (15 services), Why Choose Us stats, and Contact Preview. Includes navigation, grievance submission form, blog listing, services showcase, social media links, and signup form with Internet Identity authentication. Color scheme: Dark Navy Blue (#0a1628) background, Golden Yellow (#f5c518) accent, white text, green WhatsApp button, diagonal stripe texture on hero.",
   "architectural_notes": [
     "Multi-page React app with client-side routing",
-    "Internet Identity authentication for Signup"
+    "Internet Identity authentication for Signup",
+    "Color theme: Dark Navy Blue (#0a1628) background, Golden Yellow (#f5c518) accent, white text, green (#22c55e) WhatsApp buttons",
+    "Background color (#0a1628 dark navy) and font must remain consistent across all pages — do not override",
+    "Floating WhatsApp and Call Now buttons should be rendered in the root layout so they appear on every page",
+    "SEO: use React Helmet or equivalent for per-page meta/OG tags; add JSON-LD structured data for LocalBusiness schema"
   ],
-  "known_issues": [],
+  "known_issues": [
+    "Services page/preview not showing all 15 services — some are hidden or missing after recent changes"
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
@@ -136,6 +142,166 @@
         "REQ-16"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-redesign-the-global-css-theme-and-tailwind-configuration-to-use-dark-navy-blue-0a1628-0d1f3c-as-the-primary-background-golden-yellow-f5c518-as-the-accent-highlight-color-white-ffffff-for-headings-and-primary-text-light-gray-for-body-text-and-deep-navy-for-navbar-background-replace-all-existing-civic-teal-and-civic-green-color-tokens-with-this-dark-navy-golden-yellow-palette-apply-this-theme-consistently-across-all-pages-home-about-services-blog-contact-grievance-social-media-signup-navigation-and-footer",
+      "title": "Redesign the global CSS theme and Tailwind configuration to use Dark Navy Blue (#0a1628 / #0d1f3c) as the primary background, Golden Yellow (#f5c518) as the accent/highlight color, white (#ffffff) for headings and primary text, light gray for body text, and deep navy for navbar background. Replace all existing civic-teal and civic-green color tokens with this dark navy + golden yellow palette. Apply this theme consistently across all pages: Home, About, Services, Blog, Contact, Grievance, Social Media, Signup, Navigation, and Footer.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-home-page-hero-section-to-match-the-uploaded-screenshots-exactly-dark-navy-background-with-a-diagonal-stripe-texture-pattern-a-yellow-badge-pill-reading-india-s-1-compliance-partner-a-large-two-line-headline-start-your-business-with-experts-with-with-experts-in-golden-yellow-a-subtitle-india-s-trusted-compliance-partner-business-registration-gst-iso-trademark-more-get-expert-guidance-at-every-step-three-cta-buttons-get-free-consultation-yellow-call-91-8102906339-dark-outline-and-whatsapp-us-green-22c55e-with-whatsapp-icon-and-three-badge-pills-at-the-bottom-10-000-clients-all-india-service-expert-team-on-the-right-side-of-the-hero-display-a-white-card-get-free-expert-consultation-form-with-fields-full-name-phone-number-91-prefix-select-service-dropdown-all-15-services-as-options-city-state-and-a-golden-yellow-get-free-consultation-submit-button-with-100-free-confidential-note-below-it",
+      "title": "Redesign the Home page Hero section to match the uploaded screenshots exactly: dark navy background with a diagonal stripe texture pattern, a yellow badge pill reading 'India's #1 Compliance Partner', a large two-line headline 'Start Your Business With Experts' (with 'With Experts' in golden yellow), a subtitle 'India's Trusted Compliance Partner — Business Registration, GST, ISO, Trademark & More. Get expert guidance at every step.', three CTA buttons: 'Get Free Consultation' (yellow), 'Call: +91 8102906339' (dark outline), and 'WhatsApp Us' (green #22c55e with WhatsApp icon), and three badge pills at the bottom: '10,000+ Clients', 'All India Service', 'Expert Team'. On the right side of the hero, display a white card 'Get Free Expert Consultation' form with fields: Full Name, Phone Number (+91 prefix), Select Service dropdown (all 15 services as options), City/State, and a golden yellow 'Get Free Consultation' submit button with '100% Free & Confidential' note below it.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-navigation-bar-to-match-the-uploaded-screenshots-dark-navy-0a1628-background-ymw-logo-text-in-golden-yellow-with-compliance-services-in-white-and-tagline-your-trusted-business-partner-in-light-gray-below-navigation-links-home-services-with-dropdown-indicator-about-blog-contact-social-media-in-white-a-phone-number-91-8102906339-with-phone-icon-on-the-right-and-a-get-free-consultation-golden-yellow-button-on-the-far-right-remove-grievance-and-signup-from-the-primary-nav-links-if-present-in-top-bar-they-can-remain-accessible-through-other-means",
+      "title": "Redesign the Navigation bar to match the uploaded screenshots: dark navy (#0a1628) background, 'YMW' logo text in golden yellow with 'Compliance Services' in white and tagline 'Your Trusted Business Partner' in light gray below, navigation links (Home, Services with dropdown indicator, About, Blog, Contact, Social Media) in white, a phone number '+91 8102906339' with phone icon on the right, and a 'Get Free Consultation' golden yellow button on the far right. Remove Grievance and Signup from the primary nav links if present in top bar (they can remain accessible through other means).",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-footer-component-to-use-the-dark-navy-0a1628-background-with-golden-yellow-f5c518-accent-for-headings-and-links-white-body-text-matching-the-overall-dark-navy-golden-yellow-theme-applied-site-wide",
+      "title": "Update the Footer component to use the dark navy (#0a1628) background with golden yellow (#f5c518) accent for headings and links, white body text, matching the overall dark navy + golden yellow theme applied site-wide.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-tanstack-query-mutation-hook-usesubmitconsultationrequest-in-frontend-src-hooks-usequeries-ts-that-calls-the-backend-submitconsultationrequest-function-wire-this-hook-to-the-consultation-form-in-the-home-page-hero-card-so-that-on-submission-it-calls-the-backend-shows-a-success-toast-message-and-resets-the-form",
+      "title": "Add a TanStack Query mutation hook useSubmitConsultationRequest in frontend/src/hooks/useQueries.ts that calls the backend submitConsultationRequest function. Wire this hook to the consultation form in the Home page hero card so that on submission it calls the backend, shows a success toast/message, and resets the form.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-dark-navy-background-color-0a1628-0d1f3c-is-consistently-applied-across-all-pages-home-about-services-blog-contact-grievance-social-media-and-signup-with-no-page-defaulting-to-a-white-light-or-different-background-color-no-page-level-background-overrides-should-deviate-from-the-global-dark-navy-theme",
+      "title": "Ensure the dark navy background color (#0a1628 / #0d1f3c) is consistently applied across all pages — Home, About, Services, Blog, Contact, Grievance, Social Media, and Signup — with no page defaulting to a white, light, or different background color. No page-level background overrides should deviate from the global dark navy theme.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-same-font-family-as-currently-configured-in-the-global-stylesheet-tailwind-config-is-consistently-applied-across-all-pages-home-about-services-blog-contact-grievance-social-media-and-signup-with-no-page-or-component-overriding-the-global-font-to-a-different-typeface",
+      "title": "Ensure the same font family (as currently configured in the global stylesheet/Tailwind config) is consistently applied across all pages — Home, About, Services, Blog, Contact, Grievance, Social Media, and Signup — with no page or component overriding the global font to a different typeface.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-floating-whatsapp-button-fixed-to-the-bottom-right-corner-of-every-page-visible-on-all-routes-the-button-should-display-the-whatsapp-svg-icon-in-white-on-a-green-22c55e-circular-background-link-to-https-wa-me-918102906339-open-in-a-new-tab-and-include-a-tooltip-label-chat-on-whatsapp-it-must-sit-above-the-floating-call-now-button-z-index-stacking-and-be-fully-touch-friendly-minimum-56px-tap-target",
+      "title": "Add a floating WhatsApp button fixed to the bottom-right corner of every page, visible on all routes. The button should display the WhatsApp SVG icon in white on a green (#22c55e) circular background, link to 'https://wa.me/918102906339', open in a new tab, and include a tooltip label 'Chat on WhatsApp'. It must sit above the floating Call Now button (z-index stacking) and be fully touch-friendly (minimum 56px tap target).",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-floating-call-now-button-fixed-to-the-bottom-right-corner-of-every-page-positioned-just-above-or-adjacent-to-the-whatsapp-floating-button-the-button-should-display-a-phone-icon-and-the-label-call-now-link-to-tel-9279242122-use-the-golden-yellow-f5c518-background-with-dark-navy-text-and-be-at-least-56px-tall-place-both-floating-action-buttons-in-a-shared-floatingcta-component-rendered-inside-the-layout-wrapper-so-they-appear-on-every-page-without-duplicating-code",
+      "title": "Add a floating 'Call Now' button fixed to the bottom-right corner of every page, positioned just above or adjacent to the WhatsApp floating button. The button should display a phone icon and the label 'Call Now', link to 'tel:9279242122', use the golden yellow (#f5c518) background with dark navy text, and be at least 56px tall. Place both floating action buttons in a shared FloatingCTA component rendered inside the Layout wrapper so they appear on every page without duplicating code.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-reusable-consultationpopup-modal-component-that-auto-triggers-after-a-5-second-delay-on-first-page-load-using-sessionstorage-to-prevent-re-showing-after-the-user-has-dismissed-or-submitted-it-in-the-same-session-the-modal-should-contain-the-same-consultation-form-fields-as-the-hero-card-full-name-phone-number-91-prefix-select-service-dropdown-all-15-services-city-state-and-a-golden-yellow-get-free-consultation-submit-button-on-submission-call-the-existing-usesubmitconsultationrequest-hook-show-a-success-message-and-close-the-modal-include-an-x-close-button-the-modal-must-render-inside-the-layout-wrapper-and-appear-on-all-pages",
+      "title": "Create a reusable ConsultationPopup modal component that auto-triggers after a 5-second delay on first page load (using sessionStorage to prevent re-showing after the user has dismissed or submitted it in the same session). The modal should contain the same consultation form fields as the hero card: Full Name, Phone Number (+91 prefix), Select Service dropdown (all 15 services), City/State, and a golden yellow 'Get Free Consultation' submit button. On submission, call the existing useSubmitConsultationRequest hook, show a success message, and close the modal. Include an 'X' close button. The modal must render inside the Layout wrapper and appear on all pages.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-reusable-freeconsultationsection-component-containing-the-same-consultation-form-full-name-phone-number-with-91-prefix-select-service-dropdown-with-all-15-services-city-state-golden-yellow-submit-button-100-free-confidential-note-that-uses-the-usesubmitconsultationrequest-hook-embed-this-component-at-the-bottom-of-every-page-about-services-blog-contact-grievance-social-media-and-signup-so-every-page-offers-an-inline-free-consultation-form-above-the-footer",
+      "title": "Create a reusable FreeConsultationSection component containing the same consultation form (Full Name, Phone Number with +91 prefix, Select Service dropdown with all 15 services, City/State, golden yellow submit button, '100% Free & Confidential' note) that uses the useSubmitConsultationRequest hook. Embed this component at the bottom of every page: About, Services, Blog, Contact, Grievance, Social Media, and Signup — so every page offers an inline free consultation form above the footer.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-seo-meta-tags-to-the-site-for-india-targeted-compliance-and-registration-searches-update-frontend-index-html-to-include-a-descriptive-title-tag-ymw-compliance-services-business-registration-gst-iso-trademark-in-india-a-meta-name-description-with-india-targeted-compliance-keywords-open-graph-tags-og-title-og-description-og-type-og-url-og-image-pointing-to-the-hero-banner-asset-twitter-card-meta-tags-a-link-rel-canonical-tag-and-a-meta-name-keywords-tag-with-terms-like-business-registration-india-gst-registration-dhanbad-iso-certification-jharkhand-trademark-registration-india-compliance-services-india-also-add-a-json-ld-structured-data-script-block-of-type-localbusiness-with-ymw-compliance-services-details-name-address-dhanbad-jharkhand-phone-91-9279242122-url-and-description",
+      "title": "Add SEO meta tags to the site for India-targeted compliance and registration searches. Update frontend/index.html to include: a descriptive <title> tag ('YMW Compliance Services | Business Registration, GST, ISO, Trademark in India'), a <meta name='description'> with India-targeted compliance keywords, Open Graph tags (og:title, og:description, og:type, og:url, og:image pointing to the hero banner asset), Twitter Card meta tags, a <link rel='canonical'> tag, and a <meta name='keywords'> tag with terms like 'business registration India', 'GST registration Dhanbad', 'ISO certification Jharkhand', 'trademark registration India', 'compliance services India'. Also add a JSON-LD structured data script block of type 'LocalBusiness' with YMW Compliance Services details: name, address (Dhanbad, Jharkhand), phone (+91 9279242122), url, and description.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-optimize-the-frontend-for-fast-loading-apply-react-lazy-and-suspense-for-all-8-page-components-in-app-tsx-to-enable-route-based-code-splitting-add-loading-lazy-to-all-img-tags-across-all-pages-and-components-ensure-the-hero-banner-image-and-logo-are-preloaded-using-link-rel-preload-in-index-html-add-a-loading-skeleton-or-spinner-as-the-suspense-fallback-that-matches-the-dark-navy-theme-ensure-no-unused-css-or-large-synchronous-imports-block-initial-render",
+      "title": "Optimize the frontend for fast loading: apply React.lazy() and Suspense for all 8 page components in App.tsx to enable route-based code splitting. Add loading='lazy' to all <img> tags across all pages and components. Ensure the hero banner image and logo are preloaded using <link rel='preload'> in index.html. Add a loading skeleton or spinner as the Suspense fallback that matches the dark navy theme. Ensure no unused CSS or large synchronous imports block initial render.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-pages-and-shared-components-navigation-footer-floatingcta-freeconsultationsection-consultationpopup-are-fully-mobile-responsive-and-touch-friendly-audit-and-fix-navigation-hamburger-menu-must-work-on-all-screen-sizes-all-form-inputs-must-be-at-least-44px-tall-on-mobile-all-grid-layouts-services-about-why-choose-us-stats-must-stack-to-a-single-column-on-screens-640px-floating-cta-buttons-must-not-overlap-form-submit-buttons-or-nav-elements-all-cards-and-sections-must-have-appropriate-padding-on-small-screens-text-must-not-overflow-or-truncate-incorrectly-on-mobile-viewports",
+      "title": "Ensure all pages and shared components (Navigation, Footer, FloatingCTA, FreeConsultationSection, ConsultationPopup) are fully mobile-responsive and touch-friendly. Audit and fix: Navigation hamburger menu must work on all screen sizes; all form inputs must be at least 44px tall on mobile; all grid layouts (services, about, why-choose-us, stats) must stack to a single column on screens < 640px; floating CTA buttons must not overlap form submit buttons or nav elements; all cards and sections must have appropriate padding on small screens; text must not overflow or truncate incorrectly on mobile viewports.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-make-the-site-google-ads-landing-page-ready-add-a-utm-parameter-reader-utility-or-extend-the-existing-frontend-src-utils-urlparams-ts-that-captures-utm-source-utm-medium-utm-campaign-utm-term-and-utm-content-from-the-url-on-page-load-and-persists-them-to-sessionstorage-pre-fill-the-consultation-forms-hero-card-freeconsultationsection-consultationpopup-with-a-hidden-utm-source-field-and-include-utm-data-in-the-form-submission-payload-extend-the-usesubmitconsultationrequest-hook-and-corresponding-backend-call-to-accept-an-optional-utmsource-text-field-add-a-prominent-get-free-consultation-cta-button-at-the-top-of-the-services-page-and-about-page-that-scrolls-to-or-opens-the-inline-consultation-form-ensure-all-pages-have-a-clear-singular-cta-above-the-fold-suitable-for-paid-traffic-conversion",
+      "title": "Make the site Google Ads landing-page ready: add a UTM parameter reader utility (or extend the existing frontend/src/utils/urlParams.ts) that captures utm_source, utm_medium, utm_campaign, utm_term, and utm_content from the URL on page load and persists them to sessionStorage. Pre-fill the consultation forms (hero card, FreeConsultationSection, ConsultationPopup) with a hidden utm_source field and include UTM data in the form submission payload (extend the useSubmitConsultationRequest hook and corresponding backend call to accept an optional utmSource text field). Add a prominent 'Get Free Consultation' CTA button at the top of the Services page and About page that scrolls to or opens the inline consultation form. Ensure all pages have a clear, singular CTA above the fold suitable for paid traffic conversion.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-services-page-frontend-src-pages-services-tsx-to-display-all-15-services-as-cards-business-registration-tax-gst-iso-certification-compliance-service-government-license-government-registration-labour-department-startup-service-fssai-license-trademark-registration-pollution-control-board-tender-services-digital-signature-certificate-agreement-contract-and-small-business-support-service-ensure-no-service-is-hidden-truncated-or-cut-off-all-15-cards-must-be-fully-visible-and-rendered-in-the-grid",
+      "title": "Update the Services page (frontend/src/pages/Services.tsx) to display all 15 services as cards: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, and Small Business Support Service. Ensure no service is hidden, truncated, or cut off — all 15 cards must be fully visible and rendered in the grid.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-services-preview-section-on-the-home-page-frontend-src-pages-home-tsx-to-display-all-15-services-as-cards-or-grid-items-business-registration-tax-gst-iso-certification-compliance-service-government-license-government-registration-labour-department-startup-service-fssai-license-trademark-registration-pollution-control-board-tender-services-digital-signature-certificate-agreement-contract-and-small-business-support-service-ensure-no-service-is-hidden-truncated-or-cut-off-all-15-items-must-be-fully-visible-include-the-existing-view-all-services-button-linking-to-services",
+      "title": "Update the Services Preview section on the Home page (frontend/src/pages/Home.tsx) to display all 15 services as cards or grid items: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, and Small Business Support Service. Ensure no service is hidden, truncated, or cut off — all 15 items must be fully visible. Include the existing 'View All Services' button linking to /services.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-why-choose-us-stats-section-on-the-home-page-frontend-src-pages-home-tsx-to-display-the-following-four-stat-highlights-15-000-happy-clients-100-services-offered-12-years-experience-and-5-client-rating-replace-any-previous-stat-values-e-g-20-000-happy-clients-15-years-experience-with-these-exact-updated-figures-all-four-stats-must-be-fully-visible-as-prominently-styled-stat-cards-or-badges-consistent-with-the-dark-navy-golden-yellow-theme",
+      "title": "Update the 'Why Choose Us' stats section on the Home page (frontend/src/pages/Home.tsx) to display the following four stat highlights: '15,000+ Happy Clients', '100+ Services Offered', '12+ Years Experience', and '5* Client Rating'. Replace any previous stat values (e.g., '20,000+ Happy Clients', '15+ Years Experience') with these exact updated figures. All four stats must be fully visible as prominently styled stat cards or badges consistent with the dark navy + golden yellow theme.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-an-our-strengths-section-to-the-home-page-frontend-src-pages-home-tsx-positioned-between-the-why-choose-us-stats-section-and-the-contact-preview-section-the-section-should-have-the-heading-our-strengths-sub-heading-why-15-000-businesses-trust-ymw-and-a-descriptor-line-we-bring-expertise-speed-and-transparency-to-every-compliance-need-display-six-strength-cards-in-a-responsive-grid-3-columns-on-desktop-2-on-tablet-1-on-mobile-with-the-following-entries-1-expert-professionals-ca-cs-legal-experts-with-years-of-industry-experience-2-pan-india-service-serving-clients-across-all-28-states-union-territories-3-affordable-pricing-transparent-pricing-with-no-hidden-charges-whatsoever-4-fast-processing-quick-turnaround-with-dedicated-relationship-managers-5-end-to-end-support-from-registration-to-annual-compliance-we-re-with-you-6-100-online-process-submit-documents-track-status-from-anywhere-online-each-card-should-include-a-relevant-icon-e-g-a-briefcase-for-expert-professionals-a-map-pin-for-pan-india-service-a-tag-for-affordable-pricing-a-clock-for-fast-processing-a-shield-for-end-to-end-support-a-globe-cloud-for-100-online-process-the-title-in-white-golden-yellow-and-the-description-in-light-gray-style-consistent-with-the-dark-navy-0a1628-background-and-golden-yellow-f5c518-accent-theme",
+      "title": "Add an 'Our Strengths' section to the Home page (frontend/src/pages/Home.tsx), positioned between the 'Why Choose Us' stats section and the Contact Preview section. The section should have the heading 'Our Strengths', sub-heading 'Why 15,000+ Businesses Trust YMW', and a descriptor line 'We bring expertise, speed, and transparency to every compliance need'. Display six strength cards in a responsive grid (3 columns on desktop, 2 on tablet, 1 on mobile) with the following entries: (1) 'Expert Professionals' — 'CA, CS & legal experts with years of industry experience'; (2) 'Pan India Service' — 'Serving clients across all 28 states & Union Territories'; (3) 'Affordable Pricing' — 'Transparent pricing with no hidden charges whatsoever'; (4) 'Fast Processing' — 'Quick turnaround with dedicated relationship managers'; (5) 'End-to-End Support' — 'From registration to annual compliance, we're with you'; (6) '100% Online Process' — 'Submit documents & track status from anywhere online'. Each card should include a relevant icon (e.g., a briefcase for Expert Professionals, a map pin for Pan India Service, a tag for Affordable Pricing, a clock for Fast Processing, a shield for End-to-End Support, a globe/cloud for 100% Online Process), the title in white/golden yellow, and the description in light gray. Style consistent with the dark navy (#0a1628) background and golden yellow (#f5c518) accent theme.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-get-in-touch-cta-section-on-the-home-page-frontend-src-pages-home-tsx-to-exactly-match-the-uploaded-screenshot-image-2-png-solid-golden-yellow-f5c518-full-width-background-large-bold-dark-navy-0a1628-heading-ready-to-start-your-business-journey-using-the-same-poppins-inter-font-as-the-rest-of-the-site-a-subtitle-in-dark-navy-get-expert-guidance-today-100-free-consultation-no-obligations-three-horizontally-arranged-cta-buttons-1-get-free-consultation-with-a-phone-icon-on-dark-navy-0a1628-background-with-white-text-2-call-91-8102906339-9279242122-with-a-phone-icon-on-dark-navy-0a1628-background-with-white-text-where-the-call-button-links-to-tel-9279242122-3-whatsapp-us-with-a-whatsapp-message-icon-on-green-22c55e-background-with-white-text-linking-to-https-wa-me-918102906339-opening-in-a-new-tab-and-three-trust-badge-lines-below-the-buttons-no-registration-fee-expert-advice-response-within-30-minutes-in-dark-navy-text-all-text-fonts-and-button-styles-must-be-consistent-with-the-rest-of-the-site-poppins-inter-font-family-the-section-must-be-fully-responsive-buttons-stack-vertically-on-mobile-screens-640px-do-not-alter-any-other-section-on-the-home-page",
+      "title": "Redesign the 'Get in Touch' / CTA section on the Home page (frontend/src/pages/Home.tsx) to exactly match the uploaded screenshot (image-2.png): solid golden yellow (#f5c518) full-width background, large bold dark navy (#0a1628) heading 'Ready to Start Your Business Journey?' using the same Poppins/Inter font as the rest of the site, a subtitle in dark navy 'Get expert guidance today — 100% free consultation, no obligations', three horizontally-arranged CTA buttons: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text — where the call button links to tel:9279242122, (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab, and three trust badge lines below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. All text, fonts, and button styles must be consistent with the rest of the site (Poppins/Inter font family). The section must be fully responsive — buttons stack vertically on mobile screens < 640px. Do not alter any other section on the Home page.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -190,6 +356,98 @@
     {
       "id": "AR-10",
       "summary": "Update Home page with: Hero Section (YMW Compliance Services title, India's #1 subtitle, Contact Us + WhatsApp Now buttons), About Preview section, Services Preview (15 services listed), Why Choose Us stats (20,000+ clients, 15+ years, 5-star rating), Contact Preview (phone/WhatsApp numbers, business hours)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Apply dark navy (#0a1628) + golden yellow (#f5c518) color scheme across entire website, matching user-provided screenshots",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Store the free consultation form submissions from the Home page hero section in the Motoko backend. Add a new data type and stable storage for consultation requests containing: fullName (Text), phoneNumber (Text), selectedService (Text), cityState (Text), and a timestamp. Expose a submitConsultationRequest update function that stores the entry and returns a unique ID.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Keep background color (dark navy #0a1628) and font consistent across all pages — do not change them",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add a floating WhatsApp button visible on all pages linking to WhatsApp number 8102906339",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Add a floating 'Call Now' button visible on all pages linking to phone number 92792 42122",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Add a popup/modal consultation form that appears on page load or after a delay, with the same fields as the hero consultation form",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Embed a free consultation form on every page (About, Services, Blog, Contact, Grievance, Social Media, Signup) — not just the Home page hero",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "SEO optimization for India searches: add meta tags, Open Graph tags, structured data (JSON-LD), sitemap, and India-targeted keywords across all pages",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Performance/fast loading optimization: lazy loading images, code splitting, minification, and Lighthouse score improvements",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Mobile optimization: ensure all pages and components are fully responsive and touch-friendly across all screen sizes",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Google Ads landing page readiness: add conversion tracking hooks, clear CTAs, fast load, and structured layout suitable for Google Ads campaigns targeting compliance/registration services in India",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Fix services display — all 15 services must be fully visible on the Services page and Services Preview section; none should be hidden or cut off",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Update 'Why Choose Us' stats to: 15,000+ Happy Clients, 100+ Services Offered, 12+ Years Experience, 5* Client Rating",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Add 'Our Strengths' section on Home page: heading 'Why 15,000+ Businesses Trust YMW', subheading 'We bring expertise, speed, and transparency to every compliance need', with 6 strength cards: Expert Professionals, Pan India Service, Affordable Pricing, Fast Processing, End-to-End Support, 100% Online Process",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Update the 'Get in Touch' / CTA section on the Home page to match the user's screenshot exactly: heading 'Ready to Start Your Business Journey?', subheading '100% free consultation, no obligations', three CTA buttons: 'Get Free Consultation' (yellow), 'Call: +91 8102906339 / 9279242122' (dark outline), 'WhatsApp Us' (green), and three trust badges: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes'. Must use the same font and color scheme as the rest of the site (dark navy background, golden yellow accent, white text).",
       "reqIds": [],
       "status": "pending"
     }

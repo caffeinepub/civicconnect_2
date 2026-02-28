@@ -34,6 +34,15 @@ export interface Grievance {
     email: string;
     category: GrievanceCategory;
 }
+export interface ConsultationRequest {
+    id: string;
+    cityState: string;
+    fullName: string;
+    utmSource?: string;
+    selectedService: string;
+    timestamp: Timestamp;
+    phoneNumber: string;
+}
 export interface UserProfile {
     name: string;
     email: string;
@@ -59,10 +68,12 @@ export interface backendInterface {
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     listBlogPosts(): Promise<Array<BlogPost>>;
+    listConsultationRequests(): Promise<Array<ConsultationRequest>>;
     listContactMessages(): Promise<Array<ContactMessage>>;
     listGrievances(): Promise<Array<Grievance>>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
     signUpWithInternetIdentity(): Promise<Principal>;
+    submitConsultationRequest(fullName: string, phoneNumber: string, selectedService: string, cityState: string, utmSource: string | null): Promise<string>;
     submitContactMessage(name: string, email: string, subject: string, message: string): Promise<string>;
     submitGrievance(name: string, email: string, category: GrievanceCategory, description: string): Promise<string>;
 }

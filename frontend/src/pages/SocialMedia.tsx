@@ -1,173 +1,130 @@
+import React from 'react';
 import { ExternalLink } from 'lucide-react';
 import { SiX, SiFacebook, SiInstagram, SiLinkedin, SiYoutube, SiGithub } from 'react-icons/si';
+import FreeConsultationSection from '../components/FreeConsultationSection';
 
-const platforms = [
+const PLATFORMS = [
   {
     name: 'X (Twitter)',
-    handle: '@CivicConnect',
-    description: 'Follow us for real-time civic updates, news, and community announcements.',
-    icon: SiX,
-    url: 'https://x.com/civicconnect',
+    icon: <SiX className="w-7 h-7" />,
+    handle: '@ymwcompliance',
+    followers: '2.1K',
+    desc: 'Latest compliance news, regulatory updates, and business tips.',
+    url: 'https://twitter.com/ymwcompliance',
     color: '#000000',
-    bg: 'oklch(0.15 0 0 / 0.08)',
-    border: 'oklch(0.15 0 0 / 0.15)',
-    followers: '8.2K',
   },
   {
     name: 'Facebook',
-    handle: 'CivicConnect Official',
-    description: 'Join our Facebook community for discussions, events, and local news.',
-    icon: SiFacebook,
-    url: 'https://facebook.com/civicconnect',
+    icon: <SiFacebook className="w-7 h-7" />,
+    handle: 'YMW Compliance Services',
+    followers: '5.4K',
+    desc: 'Connect with us for compliance guides, success stories, and offers.',
+    url: 'https://facebook.com/ymwcompliance',
     color: '#1877F2',
-    bg: 'oklch(0.55 0.2 260 / 0.08)',
-    border: 'oklch(0.55 0.2 260 / 0.2)',
-    followers: '15.4K',
   },
   {
     name: 'Instagram',
-    handle: '@civicconnect_official',
-    description: 'Visual stories from our community — events, milestones, and behind-the-scenes.',
-    icon: SiInstagram,
-    url: 'https://instagram.com/civicconnect_official',
-    color: '#E1306C',
-    bg: 'oklch(0.60 0.2 350 / 0.08)',
-    border: 'oklch(0.60 0.2 350 / 0.2)',
-    followers: '6.8K',
+    icon: <SiInstagram className="w-7 h-7" />,
+    handle: '@ymwcompliance',
+    followers: '3.2K',
+    desc: 'Visual compliance tips, infographics, and behind-the-scenes.',
+    url: 'https://instagram.com/ymwcompliance',
+    color: '#E4405F',
   },
   {
     name: 'LinkedIn',
-    handle: 'CivicConnect',
-    description: 'Professional updates, partnerships, and civic leadership content.',
-    icon: SiLinkedin,
-    url: 'https://linkedin.com/company/civicconnect',
+    icon: <SiLinkedin className="w-7 h-7" />,
+    handle: 'YMW Compliance Services',
+    followers: '4.8K',
+    desc: 'Professional network for business owners and compliance professionals.',
+    url: 'https://linkedin.com/company/ymwcompliance',
     color: '#0A66C2',
-    bg: 'oklch(0.50 0.18 255 / 0.08)',
-    border: 'oklch(0.50 0.18 255 / 0.2)',
-    followers: '4.1K',
   },
   {
     name: 'YouTube',
-    handle: 'CivicConnect TV',
-    description: 'Watch town halls, tutorials, and community event recordings.',
-    icon: SiYoutube,
-    url: 'https://youtube.com/@civicconnect',
+    icon: <SiYoutube className="w-7 h-7" />,
+    handle: 'YMW Compliance',
+    followers: '1.9K',
+    desc: 'Video tutorials on GST, company registration, and compliance.',
+    url: 'https://youtube.com/@ymwcompliance',
     color: '#FF0000',
-    bg: 'oklch(0.60 0.25 25 / 0.08)',
-    border: 'oklch(0.60 0.25 25 / 0.2)',
-    followers: '3.5K',
   },
   {
     name: 'GitHub',
-    handle: 'civicconnect-org',
-    description: 'Explore our open-source civic tech projects and contribute to the community.',
-    icon: SiGithub,
-    url: 'https://github.com/civicconnect-org',
-    color: '#24292F',
-    bg: 'oklch(0.25 0 0 / 0.08)',
-    border: 'oklch(0.25 0 0 / 0.15)',
-    followers: '1.2K',
+    icon: <SiGithub className="w-7 h-7" />,
+    handle: 'ymwcompliance',
+    followers: '320',
+    desc: 'Open source compliance tools and resources for businesses.',
+    url: 'https://github.com/ymwcompliance',
+    color: '#333333',
   },
 ];
 
 export default function SocialMedia() {
   return (
-    <div className="animate-fade-in">
+    <div style={{ backgroundColor: '#0a1628' }}>
       {/* Page Hero */}
-      <section className="page-hero py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1
-            className="text-4xl sm:text-5xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+      <section
+        className="py-16 px-4 text-center"
+        style={{ background: 'linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%)' }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <span
+            className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+            style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
           >
-            Connect With Us
+            Social Media
+          </span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            Follow Us on <span style={{ color: '#f5c518' }}>Social Media</span>
           </h1>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'oklch(0.88 0.04 195)' }}>
-            Follow CivicConnect on social media to stay informed and engaged with your community.
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            Stay connected for the latest compliance updates, tips, and business insights.
           </p>
         </div>
       </section>
 
-      {/* Social Media Grid */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="section-heading text-3xl sm:text-4xl mb-4">Our Social Channels</h2>
-            <p className="section-subheading max-w-xl mx-auto">
-              Stay connected across all platforms. Join the conversation and be part of the civic movement.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {platforms.map((platform) => {
-              const Icon = platform.icon;
-              return (
-                <div key={platform.name} className="civic-card p-6 flex flex-col group">
-                  <div className="flex items-start justify-between mb-4">
-                    <div
-                      className="w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
-                      style={{ backgroundColor: platform.bg, border: `1px solid ${platform.border}` }}
-                    >
-                      <Icon size={26} style={{ color: platform.color }} />
-                    </div>
-                    <span
-                      className="text-xs font-semibold px-2.5 py-1 rounded-full"
-                      style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.08)', color: 'oklch(var(--civic-teal))' }}
-                    >
-                      {platform.followers} followers
-                    </span>
-                  </div>
-
-                  <h3 className="font-semibold text-base text-foreground mb-0.5">{platform.name}</h3>
-                  <p className="text-xs font-medium mb-3" style={{ color: 'oklch(var(--civic-teal))' }}>
-                    {platform.handle}
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground flex-1 mb-5">
-                    {platform.description}
-                  </p>
-
-                  <a
-                    href={platform.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2 text-sm font-semibold border-2 transition-all duration-200 hover:text-white"
-                    style={{
-                      borderColor: platform.color,
-                      color: platform.color,
-                    }}
-                    onMouseEnter={(e) => {
-                      (e.currentTarget as HTMLAnchorElement).style.backgroundColor = platform.color;
-                      (e.currentTarget as HTMLAnchorElement).style.color = 'white';
-                    }}
-                    onMouseLeave={(e) => {
-                      (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'transparent';
-                      (e.currentTarget as HTMLAnchorElement).style.color = platform.color;
-                    }}
-                  >
-                    Follow Us
-                    <ExternalLink size={14} />
-                  </a>
+      {/* Social Media Cards */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {PLATFORMS.map((platform) => (
+            <a
+              key={platform.name}
+              href={platform.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group p-6 rounded-2xl flex flex-col gap-4 hover:scale-105 transition-transform duration-200"
+              style={{
+                backgroundColor: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                textDecoration: 'none',
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: platform.color, color: '#fff' }}
+                >
+                  {platform.icon}
                 </div>
-              );
-            })}
-          </div>
+                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-gray-300 transition-colors" />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white mb-1">{platform.name}</h3>
+                <p className="text-sm font-medium mb-2" style={{ color: '#f5c518' }}>{platform.handle}</p>
+                <p className="text-sm text-gray-400">{platform.desc}</p>
+              </div>
+              <div className="flex items-center gap-2 mt-auto">
+                <span className="text-xl font-bold text-white">{platform.followers}</span>
+                <span className="text-xs text-gray-400">followers</span>
+              </div>
+            </a>
+          ))}
         </div>
       </section>
 
-      {/* Community Banner */}
-      <section className="py-16" style={{ backgroundColor: 'oklch(var(--civic-green-light))' }}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2
-            className="text-3xl font-bold mb-4"
-            style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-          >
-            Join the Conversation
-          </h2>
-          <p className="text-base leading-relaxed max-w-xl mx-auto" style={{ color: 'oklch(var(--civic-slate))' }}>
-            Use <strong>#CivicConnect</strong> when sharing community stories, local issues, or civic achievements. Together, we amplify the voices that matter.
-          </p>
-        </div>
-      </section>
+      {/* Free Consultation Section */}
+      <FreeConsultationSection />
     </div>
   );
 }

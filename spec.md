@@ -1,13 +1,18 @@
 # Specification
 
 ## Summary
-**Goal:** Update the Home page of YMW Compliance Services with multiple content sections: a Hero section, About Preview, Services Preview, Why Choose Us, and Contact Preview.
+**Goal:** Redesign the "Get in Touch" CTA section on the Home page to match the provided screenshot with a golden yellow background, bold navy heading, three CTA buttons, and trust badges.
 
 **Planned changes:**
-- Update the Hero section with title "YMW Compliance Services", subtitle "India's #1 Trusted Compliance & Registration Partner", a "Contact Us" button linking to /contact, and a "WhatsApp Now" button linking to WhatsApp number 8102906339
-- Add an About Preview section with heading "Dhanbad's Most Trusted Compliance Partner", three descriptive paragraphs about YMW Compliance Services LLP, and a "Learn More" button linking to /about
-- Add a Services Preview section displaying all 15 services as cards/grid (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service) with a "View All Services" button linking to /services
-- Add a "Why Choose Us" section displaying three stat highlights: "20,000+ Happy Clients", "15+ Years Experience", and "5 Star Rating" as prominent stat cards
-- Add a Contact Preview section showing phone numbers (92792 42122, 9241136368), WhatsApp numbers (8102906339, 8102901690), business hours (Mon–Sat: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed), and a "Contact Us" button linking to /contact
+- Replace the existing CTA/Get in Touch section background with solid golden yellow (`#f5c518`) full-width
+- Display bold dark navy (`#0a1628`) heading: "Ready to Start Your Business Journey?" using the site's existing Poppins/Inter font
+- Add subtitle in dark navy: "Get expert guidance today — 100% free consultation, no obligations"
+- Add three horizontally-arranged CTA buttons:
+  - "Get Free Consultation" — dark navy background, white text, phone icon
+  - "Call: +91 8102906339 / 9279242122" — dark navy background, white text, phone icon, links to `tel:9279242122`
+  - "WhatsApp Us" — green (`#22c55e`) background, white text, WhatsApp icon, links to `https://wa.me/918102906339` (opens in new tab)
+- Add three trust badge lines below buttons in dark navy: "✓ No registration fee", "✓ Expert advice", "✓ Response within 30 minutes"
+- On mobile screens (< 640px), buttons stack vertically
+- No other section on the Home page is modified
 
-**User-visible outcome:** The Home page will display a fully populated set of sections covering the hero, about summary, services overview, key stats, and contact details, giving visitors a comprehensive introduction to YMW Compliance Services.
+**User-visible outcome:** The Home page CTA section displays a vibrant golden yellow banner with a bold navy heading, subtitle, three action buttons (consultation, call, WhatsApp), and trust badges, fully responsive on all screen sizes.

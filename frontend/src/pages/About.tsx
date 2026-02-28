@@ -1,178 +1,156 @@
-import { Eye, Target, Users, Lightbulb, Scale, Heart } from 'lucide-react';
+import React from 'react';
+import { Link } from '@tanstack/react-router';
+import { ArrowRight, Users, Award, Clock, Target, Heart, Shield, Zap, Star } from 'lucide-react';
+import FreeConsultationSection from '../components/FreeConsultationSection';
 
-const coreValues = [
-  {
-    icon: Eye,
-    title: 'Transparency',
-    description: 'We believe in open governance and making information accessible to every community member.',
-    color: 'oklch(var(--civic-teal))',
-    bg: 'oklch(var(--civic-teal) / 0.08)',
-  },
-  {
-    icon: Scale,
-    title: 'Accountability',
-    description: 'Holding institutions and individuals responsible for their actions and commitments to the public.',
-    color: 'oklch(var(--civic-green))',
-    bg: 'oklch(var(--civic-green) / 0.08)',
-  },
-  {
-    icon: Users,
-    title: 'Community',
-    description: 'Fostering a sense of belonging and collective responsibility among all community members.',
-    color: 'oklch(0.55 0.15 250)',
-    bg: 'oklch(0.55 0.15 250 / 0.08)',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Innovation',
-    description: 'Embracing technology and creative solutions to improve civic engagement and public services.',
-    color: 'oklch(0.60 0.16 30)',
-    bg: 'oklch(0.60 0.16 30 / 0.08)',
-  },
-  {
-    icon: Heart,
-    title: 'Inclusivity',
-    description: 'Ensuring every voice is heard and every community member has equal access to civic resources.',
-    color: 'oklch(0.60 0.18 350)',
-    bg: 'oklch(0.60 0.18 350 / 0.08)',
-  },
-  {
-    icon: Target,
-    title: 'Impact',
-    description: 'Measuring success by the tangible improvements we create in people\'s daily lives.',
-    color: 'oklch(0.55 0.14 280)',
-    bg: 'oklch(0.55 0.14 280 / 0.08)',
-  },
+const CORE_VALUES = [
+  { icon: <Target className="w-6 h-6" />, title: 'Mission-Driven', desc: 'We exist to simplify compliance for every Indian business, big or small.' },
+  { icon: <Heart className="w-6 h-6" />, title: 'Client-First', desc: 'Your success is our success. We go above and beyond for every client.' },
+  { icon: <Shield className="w-6 h-6" />, title: 'Integrity', desc: 'Transparent pricing, honest advice, and ethical practices always.' },
+  { icon: <Zap className="w-6 h-6" />, title: 'Speed', desc: 'Fast turnaround times without compromising on quality or accuracy.' },
+  { icon: <Award className="w-6 h-6" />, title: 'Excellence', desc: 'Certified professionals delivering world-class compliance services.' },
+  { icon: <Star className="w-6 h-6" />, title: 'Innovation', desc: 'Leveraging technology to make compliance faster and more affordable.' },
 ];
 
-const team = [
-  { name: 'Sarah Mitchell', role: 'Executive Director', initials: 'SM' },
-  { name: 'James Okafor', role: 'Community Outreach Lead', initials: 'JO' },
-  { name: 'Priya Sharma', role: 'Technology Director', initials: 'PS' },
-  { name: 'Carlos Rivera', role: 'Policy Advisor', initials: 'CR' },
+const TEAM = [
+  { name: 'Rajesh Kumar', role: 'Founder & CEO', exp: '15+ years in compliance' },
+  { name: 'Priya Sharma', role: 'Head of GST', exp: 'CA with 10+ years experience' },
+  { name: 'Amit Singh', role: 'Legal Advisor', exp: 'CS & LLB, 12+ years' },
+  { name: 'Sunita Devi', role: 'Client Relations', exp: '8+ years in client services' },
 ];
 
 export default function About() {
+  const scrollToConsultation = () => {
+    document.getElementById('free-consultation')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <div className="animate-fade-in">
+    <div style={{ backgroundColor: '#0a1628' }}>
       {/* Page Hero */}
-      <section className="page-hero py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1
-            className="text-4xl sm:text-5xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+      <section
+        className="py-16 px-4 text-center"
+        style={{ background: 'linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%)' }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <span
+            className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+            style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
           >
-            About CivicConnect
+            About Us
+          </span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            India's Trusted <span style={{ color: '#f5c518' }}>Compliance Partner</span>
           </h1>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'oklch(0.88 0.04 195)' }}>
-            Learn about our mission, our team, and the values that drive everything we do.
+          <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+            YMW Compliance Services has been helping businesses across India navigate the complex world of regulatory compliance since 2014.
+          </p>
+          {/* Prominent CTA above the fold */}
+          <button
+            onClick={scrollToConsultation}
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-opacity min-h-[52px]"
+            style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+          >
+            Get Free Consultation
+            <ArrowRight className="w-5 h-5" />
+          </button>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="py-12 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6">
+          {[
+            { value: '5000+', label: 'Happy Clients', icon: <Users className="w-6 h-6" /> },
+            { value: '15+', label: 'Services', icon: <Award className="w-6 h-6" /> },
+            { value: '10+', label: 'Years Experience', icon: <Clock className="w-6 h-6" /> },
+            { value: '28+', label: 'States Served', icon: <Target className="w-6 h-6" /> },
+          ].map((stat) => (
+            <div
+              key={stat.label}
+              className="flex flex-col items-center gap-2 p-6 rounded-2xl text-center"
+              style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+            >
+              <span style={{ color: '#f5c518' }}>{stat.icon}</span>
+              <span className="text-3xl font-extrabold text-white">{stat.value}</span>
+              <span className="text-sm text-gray-400">{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Mission */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0a1628' }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            Our <span style={{ color: '#f5c518' }}>Mission</span>
+          </h2>
+          <p className="text-lg text-gray-300 leading-relaxed">
+            To empower every Indian entrepreneur and business owner by making compliance simple, affordable, and accessible. We believe that no business should fail due to regulatory complexity — that's why we're here.
           </p>
         </div>
       </section>
 
-      {/* Mission Statement */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div
-                className="inline-block text-xs font-semibold uppercase tracking-widest mb-4 px-3 py-1 rounded-full"
-                style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.1)', color: 'oklch(var(--civic-teal))' }}
-              >
-                Our Mission
-              </div>
-              <h2 className="section-heading text-3xl sm:text-4xl mb-6">
-                Empowering Citizens, Strengthening Democracy
-              </h2>
-              <p className="text-base leading-relaxed text-muted-foreground mb-4">
-                CivicConnect was founded on the belief that a healthy democracy requires active, informed, and engaged citizens. We provide the digital infrastructure that makes civic participation accessible to everyone — regardless of background, technical ability, or location.
-              </p>
-              <p className="text-base leading-relaxed text-muted-foreground">
-                Our platform bridges the gap between government institutions and the communities they serve, creating a two-way channel for communication, feedback, and collaborative problem-solving.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { label: 'Founded', value: '2020' },
-                { label: 'Cities Served', value: '45+' },
-                { label: 'Active Users', value: '12K+' },
-                { label: 'Issues Resolved', value: '500+' },
-              ].map((item) => (
-                <div
-                  key={item.label}
-                  className="civic-card p-6 text-center"
-                >
-                  <div
-                    className="text-3xl font-bold mb-1"
-                    style={{ color: 'oklch(var(--civic-teal))', fontFamily: 'Playfair Display, Georgia, serif' }}
-                  >
-                    {item.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground font-medium">{item.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Core Values */}
-      <section className="py-20" style={{ backgroundColor: 'oklch(var(--civic-warm))' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="section-heading text-3xl sm:text-4xl mb-4">Our Core Values</h2>
-            <p className="section-subheading max-w-xl mx-auto">
-              These principles guide every decision we make and every feature we build.
-            </p>
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Our <span style={{ color: '#f5c518' }}>Core Values</span>
+            </h2>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {coreValues.map((value) => {
-              const Icon = value.icon;
-              return (
-                <div key={value.title} className="civic-card p-6 group">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-110"
-                    style={{ backgroundColor: value.bg }}
-                  >
-                    <Icon size={22} style={{ color: value.color }} />
-                  </div>
-                  <h3 className="font-semibold text-base mb-2 text-foreground">{value.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{value.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Team Section */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="section-heading text-3xl sm:text-4xl mb-4">Meet Our Team</h2>
-            <p className="section-subheading max-w-xl mx-auto">
-              Dedicated professionals committed to making civic engagement accessible and impactful.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map((member) => (
-              <div key={member.name} className="civic-card p-6 text-center group">
+            {CORE_VALUES.map((value) => (
+              <div
+                key={value.title}
+                className="p-6 rounded-2xl"
+                style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-white transition-transform duration-200 group-hover:scale-105"
-                  style={{ backgroundColor: 'oklch(var(--civic-teal))' }}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
                 >
-                  {member.initials}
+                  {value.icon}
                 </div>
-                <h3 className="font-semibold text-base text-foreground mb-1">{member.name}</h3>
-                <p className="text-sm text-muted-foreground">{member.role}</p>
+                <h3 className="text-lg font-bold text-white mb-2">{value.title}</h3>
+                <p className="text-sm text-gray-400">{value.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Team */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0a1628' }}>
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Meet Our <span style={{ color: '#f5c518' }}>Expert Team</span>
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {TEAM.map((member) => (
+              <div
+                key={member.name}
+                className="p-6 rounded-2xl text-center"
+                style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
+                >
+                  {member.name.charAt(0)}
+                </div>
+                <h3 className="text-base font-bold text-white mb-1">{member.name}</h3>
+                <p className="text-sm font-medium mb-1" style={{ color: '#f5c518' }}>{member.role}</p>
+                <p className="text-xs text-gray-400">{member.exp}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Free Consultation Section */}
+      <FreeConsultationSection />
     </div>
   );
 }

@@ -1,142 +1,50 @@
 {
   "kind": "build_request",
-  "title": "Update Home Page with YMW Compliance Services Content Sections",
+  "title": "Redesign 'Get in Touch' CTA section on Home page to match uploaded screenshot",
   "projectName": "YMW Compliance Services",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-12",
-      "text": "Update the Home page Hero Section with: Title 'YMW Compliance Services', Subtitle 'India's #1 Trusted Compliance & Registration Partner', and two CTA buttons — 'Contact Us' (links to /contact) and 'WhatsApp Now' (links to WhatsApp number 8102906339).",
+      "id": "REQ-37",
+      "text": "Redesign the 'Get in Touch' / CTA section on the Home page (frontend/src/pages/Home.tsx) to exactly match the uploaded screenshot (image-2.png): solid golden yellow (#f5c518) full-width background, large bold dark navy (#0a1628) heading 'Ready to Start Your Business Journey?' using the same Poppins/Inter font as the rest of the site, a subtitle in dark navy 'Get expert guidance today — 100% free consultation, no obligations', three horizontally-arranged CTA buttons: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text — where the call button links to tel:9279242122, (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab, and three trust badge lines below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. All text, fonts, and button styles must be consistent with the rest of the site (Poppins/Inter font family). The section must be fully responsive — buttons stack vertically on mobile screens < 640px. Do not alter any other section on the Home page.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-3"
+          "msg-4"
         ],
         "quotes": [
-          "Title: YMW Compliance Services",
-          "Subtitle: India's #1 Trusted Compliance & Registration Partner",
-          "Buttons: Contact Us, WhatsApp Now"
+          "Ready to Start Your Business Journey?",
+          "Get expert guidance today — 100% free consultation, no obligations",
+          "Get Free Consultation",
+          "Call: +91 8102906339 / 9279242122",
+          "WhatsApp Us",
+          "✓ No registration fee    ✓ Expert advice    ✓ Response within 30 minutes",
+          "Get in touch section ko upper maine jaisa screenshot diya h waisa likhe and same font and same colour ke saath"
         ]
       },
       "acceptanceCriteria": [
-        "Hero section displays 'YMW Compliance Services' as the main heading",
-        "'India's #1 Trusted Compliance & Registration Partner' is shown as the subtitle",
-        "'Contact Us' button navigates to the Contact page",
-        "'WhatsApp Now' button opens WhatsApp with number 8102906339 in a new tab"
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "text": "Add an About Preview section on the Home page with the heading 'Dhanbad's Most Trusted Compliance Partner' and the full descriptive text about YMW Compliance Services LLP, including details about being a Dhanbad, Jharkhand-based startup offering 100+ professional services, being a one-stop solution for legal registrations and compliance, and being a subsidiary of YMW Group under the leadership of Mr. Kundan Kumar with 15+ years of experience. Include a 'Learn More' button linking to the /about page.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Dhanbad's Most Trusted Compliance Partner",
-          "YMW Compliance Services LLP is a Dhanbad, Jharkhand-based startup dedicated to providing comprehensive compliance, licensing, and legal support solutions for businesses across India.",
-          "YMW Compliance Services LLP is a proud subsidiary of YMW Group, established under the leadership of Mr. Kundan Kumar"
-        ]
-      },
-      "acceptanceCriteria": [
-        "About Preview section appears on the Home page below the Hero section",
-        "Heading 'Dhanbad's Most Trusted Compliance Partner' is displayed",
-        "All three paragraphs of the about text are rendered",
-        "A 'Learn More' or similar CTA button links to the About page"
-      ]
-    },
-    {
-      "id": "REQ-14",
-      "text": "Add a Services Preview section on the Home page displaying all 15 services as cards or a grid: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Include a 'View All Services' button linking to /services.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Services Preview",
-          "Business Registration",
-          "Tax & GST",
-          "ISO Certification",
-          "Compliance Service",
-          "Government License",
-          "Government Registration",
-          "Labour Department",
-          "Startup Service",
-          "FSSAI License",
-          "Trademark Registration",
-          "Pollution Control Board",
-          "Tender Services",
-          "Digital Signature Certificate",
-          "Agreement & Contract",
-          "Small Business Support Service"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Services Preview section appears on the Home page",
-        "All 15 services are displayed as cards or grid items",
-        "Each service card shows the service name and a relevant icon",
-        "A 'View All Services' button links to the Services page"
-      ]
-    },
-    {
-      "id": "REQ-15",
-      "text": "Add a 'Why Choose Us' section on the Home page with three stat highlights: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating', displayed as visually prominent stat cards or badges.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Why Choose Us",
-          "20,000+ Happy Clients",
-          "15+ Years Experience",
-          "5 Star Rating"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Why Choose Us section appears on the Home page",
-        "Three stat items are displayed: '20,000+ Happy Clients', '15+ Years Experience', '5 Star Rating'",
-        "Stats are visually prominent and styled consistently with the site theme"
-      ]
-    },
-    {
-      "id": "REQ-16",
-      "text": "Add a Contact Preview section on the Home page displaying: Phone numbers 92792 42122 and 9241136368, WhatsApp numbers 8102906339 and 8102901690, and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Include a 'Contact Us' button linking to /contact.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-3"
-        ],
-        "quotes": [
-          "Contact Preview",
-          "Phone: 92792 42122 / 9241136368",
-          "WhatsApp: 8102906339 / 8102901690",
-          "Business hours: Monday to Saturday: 10:00 AM -- 6:30 PM",
-          "Sunday: Closed",
-          "National Holidays: Closed"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Contact Preview section appears on the Home page",
-        "Both phone numbers are displayed",
-        "Both WhatsApp numbers are displayed",
-        "Business hours are shown with Monday–Saturday, Sunday, and National Holidays entries",
-        "A 'Contact Us' button links to the Contact page"
+        "The 'Get in Touch' / CTA section on the Home page has a solid golden yellow (#f5c518) background across its full width.",
+        "The heading 'Ready to Start Your Business Journey?' is displayed in bold dark navy (#0a1628) using the same Poppins/Inter font family as the rest of the site, matching the screenshot style.",
+        "The subtitle 'Get expert guidance today — 100% free consultation, no obligations' is displayed in dark navy below the heading.",
+        "Three CTA buttons are visible side-by-side on desktop: 'Get Free Consultation' (dark navy background, white text, phone icon), 'Call: +91 8102906339 / 9279242122' (dark navy background, white text, phone icon linking to tel:9279242122), and 'WhatsApp Us' (green #22c55e background, white text, WhatsApp icon linking to https://wa.me/918102906339 in a new tab).",
+        "Three trust badges are displayed below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text.",
+        "On mobile screens (< 640px), the three buttons stack vertically.",
+        "No other section on the Home page is modified.",
+        "Font family matches the global Inter/Poppins configuration with no overrides."
       ]
     }
   ],
   "constraints": [
-    "All user-facing text must be in English exactly as provided",
-    "Do not modify backend data models or endpoints",
-    "Do not alter immutable frontend paths (hooks, main.tsx, ui components)",
-    "Preserve existing page structure and navigation"
+    "Use only the existing global font family (Inter/Poppins) — do not introduce any new typeface.",
+    "Do not modify any other section on the Home page.",
+    "Do not change the dark navy (#0a1628) background of the rest of the site — this change is isolated to the CTA section which has a golden yellow background.",
+    "Do not edit any immutable frontend paths."
   ],
   "nonGoals": [
-    "Modifying any other pages (About, Services, Contact, Blog, Grievance, Social Media, Signup)",
-    "Adding new backend endpoints",
-    "Changing the site-wide visual theme or navigation"
+    "Changing any other page or component besides the Home page CTA section.",
+    "Adding new backend endpoints or data models.",
+    "Modifying the hero section, services preview, stats section, or strengths section on the Home page.",
+    "Changing the global color theme or font configuration."
   ],
   "imageRequirements": {
     "required": [],

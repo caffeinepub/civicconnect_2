@@ -1,34 +1,51 @@
 import { Link } from '@tanstack/react-router';
-import { Heart, MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, Heart } from 'lucide-react';
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const appId = encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'civicconnect');
+  const appId = encodeURIComponent(typeof window !== 'undefined' ? window.location.hostname : 'ymw-compliance');
 
   return (
-    <footer className="border-t border-border" style={{ backgroundColor: 'oklch(var(--civic-teal-dark))' }}>
+    <footer
+      className="border-t border-white/10"
+      style={{ backgroundColor: 'oklch(0.10 0.05 255)' }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2.5 mb-4">
-              <img
-                src="/assets/generated/site-logo.dim_128x128.png"
-                alt="CivicConnect"
-                className="w-8 h-8 rounded-lg object-cover"
-              />
-              <span className="text-lg font-bold text-white" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-                CivicConnect
-              </span>
+            <div className="mb-4">
+              <div className="flex items-center gap-1 mb-1">
+                <span
+                  className="text-xl font-extrabold"
+                  style={{ color: 'oklch(0.82 0.18 85)', fontFamily: 'Playfair Display, Georgia, serif' }}
+                >
+                  YMW
+                </span>
+                <span
+                  className="text-xl font-bold text-white"
+                  style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+                >
+                  {' '}Compliance Services
+                </span>
+              </div>
+              <p className="text-xs" style={{ color: 'oklch(0.60 0.03 255)' }}>
+                Your Trusted Business Partner
+              </p>
             </div>
-            <p className="text-sm leading-relaxed" style={{ color: 'oklch(0.82 0.04 195)' }}>
-              Building stronger communities through civic engagement, transparency, and shared responsibility.
+            <p className="text-sm leading-relaxed" style={{ color: 'oklch(0.65 0.02 255)' }}>
+              India's #1 Trusted Compliance &amp; Registration Partner — helping businesses grow with expert guidance.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Quick Links</h4>
+            <h4
+              className="text-sm font-semibold mb-4 uppercase tracking-wider"
+              style={{ color: 'oklch(0.82 0.18 85)' }}
+            >
+              Quick Links
+            </h4>
             <ul className="space-y-2">
               {[
                 { label: 'Home', path: '/' },
@@ -40,7 +57,7 @@ export default function Footer() {
                   <Link
                     to={link.path}
                     className="text-sm transition-colors hover:text-white"
-                    style={{ color: 'oklch(0.78 0.05 195)' }}
+                    style={{ color: 'oklch(0.65 0.02 255)' }}
                   >
                     {link.label}
                   </Link>
@@ -51,7 +68,12 @@ export default function Footer() {
 
           {/* Support */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Support</h4>
+            <h4
+              className="text-sm font-semibold mb-4 uppercase tracking-wider"
+              style={{ color: 'oklch(0.82 0.18 85)' }}
+            >
+              Support
+            </h4>
             <ul className="space-y-2">
               {[
                 { label: 'Contact Us', path: '/contact' },
@@ -63,7 +85,7 @@ export default function Footer() {
                   <Link
                     to={link.path}
                     className="text-sm transition-colors hover:text-white"
-                    style={{ color: 'oklch(0.78 0.05 195)' }}
+                    style={{ color: 'oklch(0.65 0.02 255)' }}
                   >
                     {link.label}
                   </Link>
@@ -74,41 +96,60 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">Contact</h4>
+            <h4
+              className="text-sm font-semibold mb-4 uppercase tracking-wider"
+              style={{ color: 'oklch(0.82 0.18 85)' }}
+            >
+              Contact
+            </h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2.5">
-                <MapPin size={15} className="mt-0.5 shrink-0" style={{ color: 'oklch(0.72 0.09 195)' }} />
-                <span className="text-sm" style={{ color: 'oklch(0.78 0.05 195)' }}>
-                  123 Civic Center Drive, Community City
+                <MapPin size={15} className="mt-0.5 shrink-0" style={{ color: 'oklch(0.82 0.18 85)' }} />
+                <span className="text-sm" style={{ color: 'oklch(0.65 0.02 255)' }}>
+                  Dhanbad, Jharkhand, India
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
-                <Phone size={15} className="shrink-0" style={{ color: 'oklch(0.72 0.09 195)' }} />
-                <span className="text-sm" style={{ color: 'oklch(0.78 0.05 195)' }}>+1 (555) 123-4567</span>
+                <Phone size={15} className="shrink-0" style={{ color: 'oklch(0.82 0.18 85)' }} />
+                <a
+                  href="tel:+918102906339"
+                  className="text-sm hover:text-white transition-colors"
+                  style={{ color: 'oklch(0.65 0.02 255)' }}
+                >
+                  +91 8102906339
+                </a>
               </li>
               <li className="flex items-center gap-2.5">
-                <Mail size={15} className="shrink-0" style={{ color: 'oklch(0.72 0.09 195)' }} />
-                <span className="text-sm" style={{ color: 'oklch(0.78 0.05 195)' }}>hello@civicconnect.org</span>
+                <Mail size={15} className="shrink-0" style={{ color: 'oklch(0.82 0.18 85)' }} />
+                <a
+                  href="mailto:info@ymwcompliance.com"
+                  className="text-sm hover:text-white transition-colors"
+                  style={{ color: 'oklch(0.65 0.02 255)' }}
+                >
+                  info@ymwcompliance.com
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
+        {/* Bottom bar */}
         <div
-          className="mt-10 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3 text-sm"
-          style={{ borderColor: 'oklch(0.38 0.08 195)', color: 'oklch(0.68 0.05 195)' }}
+          className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3"
         >
-          <p>© {year} CivicConnect. All rights reserved.</p>
-          <p className="flex items-center gap-1.5">
+          <p className="text-xs" style={{ color: 'oklch(0.55 0.02 255)' }}>
+            © {year} YMW Compliance Services LLP. All rights reserved.
+          </p>
+          <p className="text-xs flex items-center gap-1" style={{ color: 'oklch(0.55 0.02 255)' }}>
             Built with{' '}
-            <Heart size={14} className="fill-current" style={{ color: 'oklch(0.72 0.18 30)' }} />{' '}
-            using{' '}
+            <Heart size={12} className="inline" style={{ color: 'oklch(0.82 0.18 85)', fill: 'oklch(0.82 0.18 85)' }} />
+            {' '}using{' '}
             <a
               href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appId}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium hover:text-white transition-colors"
-              style={{ color: 'oklch(0.78 0.05 195)' }}
+              className="hover:text-white transition-colors underline underline-offset-2"
+              style={{ color: 'oklch(0.82 0.18 85)' }}
             >
               caffeine.ai
             </a>

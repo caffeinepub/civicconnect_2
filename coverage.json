@@ -1,62 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-28T07:02:15.722Z",
+  "generatedAt": "2026-02-28T09:00:49.892Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 5,
-    "implemented": 5,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-12",
-        "summary": "Update the Home page Hero Section with: Title 'YMW Compliance Services', Subtitle 'India's #1 Trusted Compliance & Registration Partner', and two CTA buttons — 'Contact Us' (links to /contact) and 'WhatsApp Now' (links to WhatsApp number 8102906339).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ]
-      },
-      {
-        "id": "REQ-13",
-        "summary": "Add an About Preview section on the Home page with the heading 'Dhanbad's Most Trusted Compliance Partner' and the full descriptive text about YMW Compliance Services LLP, including details about being a Dhanbad, Jharkhand-based startup offering 100+ professional services, being a one-stop solution for legal registrations and compliance, and being a subsidiary of YMW Group under the leadership of Mr. Kundan Kumar with 15+ years of experience. Include a 'Learn More' button linking to the /about page.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ]
-      },
-      {
-        "id": "REQ-14",
-        "summary": "Add a Services Preview section on the Home page displaying all 15 services as cards or a grid: Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service. Include a 'View All Services' button linking to /services.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ]
-      },
-      {
-        "id": "REQ-15",
-        "summary": "Add a 'Why Choose Us' section on the Home page with three stat highlights: '20,000+ Happy Clients', '15+ Years Experience', and '5 Star Rating', displayed as visually prominent stat cards or badges.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/Home.tsx"
-        ]
-      },
-      {
-        "id": "REQ-16",
-        "summary": "Add a Contact Preview section on the Home page displaying: Phone numbers 92792 42122 and 9241136368, WhatsApp numbers 8102906339 and 8102901690, and business hours (Monday to Saturday: 10:00 AM – 6:30 PM; Sunday: Closed; National Holidays: Closed). Include a 'Contact Us' button linking to /contact.",
+        "id": "REQ-37",
+        "summary": "Redesign the 'Get in Touch' / CTA section on the Home page (frontend/src/pages/Home.tsx) to exactly match the uploaded screenshot (image-2.png): solid golden yellow (#f5c518) full-width background, large bold dark navy (#0a1628) heading 'Ready to Start Your Business Journey?' using the same Poppins/Inter font as the rest of the site, a subtitle in dark navy 'Get expert guidance today — 100% free consultation, no obligations', three horizontally-arranged CTA buttons: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text — where the call button links to tel:9279242122, (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab, and three trust badge lines below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. All text, fonts, and button styles must be consistent with the rest of the site (Poppins/Inter font family). The section must be fully responsive — buttons stack vertically on mobile screens < 640px. Do not alter any other section on the Home page.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/pages/Home.tsx"
@@ -69,11 +25,11 @@
   },
   "changedFiles": [
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/pages/Home.tsx",
+    "frontend/src/utils/urlParams.ts",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

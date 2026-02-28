@@ -1,317 +1,207 @@
-import { useState } from 'react';
-import { CheckCircle, Loader2, AlertTriangle, ClipboardList } from 'lucide-react';
-import { useSubmitGrievance } from '@/hooks/useQueries';
+import React, { useState } from 'react';
+import { CheckCircle, Loader2, AlertTriangle, FileText, Phone } from 'lucide-react';
+import { useSubmitGrievance } from '../hooks/useQueries';
 import { GrievanceCategory } from '../backend';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import FreeConsultationSection from '../components/FreeConsultationSection';
 
-interface FormState {
-  name: string;
-  email: string;
-  category: GrievanceCategory | '';
-  description: string;
-}
-
-interface FormErrors {
-  name?: string;
-  email?: string;
-  category?: string;
-  description?: string;
-}
-
-const initialForm: FormState = { name: '', email: '', category: '', description: '' };
-
-const categoryOptions: { value: GrievanceCategory; label: string }[] = [
-  { value: GrievanceCategory.cleanliness, label: 'Cleanliness & Sanitation' },
-  { value: GrievanceCategory.maintenance, label: 'Infrastructure & Maintenance' },
-  { value: GrievanceCategory.noise, label: 'Noise Complaint' },
-  { value: GrievanceCategory.safety, label: 'Public Safety' },
+const CATEGORIES = [
+  { value: GrievanceCategory.cleanliness, label: 'Cleanliness' },
+  { value: GrievanceCategory.noise, label: 'Noise' },
+  { value: GrievanceCategory.safety, label: 'Safety' },
+  { value: GrievanceCategory.maintenance, label: 'Maintenance' },
   { value: GrievanceCategory.other, label: 'Other' },
 ];
 
 export default function Grievance() {
-  const [form, setForm] = useState<FormState>(initialForm);
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    category: '' as GrievanceCategory | '',
+    description: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState('');
 
-  const submitGrievance = useSubmitGrievance();
-
-  const validate = (): boolean => {
-    const newErrors: FormErrors = {};
-    if (!form.name.trim()) newErrors.name = 'Name is required';
-    if (!form.email.trim()) newErrors.email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) newErrors.email = 'Enter a valid email address';
-    if (!form.category) newErrors.category = 'Please select a category';
-    if (!form.description.trim()) newErrors.description = 'Description is required';
-    else if (form.description.trim().length < 20) newErrors.description = 'Please provide at least 20 characters';
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleChange = (field: keyof FormState) => (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
-  };
+  const submitMutation = useSubmitGrievance();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
-    if (!form.category) return;
+    if (!formData.category) return;
     try {
-      const refNum = await submitGrievance.mutateAsync({
-        name: form.name.trim(),
-        email: form.email.trim(),
-        category: form.category as GrievanceCategory,
-        description: form.description.trim(),
+      const refNum = await submitMutation.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        category: formData.category as GrievanceCategory,
+        description: formData.description,
       });
       setReferenceNumber(refNum);
-      setForm(initialForm);
-      setErrors({});
+      setSubmitted(true);
     } catch {
       // error handled by mutation state
     }
   };
 
   return (
-    <div className="animate-fade-in">
+    <div style={{ backgroundColor: '#0a1628' }}>
       {/* Page Hero */}
-      <section className="page-hero py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1
-            className="text-4xl sm:text-5xl font-bold text-white mb-4"
-            style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
+      <section
+        className="py-16 px-4 text-center"
+        style={{ background: 'linear-gradient(135deg, #0a1628 0%, #0d1f3c 100%)' }}
+      >
+        <div className="max-w-4xl mx-auto">
+          <span
+            className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
+            style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
           >
-            Grievance Section
+            Grievance Portal
+          </span>
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">
+            Submit a <span style={{ color: '#f5c518' }}>Grievance</span>
           </h1>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'oklch(0.88 0.04 195)' }}>
-            Submit your concerns and complaints. We take every grievance seriously and respond promptly.
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            We take all complaints seriously. Submit your grievance and we'll address it promptly.
           </p>
         </div>
       </section>
 
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-            {/* Info Panel */}
-            <div className="space-y-6">
-              <div>
-                <h2 className="section-heading text-2xl mb-3">How It Works</h2>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Submit your grievance and receive a unique reference number to track your complaint's progress.
-                </p>
-              </div>
+      {/* Grievance Content */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
+          {/* Info Panel */}
+          <div className="flex flex-col gap-6">
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-2">How It Works</h2>
+              <p className="text-gray-400">Our grievance resolution process is simple and transparent</p>
+            </div>
 
-              {[
-                {
-                  step: '01',
-                  title: 'Fill the Form',
-                  desc: 'Provide your details and describe your grievance clearly.',
-                },
-                {
-                  step: '02',
-                  title: 'Get Reference Number',
-                  desc: 'Receive a unique reference number upon submission.',
-                },
-                {
-                  step: '03',
-                  title: 'Track Progress',
-                  desc: 'Use your reference number to follow up on your complaint.',
-                },
-                {
-                  step: '04',
-                  title: 'Resolution',
-                  desc: 'Our team will address your grievance and notify you.',
-                },
-              ].map((item) => (
-                <div key={item.step} className="flex items-start gap-4">
+            {[
+              { step: '01', icon: <FileText className="w-5 h-5" />, title: 'Submit Grievance', desc: 'Fill out the form with your complaint details' },
+              { step: '02', icon: <AlertTriangle className="w-5 h-5" />, title: 'Review Process', desc: 'Our team reviews your grievance within 24 hours' },
+              { step: '03', icon: <Phone className="w-5 h-5" />, title: 'Resolution', desc: 'We contact you with a resolution within 3 business days' },
+              { step: '04', icon: <CheckCircle className="w-5 h-5" />, title: 'Confirmation', desc: 'You receive confirmation once the issue is resolved' },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="flex items-start gap-4 p-4 rounded-xl"
+                style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+              >
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 text-sm font-bold"
+                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
+                >
+                  {item.step}
+                </div>
+                <div>
+                  <h3 className="text-white font-semibold mb-1">{item.title}</h3>
+                  <p className="text-sm text-gray-400">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Grievance Form */}
+          <div
+            className="p-6 md:p-8 rounded-2xl"
+            style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)' }}
+          >
+            {submitted ? (
+              <div className="flex flex-col items-center gap-4 py-8 text-center">
+                <CheckCircle className="w-16 h-16" style={{ color: '#f5c518' }} />
+                <h3 className="text-2xl font-bold text-white">Grievance Submitted!</h3>
+                <p className="text-gray-300">We'll address your concern within 3 business days.</p>
+                {referenceNumber && (
                   <div
-                    className="w-9 h-9 rounded-full flex items-center justify-center shrink-0 text-xs font-bold text-white"
-                    style={{ backgroundColor: 'oklch(var(--civic-teal))' }}
+                    className="px-4 py-2 rounded-lg text-sm"
+                    style={{ backgroundColor: 'rgba(245,197,24,0.1)', color: '#f5c518' }}
                   >
-                    {item.step}
+                    Reference Number: {referenceNumber.slice(-8)}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <h2 className="text-xl font-bold text-white mb-6">Submit Your Grievance</h2>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Your full name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 outline-none min-h-[44px]"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                    />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground mb-0.5">{item.title}</p>
-                    <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1">Email Address *</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="your@email.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 outline-none min-h-[44px]"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                    />
                   </div>
-                </div>
-              ))}
-
-              <div
-                className="rounded-xl p-4 border"
-                style={{
-                  backgroundColor: 'oklch(0.60 0.16 30 / 0.06)',
-                  borderColor: 'oklch(0.60 0.16 30 / 0.2)',
-                }}
-              >
-                <div className="flex items-start gap-3">
-                  <AlertTriangle size={16} className="mt-0.5 shrink-0" style={{ color: 'oklch(0.60 0.16 30)' }} />
-                  <p className="text-xs leading-relaxed" style={{ color: 'oklch(0.45 0.1 30)' }}>
-                    For emergencies, please contact local authorities directly. This form is for non-emergency grievances only.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Grievance Form */}
-            <div className="lg:col-span-2">
-              {referenceNumber ? (
-                <div className="civic-card p-8 text-center">
-                  <div
-                    className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-                    style={{ backgroundColor: 'oklch(var(--civic-green) / 0.12)' }}
-                  >
-                    <CheckCircle size={32} style={{ color: 'oklch(var(--civic-green))' }} />
-                  </div>
-                  <h3
-                    className="text-xl font-bold mb-2"
-                    style={{ fontFamily: 'Playfair Display, Georgia, serif', color: 'oklch(var(--civic-teal-dark))' }}
-                  >
-                    Grievance Submitted!
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Your grievance has been received. Please save your reference number for follow-up.
-                  </p>
-                  <div
-                    className="inline-block rounded-xl px-6 py-4 mb-6"
-                    style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.08)', border: '1px solid oklch(var(--civic-teal) / 0.2)' }}
-                  >
-                    <p className="text-xs text-muted-foreground mb-1 uppercase tracking-wider font-semibold">Reference Number</p>
-                    <p className="text-lg font-mono font-bold" style={{ color: 'oklch(var(--civic-teal))' }}>
-                      {referenceNumber}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-3">
-                    <Button
-                      variant="outline"
-                      onClick={() => setReferenceNumber(null)}
-                      className="rounded-full"
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1">Category *</label>
+                    <select
+                      required
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value as GrievanceCategory })}
+                      className="w-full px-4 py-3 rounded-lg text-sm text-white outline-none min-h-[44px]"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
                     >
-                      Submit Another
-                    </Button>
+                      <option value="" style={{ backgroundColor: '#0d1f3c' }}>Select category...</option>
+                      {CATEGORIES.map((cat) => (
+                        <option key={cat.value} value={cat.value} style={{ backgroundColor: '#0d1f3c' }}>
+                          {cat.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                </div>
-              ) : (
-                <div className="civic-card p-6 sm:p-8">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: 'oklch(var(--civic-teal) / 0.1)' }}
-                    >
-                      <ClipboardList size={20} style={{ color: 'oklch(var(--civic-teal))' }} />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground">Submit a Grievance</h3>
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-300 mb-1">Description *</label>
+                    <textarea
+                      required
+                      rows={4}
+                      placeholder="Describe your grievance in detail..."
+                      value={formData.description}
+                      onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 outline-none resize-none"
+                      style={{ backgroundColor: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)' }}
+                    />
                   </div>
-
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div className="space-y-1.5">
-                        <Label htmlFor="grievance-name">Full Name *</Label>
-                        <Input
-                          id="grievance-name"
-                          placeholder="Your full name"
-                          value={form.name}
-                          onChange={handleChange('name')}
-                          disabled={submitGrievance.isPending}
-                          className={errors.name ? 'border-destructive' : ''}
-                        />
-                        {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="grievance-email">Email Address *</Label>
-                        <Input
-                          id="grievance-email"
-                          type="email"
-                          placeholder="you@example.com"
-                          value={form.email}
-                          onChange={handleChange('email')}
-                          disabled={submitGrievance.isPending}
-                          className={errors.email ? 'border-destructive' : ''}
-                        />
-                        {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <Label htmlFor="grievance-category">Grievance Category *</Label>
-                      <Select
-                        value={form.category}
-                        onValueChange={(val) => {
-                          setForm((prev) => ({ ...prev, category: val as GrievanceCategory }));
-                          if (errors.category) setErrors((prev) => ({ ...prev, category: undefined }));
-                        }}
-                        disabled={submitGrievance.isPending}
-                      >
-                        <SelectTrigger
-                          id="grievance-category"
-                          className={errors.category ? 'border-destructive' : ''}
-                        >
-                          <SelectValue placeholder="Select a category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {categoryOptions.map((opt) => (
-                            <SelectItem key={opt.value} value={opt.value}>
-                              {opt.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.category && <p className="text-xs text-destructive">{errors.category}</p>}
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <Label htmlFor="grievance-description">Description *</Label>
-                      <Textarea
-                        id="grievance-description"
-                        placeholder="Please describe your grievance in detail (minimum 20 characters)..."
-                        rows={5}
-                        value={form.description}
-                        onChange={handleChange('description')}
-                        disabled={submitGrievance.isPending}
-                        className={errors.description ? 'border-destructive' : ''}
-                      />
-                      {errors.description && <p className="text-xs text-destructive">{errors.description}</p>}
-                    </div>
-
-                    {submitGrievance.isError && (
-                      <div className="text-sm text-destructive bg-destructive/10 rounded-lg px-4 py-3">
-                        Failed to submit grievance. Please try again.
-                      </div>
+                  {submitMutation.isError && (
+                    <p className="text-xs text-red-400">Something went wrong. Please try again.</p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={submitMutation.isPending}
+                    className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60 min-h-[52px]"
+                    style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+                  >
+                    {submitMutation.isPending ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      'Submit Grievance'
                     )}
-
-                    <Button
-                      type="submit"
-                      disabled={submitGrievance.isPending}
-                      className="w-full rounded-full"
-                      style={{ backgroundColor: 'oklch(var(--civic-teal))', color: 'white' }}
-                    >
-                      {submitGrievance.isPending ? (
-                        <>
-                          <Loader2 size={16} className="animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        'Submit Grievance'
-                      )}
-                    </Button>
-                  </form>
-                </div>
-              )}
-            </div>
+                  </button>
+                </form>
+              </>
+            )}
           </div>
         </div>
       </section>
+
+      {/* Free Consultation Section */}
+      <FreeConsultationSection />
     </div>
   );
 }

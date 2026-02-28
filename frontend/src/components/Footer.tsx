@@ -11,9 +11,9 @@ export default function Footer() {
       style={{ backgroundColor: 'oklch(0.10 0.05 255)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
-          <div className="md:col-span-1">
+          <div className="lg:col-span-1">
             <div className="mb-4">
               <div className="flex items-center gap-1 mb-1">
                 <span
@@ -52,6 +52,8 @@ export default function Footer() {
                 { label: 'About Us', path: '/about' },
                 { label: 'Services', path: '/services' },
                 { label: 'Blog', path: '/blog' },
+                { label: 'Client Login', path: '/customer-login' },
+                { label: 'Client Signup', path: '/customer-signup' },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
@@ -94,6 +96,35 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Legal / Policies */}
+          <div>
+            <h4
+              className="text-sm font-semibold mb-4 uppercase tracking-wider"
+              style={{ color: 'oklch(0.82 0.18 85)' }}
+            >
+              Legal
+            </h4>
+            <ul className="space-y-2">
+              {[
+                { label: 'Terms & Conditions', path: '/terms-and-conditions' },
+                { label: 'Privacy Policy', path: '/privacy-policy' },
+                { label: 'Refund Policy', path: '/refund-policy' },
+                { label: 'Confidentiality Policy', path: '/confidentiality-policy' },
+                { label: 'Disclaimer', path: '/disclaimer' },
+              ].map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="text-sm transition-colors hover:text-white"
+                    style={{ color: 'oklch(0.65 0.02 255)' }}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Contact Info */}
           <div>
             <h4
@@ -122,11 +153,11 @@ export default function Footer() {
               <li className="flex items-center gap-2.5">
                 <Mail size={15} className="shrink-0" style={{ color: 'oklch(0.82 0.18 85)' }} />
                 <a
-                  href="mailto:info@ymwcompliance.com"
+                  href="mailto:ymwcomplianceservices@gmail.com"
                   className="text-sm hover:text-white transition-colors"
                   style={{ color: 'oklch(0.65 0.02 255)' }}
                 >
-                  info@ymwcompliance.com
+                  ymwcomplianceservices@gmail.com
                 </a>
               </li>
             </ul>

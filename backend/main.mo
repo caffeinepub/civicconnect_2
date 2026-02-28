@@ -1,18 +1,18 @@
 import Map "mo:core/Map";
 import Array "mo:core/Array";
 import Text "mo:core/Text";
+import Nat "mo:core/Nat";
 import Time "mo:core/Time";
+import List "mo:core/List";
 import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
+import Iter "mo:core/Iter";
 import Principal "mo:core/Principal";
 
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import Storage "blob-storage/Storage";
 import MixinStorage "blob-storage/Mixin";
-
-
-
 
 actor {
   // Include authorization system
@@ -24,7 +24,7 @@ actor {
   // Timestamps for unique IDs and sorting
   public type Timestamp = Time.Time;
 
-  // --- User Profile Types and State ---
+  // --- User Profile (required by instructions) ---
   public type UserProfile = {
     name : Text;
     email : Text;
@@ -33,7 +33,7 @@ actor {
   let userProfiles = Map.empty<Principal, UserProfile>();
 
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
-    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can get profiles");
     };
     userProfiles.get(caller);
@@ -47,10 +47,203 @@ actor {
   };
 
   public shared ({ caller }) func saveCallerUserProfile(profile : UserProfile) : async () {
-    if (not AccessControl.hasPermission(accessControlState, caller, #user)) {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can save profiles");
     };
     userProfiles.add(caller, profile);
+  };
+
+  // Customer-related types and state
+  public type CustomerAccount = {
+    customerId : Nat;
+    fullName : Text;
+    mobileNumber : Text;
+    email : Text;
+    businessName : Text;
+    passwordHash : Text;
+    createdAt : Timestamp;
+  };
+
+  public type CustomerProfile = {
+    customerId : Nat;
+    fullName : Text;
+    email : Text;
+    mobileNumber : Text;
+    businessName : Text;
+    createdAt : Timestamp;
+  };
+
+  public type ServiceRequest = {
+    requestId : Nat;
+    customerId : Nat;
+    serviceName : Text;
+    notes : Text;
+    createdAt : Timestamp;
+  };
+
+  // Maps for customer accounts and service requests
+  var nextCustomerId = 1;
+  var nextRequestId = 1;
+
+  let customers = Map.empty<Nat, CustomerAccount>();
+  let serviceRequests = Map.empty<Nat, ServiceRequest>();
+
+  // Password hash function (with fixed salt)
+  func hashPassword(password : Text) : Text {
+    let salt : Text = "fixed_secret_salt";
+    password # salt;
+  };
+
+  // Create Customer Profile — no authentication required (public signup)
+  public shared ({ caller }) func signupCustomer(
+    fullName : Text,
+    mobileNumber : Text,
+    email : Text,
+    businessName : Text,
+    password : Text,
+  ) : async {
+    #ok : Text;
+    #err : Text;
+  } {
+    let passwordHash = hashPassword(password);
+
+    // Check if email already exists
+    let emailExists = customers.values().find(
+      func(customer : CustomerAccount) : Bool {
+        customer.email == email;
+      }
+    );
+
+    switch (emailExists) {
+      case (?_) {
+        #err("Email already registered");
+      };
+      case (null) {
+        // Create new customer
+        let customerId = nextCustomerId;
+        let newCustomer : CustomerAccount = {
+          customerId;
+          fullName;
+          mobileNumber;
+          email;
+          businessName;
+          passwordHash;
+          createdAt = Time.now();
+        };
+
+        customers.add(customerId, newCustomer);
+        nextCustomerId += 1;
+        #ok(customerId.toText());
+      };
+    };
+  };
+
+  // Customer login — no authentication required (public login)
+  public query ({ caller }) func loginCustomer(email : Text, password : Text) : async {
+    #ok : CustomerProfile;
+    #err : Text;
+  } {
+    let passwordHash = hashPassword(password);
+
+    switch (customers.values().find(func(customer : CustomerAccount) : Bool { customer.email == email })) {
+      case (null) {
+        #err("No customer with this email. Please signup.");
+      };
+      case (?customer) {
+        if (customer.passwordHash == passwordHash) {
+          #ok({
+            customerId = customer.customerId;
+            fullName = customer.fullName;
+            email = customer.email;
+            mobileNumber = customer.mobileNumber;
+            businessName = customer.businessName;
+            createdAt = customer.createdAt;
+          });
+        } else {
+          #err("Wrong password. Please try again.");
+        };
+      };
+    };
+  };
+
+  // Query Customer Profile by customerId — open to any caller (profile lookup)
+  public query ({ caller }) func getCustomerProfile(customerId : Nat) : async ?CustomerProfile {
+    switch (customers.get(customerId)) {
+      case (null) { null };
+      case (?customer) {
+        ?{
+          customerId = customer.customerId;
+          fullName = customer.fullName;
+          email = customer.email;
+          mobileNumber = customer.mobileNumber;
+          businessName = customer.businessName;
+          createdAt = customer.createdAt;
+        };
+      };
+    };
+  };
+
+  // Get all customers — admin access only
+  public query ({ caller }) func getAllCustomers() : async [CustomerProfile] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admin can access all customer data");
+    };
+    customers.values().map<CustomerAccount, CustomerProfile>(
+      func(customer : CustomerAccount) : CustomerProfile {
+        {
+          customerId = customer.customerId;
+          fullName = customer.fullName;
+          email = customer.email;
+          mobileNumber = customer.mobileNumber;
+          businessName = customer.businessName;
+          createdAt = customer.createdAt;
+        };
+      }
+    ).toArray();
+  };
+
+  // Submit Service Request — requires non-anonymous caller
+  public shared ({ caller }) func submitServiceRequest(customerId : Nat, serviceName : Text, notes : Text) : async {
+    #ok : Text;
+    #err : Text;
+  } {
+    if (caller.isAnonymous()) {
+      Runtime.trap("Unauthorized: Anonymous callers cannot submit service requests");
+    };
+    switch (customers.get(customerId)) {
+      case (null) {
+        #err("Invalid customer id. Customer not found.");
+      };
+      case (?_) {
+        let serviceRequestId = nextRequestId;
+        let newRequest : ServiceRequest = {
+          requestId = serviceRequestId;
+          customerId;
+          serviceName;
+          notes;
+          createdAt = Time.now();
+        };
+
+        serviceRequests.add(serviceRequestId, newRequest);
+        nextRequestId += 1;
+        #ok(serviceRequestId.toText());
+      };
+    };
+  };
+
+  // Get Service Requests by Customer — open to any caller (customerId acts as access token)
+  public query ({ caller }) func getServiceRequestsByCustomer(customerId : Nat) : async [ServiceRequest] {
+    serviceRequests.values().filter(
+      func(request : ServiceRequest) : Bool { request.customerId == customerId }
+    ).toArray();
+  };
+
+  // Admin-only: Retrieve all service requests
+  public query ({ caller }) func getAllServiceRequests() : async [ServiceRequest] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admin can access all service requests");
+    };
+    serviceRequests.values().toArray();
   };
 
   // --- Blog Post Types and State ---
@@ -72,8 +265,14 @@ actor {
 
   let blogState = Map.empty<Text, BlogPost>();
 
-  public shared ({ caller }) func createBlogPost(title : Text, content : Text, excerpt : Text, author : Text) : async Text {
-    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+  // Admin-only: create blog post
+  public shared ({ caller }) func createBlogPost(
+    title : Text,
+    content : Text,
+    excerpt : Text,
+    author : Text,
+  ) : async Text {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can create blog posts");
     };
 
@@ -92,6 +291,7 @@ actor {
     id;
   };
 
+  // Public: get a single blog post
   public query func getBlogPost(id : Text) : async BlogPost {
     switch (blogState.get(id)) {
       case (null) { Runtime.trap("Blog post not found") };
@@ -99,6 +299,7 @@ actor {
     };
   };
 
+  // Public: list all blog posts
   public query func listBlogPosts() : async [BlogPost] {
     blogState.values().toArray().sort();
   };
@@ -115,7 +316,13 @@ actor {
 
   let contactState = Map.empty<Text, ContactMessage>();
 
-  public shared func submitContactMessage(name : Text, email : Text, subject : Text, message : Text) : async Text {
+  // Public: submit a contact message (no auth required)
+  public shared func submitContactMessage(
+    name : Text,
+    email : Text,
+    subject : Text,
+    message : Text,
+  ) : async Text {
     let id = Time.now().toText();
     let contactMessage = {
       id;
@@ -129,8 +336,9 @@ actor {
     id;
   };
 
+  // Admin-only: list contact messages
   public shared ({ caller }) func listContactMessages() : async [ContactMessage] {
-    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can view contact messages");
     };
     contactState.values().toArray();
@@ -157,7 +365,13 @@ actor {
 
   let grievanceState = Map.empty<Text, Grievance>();
 
-  public shared func submitGrievance(name : Text, email : Text, category : GrievanceCategory, description : Text) : async Text {
+  // Public: submit a grievance (no auth required)
+  public shared func submitGrievance(
+    name : Text,
+    email : Text,
+    category : GrievanceCategory,
+    description : Text,
+  ) : async Text {
     let id = Time.now().toText();
     let referenceNumber = id;
     let grievance = {
@@ -173,8 +387,9 @@ actor {
     referenceNumber;
   };
 
+  // Admin-only: list grievances
   public shared ({ caller }) func listGrievances() : async [Grievance] {
-    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can view grievances");
     };
     grievanceState.values().toArray();
@@ -193,6 +408,7 @@ actor {
 
   let consultationRequestState = Map.empty<Text, ConsultationRequest>();
 
+  // Public: submit a consultation request (no auth required)
   public shared ({ caller }) func submitConsultationRequest(
     fullName : Text,
     phoneNumber : Text,
@@ -216,7 +432,7 @@ actor {
 
   // Admin-only: list all consultation requests
   public shared ({ caller }) func listConsultationRequests() : async [ConsultationRequest] {
-    if (not AccessControl.hasPermission(accessControlState, caller, #admin)) {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
       Runtime.trap("Unauthorized: Only admins can view consultation requests");
     };
     consultationRequestState.values().toArray();

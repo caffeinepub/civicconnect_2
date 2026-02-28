@@ -25,6 +25,21 @@ export const UserRole = IDL.Variant({
   'guest' : IDL.Null,
 });
 export const Timestamp = IDL.Int;
+export const CustomerProfile = IDL.Record({
+  'createdAt' : Timestamp,
+  'businessName' : IDL.Text,
+  'fullName' : IDL.Text,
+  'mobileNumber' : IDL.Text,
+  'email' : IDL.Text,
+  'customerId' : IDL.Nat,
+});
+export const ServiceRequest = IDL.Record({
+  'serviceName' : IDL.Text,
+  'requestId' : IDL.Nat,
+  'createdAt' : Timestamp,
+  'notes' : IDL.Text,
+  'customerId' : IDL.Nat,
+});
 export const BlogPost = IDL.Record({
   'id' : IDL.Text,
   'title' : IDL.Text,
@@ -106,9 +121,21 @@ export const idlService = IDL.Service({
       [IDL.Text],
       [],
     ),
+  'getAllCustomers' : IDL.Func([], [IDL.Vec(CustomerProfile)], ['query']),
+  'getAllServiceRequests' : IDL.Func([], [IDL.Vec(ServiceRequest)], ['query']),
   'getBlogPost' : IDL.Func([IDL.Text], [BlogPost], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getCustomerProfile' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Opt(CustomerProfile)],
+      ['query'],
+    ),
+  'getServiceRequestsByCustomer' : IDL.Func(
+      [IDL.Nat],
+      [IDL.Vec(ServiceRequest)],
+      ['query'],
+    ),
   'getUserProfile' : IDL.Func(
       [IDL.Principal],
       [IDL.Opt(UserProfile)],
@@ -119,8 +146,18 @@ export const idlService = IDL.Service({
   'listConsultationRequests' : IDL.Func([], [IDL.Vec(ConsultationRequest)], []),
   'listContactMessages' : IDL.Func([], [IDL.Vec(ContactMessage)], []),
   'listGrievances' : IDL.Func([], [IDL.Vec(Grievance)], []),
+  'loginCustomer' : IDL.Func(
+      [IDL.Text, IDL.Text],
+      [IDL.Variant({ 'ok' : CustomerProfile, 'err' : IDL.Text })],
+      ['query'],
+    ),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'signUpWithInternetIdentity' : IDL.Func([], [IDL.Principal], []),
+  'signupCustomer' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
+      [],
+    ),
   'submitConsultationRequest' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
       [IDL.Text],
@@ -134,6 +171,11 @@ export const idlService = IDL.Service({
   'submitGrievance' : IDL.Func(
       [IDL.Text, IDL.Text, GrievanceCategory, IDL.Text],
       [IDL.Text],
+      [],
+    ),
+  'submitServiceRequest' : IDL.Func(
+      [IDL.Nat, IDL.Text, IDL.Text],
+      [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
       [],
     ),
 });
@@ -158,6 +200,21 @@ export const idlFactory = ({ IDL }) => {
     'guest' : IDL.Null,
   });
   const Timestamp = IDL.Int;
+  const CustomerProfile = IDL.Record({
+    'createdAt' : Timestamp,
+    'businessName' : IDL.Text,
+    'fullName' : IDL.Text,
+    'mobileNumber' : IDL.Text,
+    'email' : IDL.Text,
+    'customerId' : IDL.Nat,
+  });
+  const ServiceRequest = IDL.Record({
+    'serviceName' : IDL.Text,
+    'requestId' : IDL.Nat,
+    'createdAt' : Timestamp,
+    'notes' : IDL.Text,
+    'customerId' : IDL.Nat,
+  });
   const BlogPost = IDL.Record({
     'id' : IDL.Text,
     'title' : IDL.Text,
@@ -236,9 +293,25 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Text],
         [],
       ),
+    'getAllCustomers' : IDL.Func([], [IDL.Vec(CustomerProfile)], ['query']),
+    'getAllServiceRequests' : IDL.Func(
+        [],
+        [IDL.Vec(ServiceRequest)],
+        ['query'],
+      ),
     'getBlogPost' : IDL.Func([IDL.Text], [BlogPost], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getCustomerProfile' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Opt(CustomerProfile)],
+        ['query'],
+      ),
+    'getServiceRequestsByCustomer' : IDL.Func(
+        [IDL.Nat],
+        [IDL.Vec(ServiceRequest)],
+        ['query'],
+      ),
     'getUserProfile' : IDL.Func(
         [IDL.Principal],
         [IDL.Opt(UserProfile)],
@@ -253,8 +326,18 @@ export const idlFactory = ({ IDL }) => {
       ),
     'listContactMessages' : IDL.Func([], [IDL.Vec(ContactMessage)], []),
     'listGrievances' : IDL.Func([], [IDL.Vec(Grievance)], []),
+    'loginCustomer' : IDL.Func(
+        [IDL.Text, IDL.Text],
+        [IDL.Variant({ 'ok' : CustomerProfile, 'err' : IDL.Text })],
+        ['query'],
+      ),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'signUpWithInternetIdentity' : IDL.Func([], [IDL.Principal], []),
+    'signupCustomer' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
+        [],
+      ),
     'submitConsultationRequest' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
         [IDL.Text],
@@ -268,6 +351,11 @@ export const idlFactory = ({ IDL }) => {
     'submitGrievance' : IDL.Func(
         [IDL.Text, IDL.Text, GrievanceCategory, IDL.Text],
         [IDL.Text],
+        [],
+      ),
+    'submitServiceRequest' : IDL.Func(
+        [IDL.Nat, IDL.Text, IDL.Text],
+        [IDL.Variant({ 'ok' : IDL.Text, 'err' : IDL.Text })],
         [],
       ),
   });

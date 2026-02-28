@@ -1,14 +1,15 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 19,
-  "summary": "Multi-page React website for YMW Compliance Services LLP — India's #1 Trusted Compliance & Registration Partner based in Dhanbad, Jharkhand. Pages: Home, About, Services, Blog, Contact, Grievance Section, Social Media, and Signup. Home page includes Hero Section (title, subtitle, CTA buttons), About Preview, Services Preview (15 services), Why Choose Us stats, and Contact Preview. Includes navigation, grievance submission form, blog listing, services showcase, social media links, and signup form with Internet Identity authentication. Color scheme: Dark Navy Blue (#0a1628) background, Golden Yellow (#f5c518) accent, white text, green WhatsApp button, diagonal stripe texture on hero.",
+  "projectStateVersion": 27,
+  "summary": "Multi-page React website for YMW Compliance Services LLP — India's #1 Trusted Compliance & Registration Partner based in Dhanbad, Jharkhand. Pages: Home, About, Services, Blog, Contact, Grievance Section, Social Media, Signup/Login, Customer Dashboard, and Admin Panel. Home page includes Hero Section, About Preview, Services Preview (15 services), Why Choose Us stats, Our Strengths section, and Contact Preview. Includes navigation, grievance submission form, blog listing, services showcase, social media links, customer authentication system (signup with Full Name, Mobile, Email, Password, Business Name; login with Email/Password), protected customer dashboard (welcome message, profile info, service selection, document upload, WhatsApp support), persistent customer accounts in backend, and admin panel to view registered customers and service requests. Color scheme: Dark Navy Blue (#0a1628) background, Golden Yellow (#f5c518) accent, white text, green WhatsApp button, diagonal stripe texture on hero.",
   "architectural_notes": [
     "Multi-page React app with client-side routing",
     "Internet Identity authentication for Signup",
     "Color theme: Dark Navy Blue (#0a1628) background, Golden Yellow (#f5c518) accent, white text, green (#22c55e) WhatsApp buttons",
     "Background color (#0a1628 dark navy) and font must remain consistent across all pages — do not override",
     "Floating WhatsApp and Call Now buttons should be rendered in the root layout so they appear on every page",
-    "SEO: use React Helmet or equivalent for per-page meta/OG tags; add JSON-LD structured data for LocalBusiness schema"
+    "SEO: use React Helmet or equivalent for per-page meta/OG tags; add JSON-LD structured data for LocalBusiness schema",
+    "Customer auth system: Email/Password signup & login with persistent accounts in Motoko backend; protected dashboard route only accessible to logged-in users; admin panel for viewing registered customers and service requests"
   ],
   "known_issues": [
     "Services page/preview not showing all 15 services — some are hidden or missing after recent changes"
@@ -302,6 +303,166 @@
         "REQ-37"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-in-the-home-page-hero-consultation-card-frontend-src-pages-home-tsx-update-the-get-free-consultation-heading-and-its-subtitle-fill-the-form-our-expert-will-call-you-back-text-block-so-that-it-has-a-golden-yellow-f5c518-background-to-visually-highlight-it-the-heading-text-should-be-dark-navy-0a1628-to-remain-legible-against-the-yellow-background-apply-appropriate-padding-so-the-yellow-background-wraps-the-heading-and-subtitle-text-area-cleanly",
+      "title": "In the Home page hero consultation card (frontend/src/pages/Home.tsx), update the 'Get Free Consultation' heading and its subtitle 'Fill the form — our expert will call you back' text block so that it has a golden yellow (#f5c518) background to visually highlight it. The heading text should be dark navy (#0a1628) to remain legible against the yellow background. Apply appropriate padding so the yellow background wraps the heading and subtitle text area cleanly.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-terms-conditions-page-at-frontend-src-pages-termsandconditions-tsx-the-page-should-include-a-hero-section-with-the-heading-terms-conditions-a-last-updated-date-and-well-structured-content-sections-covering-acceptance-of-terms-use-of-services-intellectual-property-limitation-of-liability-governing-law-india-and-contact-information-for-ymw-compliance-services-llp-dhanbad-jharkhand-style-using-the-dark-navy-0a1628-background-golden-yellow-f5c518-headings-accents-and-white-body-text-consistent-with-the-site-theme-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Terms & Conditions page at frontend/src/pages/TermsAndConditions.tsx. The page should include a hero section with the heading 'Terms & Conditions', a last-updated date, and well-structured content sections covering: acceptance of terms, use of services, intellectual property, limitation of liability, governing law (India), and contact information for YMW Compliance Services LLP (Dhanbad, Jharkhand). Style using the dark navy (#0a1628) background, golden yellow (#f5c518) headings/accents, and white body text consistent with the site theme. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-privacy-policy-page-at-frontend-src-pages-privacypolicy-tsx-the-page-should-include-a-hero-section-with-heading-privacy-policy-a-last-updated-date-and-content-sections-covering-what-personal-data-is-collected-name-phone-email-service-queries-how-data-is-used-consultation-follow-up-service-delivery-data-storage-and-security-third-party-sharing-policy-user-rights-cookies-policy-and-contact-details-for-ymw-compliance-services-llp-style-consistent-with-the-dark-navy-0a1628-golden-yellow-f5c518-theme-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Privacy Policy page at frontend/src/pages/PrivacyPolicy.tsx. The page should include a hero section with heading 'Privacy Policy', a last-updated date, and content sections covering: what personal data is collected (name, phone, email, service queries), how data is used (consultation follow-up, service delivery), data storage and security, third-party sharing policy, user rights, cookies policy, and contact details for YMW Compliance Services LLP. Style consistent with the dark navy (#0a1628) + golden yellow (#f5c518) theme. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-refund-policy-page-at-frontend-src-pages-refundpolicy-tsx-the-page-should-include-a-hero-section-with-heading-refund-policy-a-last-updated-date-and-content-sections-covering-eligibility-for-refunds-non-refundable-services-refund-request-process-and-timeline-government-fee-non-refundability-and-contact-information-style-consistent-with-the-dark-navy-0a1628-golden-yellow-f5c518-theme-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Refund Policy page at frontend/src/pages/RefundPolicy.tsx. The page should include a hero section with heading 'Refund Policy', a last-updated date, and content sections covering: eligibility for refunds, non-refundable services, refund request process and timeline, government fee non-refundability, and contact information. Style consistent with the dark navy (#0a1628) + golden yellow (#f5c518) theme. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-confidentiality-policy-page-at-frontend-src-pages-confidentialitypolicy-tsx-the-page-should-include-a-hero-section-with-heading-confidentiality-policy-a-last-updated-date-and-content-sections-covering-commitment-to-client-confidentiality-what-information-is-kept-confidential-documents-business-details-personal-data-employee-confidentiality-obligations-exceptions-to-confidentiality-legal-requirements-data-retention-and-contact-details-style-consistent-with-the-dark-navy-0a1628-golden-yellow-f5c518-theme-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Confidentiality Policy page at frontend/src/pages/ConfidentialityPolicy.tsx. The page should include a hero section with heading 'Confidentiality Policy', a last-updated date, and content sections covering: commitment to client confidentiality, what information is kept confidential (documents, business details, personal data), employee confidentiality obligations, exceptions to confidentiality (legal requirements), data retention, and contact details. Style consistent with the dark navy (#0a1628) + golden yellow (#f5c518) theme. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-disclaimer-page-at-frontend-src-pages-disclaimer-tsx-the-page-should-include-a-hero-section-with-heading-disclaimer-a-last-updated-date-and-content-sections-covering-general-disclaimer-information-is-for-general-guidance-only-no-legal-advice-disclaimer-accuracy-of-information-external-links-disclaimer-liability-limitation-and-contact-information-for-ymw-compliance-services-llp-style-consistent-with-the-dark-navy-0a1628-golden-yellow-f5c518-theme-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Disclaimer page at frontend/src/pages/Disclaimer.tsx. The page should include a hero section with heading 'Disclaimer', a last-updated date, and content sections covering: general disclaimer (information is for general guidance only), no legal advice disclaimer, accuracy of information, external links disclaimer, liability limitation, and contact information for YMW Compliance Services LLP. Style consistent with the dark navy (#0a1628) + golden yellow (#f5c518) theme. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-register-all-five-new-legal-policy-pages-as-lazy-loaded-routes-in-frontend-src-app-tsx-terms-and-conditions-termsandconditions-privacy-policy-privacypolicy-refund-policy-refundpolicy-confidentiality-policy-confidentialitypolicy-disclaimer-disclaimer-each-route-must-be-wrapped-in-the-existing-dark-navy-layout-component-with-navigation-footer-floatingcta-and-consultationpopup-consistent-with-all-other-page-routes",
+      "title": "Register all five new legal/policy pages as lazy-loaded routes in frontend/src/App.tsx: /terms-and-conditions → TermsAndConditions, /privacy-policy → PrivacyPolicy, /refund-policy → RefundPolicy, /confidentiality-policy → ConfidentialityPolicy, /disclaimer → Disclaimer. Each route must be wrapped in the existing dark navy Layout component (with Navigation, Footer, FloatingCTA, and ConsultationPopup) consistent with all other page routes.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-footer-component-frontend-src-components-footer-tsx-to-add-a-legal-or-policies-column-section-with-links-to-all-five-new-policy-pages-terms-conditions-terms-and-conditions-privacy-policy-privacy-policy-refund-policy-refund-policy-confidentiality-policy-confidentiality-policy-and-disclaimer-disclaimer-links-should-use-golden-yellow-f5c518-accent-color-on-hover-consistent-with-the-existing-footer-link-styling",
+      "title": "Update the Footer component (frontend/src/components/Footer.tsx) to add a 'Legal' or 'Policies' column/section with links to all five new policy pages: Terms & Conditions (/terms-and-conditions), Privacy Policy (/privacy-policy), Refund Policy (/refund-policy), Confidentiality Policy (/confidentiality-policy), and Disclaimer (/disclaimer). Links should use golden yellow (#f5c518) accent color on hover, consistent with the existing footer link styling.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-react-query-hooks-in-frontend-src-hooks-usequeries-ts-for-all-new-customer-authentication-and-portal-backend-functions-1-usesignupcustomer-usemutation-calling-signupcustomer-2-uselogincustomer-usemutation-calling-logincustomer-3-usecustomerprofile-customerid-usequery-calling-getcustomerprofile-4-usesubmitservicerequest-usemutation-calling-submitservicerequest-5-usegetservicerequestsbycustomer-customerid-usequery-6-usegetallcustomers-usequery-admin-7-usegetallservicerequests-usequery-admin-manage-authenticated-customer-session-using-react-context-or-sessionstorage-after-a-successful-login-persist-customerid-fullname-email-businessname-in-sessionstorage-under-key-ymw-customer-session-create-a-usecustomersession-hook-that-reads-writes-this-session-and-a-clearcustomersession-function-for-logout",
+      "title": "Add React Query hooks in frontend/src/hooks/useQueries.ts for all new customer authentication and portal backend functions: (1) useSignupCustomer — useMutation calling signupCustomer; (2) useLoginCustomer — useMutation calling loginCustomer; (3) useCustomerProfile(customerId) — useQuery calling getCustomerProfile; (4) useSubmitServiceRequest — useMutation calling submitServiceRequest; (5) useGetServiceRequestsByCustomer(customerId) — useQuery; (6) useGetAllCustomers — useQuery (admin); (7) useGetAllServiceRequests — useQuery (admin). Manage authenticated customer session using React Context or sessionStorage: after a successful login, persist {customerId, fullName, email, businessName} in sessionStorage under key 'ymw_customer_session'. Create a useCustomerSession hook that reads/writes this session, and a clearCustomerSession function for logout.",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-customer-signup-page-at-frontend-src-pages-customersignup-tsx-the-page-should-display-a-centered-card-form-dark-navy-0a1628-background-golden-yellow-f5c518-accents-consistent-with-site-theme-with-the-ymw-compliance-services-branding-at-the-top-heading-create-your-account-and-the-following-fields-full-name-text-mobile-number-tel-10-digit-indian-mobile-email-address-email-password-password-min-8-chars-business-name-text-and-a-golden-yellow-create-account-submit-button-on-submit-call-the-usesignupcustomer-mutation-on-success-show-a-brief-success-message-account-created-successfully-redirecting-to-login-and-automatically-redirect-to-customer-login-after-2-seconds-on-error-e-g-email-already-exists-display-the-error-message-inline-below-the-form-include-a-link-at-the-bottom-already-have-an-account-login-here-linking-to-customer-login-apply-dark-navy-background-white-light-gray-text-and-golden-yellow-accents-inputs-must-be-at-least-44px-tall-for-mobile-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Customer Signup page at frontend/src/pages/CustomerSignup.tsx. The page should display a centered card form (dark navy #0a1628 background, golden yellow #f5c518 accents consistent with site theme) with the YMW Compliance Services branding at the top, heading 'Create Your Account', and the following fields: Full Name (text), Mobile Number (tel, 10-digit Indian mobile), Email Address (email), Password (password, min 8 chars), Business Name (text), and a golden yellow 'Create Account' submit button. On submit, call the useSignupCustomer mutation. On success, show a brief success message ('Account created successfully! Redirecting to login...') and automatically redirect to /customer-login after 2 seconds. On error (e.g., email already exists), display the error message inline below the form. Include a link at the bottom: 'Already have an account? Login here' linking to /customer-login. Apply dark navy background, white/light-gray text, and golden yellow accents. Inputs must be at least 44px tall for mobile. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-customer-login-page-at-frontend-src-pages-customerlogin-tsx-the-page-should-display-a-centered-card-form-dark-navy-background-golden-yellow-accents-with-ymw-compliance-services-branding-heading-welcome-back-subheading-login-to-your-client-portal-and-the-following-fields-email-address-email-and-password-password-include-a-golden-yellow-login-submit-button-on-submit-call-the-uselogincustomer-mutation-on-success-persist-the-customer-session-via-usecustomersession-and-redirect-to-customer-dashboard-on-error-display-invalid-email-or-password-inline-include-a-link-new-customer-sign-up-here-linking-to-customer-signup-page-must-use-dark-navy-background-white-light-gray-text-and-golden-yellow-accents-consistent-with-the-site-theme-inputs-must-be-at-least-44px-tall-include-a-freeconsultationsection-above-the-footer",
+      "title": "Create a Customer Login page at frontend/src/pages/CustomerLogin.tsx. The page should display a centered card form (dark navy background, golden yellow accents) with YMW Compliance Services branding, heading 'Welcome Back', subheading 'Login to your client portal', and the following fields: Email Address (email) and Password (password). Include a golden yellow 'Login' submit button. On submit, call the useLoginCustomer mutation. On success, persist the customer session via useCustomerSession and redirect to /customer-dashboard. On error, display 'Invalid email or password' inline. Include a link: 'New customer? Sign up here' linking to /customer-signup. Page must use dark navy background, white/light-gray text, and golden yellow accents consistent with the site theme. Inputs must be at least 44px tall. Include a FreeConsultationSection above the footer.",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-protected-customer-dashboard-page-at-frontend-src-pages-customerdashboard-tsx-on-mount-check-for-an-active-customer-session-via-usecustomersession-if-no-session-exists-immediately-redirect-to-customer-login-if-session-exists-render-the-dashboard-with-dark-navy-background-and-golden-yellow-accents-the-dashboard-should-include-1-a-welcome-banner-welcome-back-fullname-with-the-customer-s-business-name-below-it-2-a-profile-info-card-showing-full-name-email-mobile-number-business-name-and-a-logout-button-that-calls-clearcustomersession-and-redirects-to-customer-login-3-a-our-services-section-with-a-dropdown-or-scrollable-list-box-containing-all-15-services-business-registration-tax-gst-iso-certification-compliance-service-government-license-government-registration-labour-department-startup-service-fssai-license-trademark-registration-pollution-control-board-tender-services-digital-signature-certificate-agreement-contract-small-business-support-service-when-a-service-is-selected-and-request-service-is-clicked-call-the-usesubmitservicerequest-mutation-with-the-customerid-and-selected-service-name-show-a-success-confirmation-with-a-reference-id-4-an-upload-documents-button-styled-in-dark-navy-with-golden-yellow-border-that-opens-a-mailto-link-to-ymwcomplianceservices-gmail-com-with-subject-document-upload-businessname-as-a-placeholder-actual-file-upload-is-not-required-5-a-contact-support-via-whatsapp-button-green-22c55e-that-links-to-https-wa-me-918102906339-opening-in-a-new-tab-style-all-sections-consistently-with-the-dark-navy-golden-yellow-theme-the-page-must-be-fully-mobile-responsive",
+      "title": "Create a protected Customer Dashboard page at frontend/src/pages/CustomerDashboard.tsx. On mount, check for an active customer session via useCustomerSession; if no session exists, immediately redirect to /customer-login. If session exists, render the dashboard with dark navy background and golden yellow accents. The dashboard should include: (1) A welcome banner: 'Welcome back, [fullName]!' with the customer's business name below it; (2) A Profile Info card showing: Full Name, Email, Mobile Number, Business Name, and a 'Logout' button that calls clearCustomerSession and redirects to /customer-login; (3) A 'Our Services' section with a dropdown or scrollable list box containing all 15 services (Business Registration, Tax & GST, ISO Certification, Compliance Service, Government License, Government Registration, Labour Department, Startup Service, FSSAI License, Trademark Registration, Pollution Control Board, Tender Services, Digital Signature Certificate, Agreement & Contract, Small Business Support Service) — when a service is selected and 'Request Service' is clicked, call the useSubmitServiceRequest mutation with the customerId and selected service name, show a success confirmation with a reference ID; (4) An 'Upload Documents' button (styled in dark navy with golden yellow border) that opens a mailto link to ymwcomplianceservices@gmail.com with subject 'Document Upload - [businessName]' as a placeholder (actual file upload is not required); (5) A 'Contact Support via WhatsApp' button (green #22c55e) that links to https://wa.me/918102906339 opening in a new tab. Style all sections consistently with the dark navy + golden yellow theme. The page must be fully mobile responsive.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-panel-page-at-frontend-src-pages-adminpanel-tsx-the-page-should-be-accessible-at-admin-panel-and-protected-by-a-simple-admin-password-check-on-mount-if-sessionstorage-key-ymw-admin-auth-is-not-set-to-true-show-an-admin-login-form-with-a-single-password-field-and-a-login-as-admin-button-on-submitting-the-correct-hardcoded-admin-password-use-ymwadmin-2024-set-sessionstorage-ymw-admin-auth-true-and-show-the-admin-dashboard-the-admin-dashboard-should-have-two-tabs-or-sections-1-all-customers-fetches-and-displays-a-table-or-responsive-card-list-on-mobile-of-all-registered-customers-using-the-usegetallcustomers-hook-showing-columns-customer-id-truncated-full-name-email-mobile-number-business-name-registration-date-2-service-requests-fetches-and-displays-all-service-requests-using-the-usegetallservicerequests-hook-showing-columns-request-id-truncated-customer-name-email-service-name-notes-submitted-date-include-a-search-filter-input-above-each-table-to-filter-by-name-or-email-include-an-admin-logout-button-that-clears-ymw-admin-auth-from-sessionstorage-style-with-dark-navy-background-and-golden-yellow-accents-consistent-with-the-site-theme-the-page-must-be-fully-mobile-responsive",
+      "title": "Create an Admin Panel page at frontend/src/pages/AdminPanel.tsx. The page should be accessible at /admin-panel and protected by a simple admin password check: on mount, if sessionStorage key 'ymw_admin_auth' is not set to 'true', show an admin login form with a single Password field and a 'Login as Admin' button. On submitting the correct hardcoded admin password (use 'YMWAdmin@2024'), set sessionStorage 'ymw_admin_auth' = 'true' and show the admin dashboard. The admin dashboard should have two tabs or sections: (1) 'All Customers' — fetches and displays a table (or responsive card list on mobile) of all registered customers using the useGetAllCustomers hook, showing columns: Customer ID (truncated), Full Name, Email, Mobile Number, Business Name, Registration Date; (2) 'Service Requests' — fetches and displays all service requests using the useGetAllServiceRequests hook, showing columns: Request ID (truncated), Customer Name/Email, Service Name, Notes, Submitted Date. Include a search/filter input above each table to filter by name or email. Include an 'Admin Logout' button that clears 'ymw_admin_auth' from sessionStorage. Style with dark navy background and golden yellow accents consistent with the site theme. The page must be fully mobile responsive.",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-register-all-new-customer-portal-pages-as-lazy-loaded-routes-in-frontend-src-app-tsx-customer-signup-customersignup-customer-login-customerlogin-customer-dashboard-customerdashboard-admin-panel-adminpanel-each-route-must-be-wrapped-in-the-existing-dark-navy-layout-component-with-navigation-footer-floatingcta-and-consultationpopup-consistent-with-all-other-page-routes-use-react-lazy-and-suspense-with-the-existing-loadingfallback-component-as-the-fallback",
+      "title": "Register all new customer portal pages as lazy-loaded routes in frontend/src/App.tsx: /customer-signup → CustomerSignup, /customer-login → CustomerLogin, /customer-dashboard → CustomerDashboard, /admin-panel → AdminPanel. Each route must be wrapped in the existing dark navy Layout component (with Navigation, Footer, FloatingCTA, and ConsultationPopup) consistent with all other page routes. Use React.lazy() and Suspense with the existing LoadingFallback component as the fallback.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-navigation-component-frontend-src-components-navigation-tsx-to-add-sign-up-and-login-links-in-the-navigation-menu-sign-up-should-link-to-customer-signup-and-login-should-link-to-customer-login-these-links-should-appear-in-both-the-desktop-nav-and-the-mobile-hamburger-menu-if-a-customer-session-is-active-check-sessionstorage-key-ymw-customer-session-replace-sign-up-and-login-with-a-my-account-link-pointing-to-customer-dashboard-style-these-links-consistently-with-the-existing-nav-link-style-white-text-golden-yellow-on-hover-active-do-not-remove-or-alter-any-existing-nav-links",
+      "title": "Update the Navigation component (frontend/src/components/Navigation.tsx) to add 'Sign Up' and 'Login' links in the navigation menu. 'Sign Up' should link to /customer-signup and 'Login' should link to /customer-login. These links should appear in both the desktop nav and the mobile hamburger menu. If a customer session is active (check sessionStorage key 'ymw_customer_session'), replace 'Sign Up' and 'Login' with a 'My Account' link pointing to /customer-dashboard. Style these links consistently with the existing nav link style (white text, golden yellow on hover/active). Do not remove or alter any existing nav links.",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-footer-component-frontend-src-components-footer-tsx-to-add-client-login-and-client-signup-links-in-the-existing-quick-links-or-support-section-pointing-to-customer-login-and-customer-signup-respectively-use-golden-yellow-f5c518-accent-color-on-hover-consistent-with-existing-footer-link-styling",
+      "title": "Update the Footer component (frontend/src/components/Footer.tsx) to add 'Client Login' and 'Client Signup' links in the existing Quick Links or Support section, pointing to /customer-login and /customer-signup respectively. Use golden yellow (#f5c518) accent color on hover, consistent with existing footer link styling.",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-navigation-component-frontend-src-components-navigation-tsx-to-remove-social-media-from-the-primary-navigation-links-entirely-it-must-not-appear-in-either-the-desktop-nav-or-the-mobile-hamburger-menu",
+      "title": "Update the Navigation component (frontend/src/components/Navigation.tsx) to remove 'Social Media' from the primary navigation links entirely — it must not appear in either the desktop nav or the mobile hamburger menu.",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-separate-standalone-login-link-from-the-navigation-component-frontend-src-components-navigation-tsx-the-login-option-must-only-be-accessible-via-the-sign-up-dropdown-described-in-req-57-not-as-a-top-level-nav-item-this-applies-to-both-the-desktop-nav-and-the-mobile-hamburger-menu",
+      "title": "Remove the separate standalone 'Login' link from the Navigation component (frontend/src/components/Navigation.tsx). The login option must only be accessible via the 'Sign Up' dropdown described in REQ-57, not as a top-level nav item. This applies to both the desktop nav and the mobile hamburger menu.",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-navigation-component-frontend-src-components-navigation-tsx-replace-the-current-sign-up-and-login-individual-links-with-a-single-golden-yellow-f5c518-primary-cta-button-labeled-sign-up-that-opens-a-dropdown-menu-with-exactly-two-options-1-sign-up-primary-option-styled-prominently-which-navigates-to-customer-signup-and-2-login-secondary-option-below-sign-up-which-navigates-to-customer-login-the-dropdown-should-appear-on-click-or-hover-with-a-clean-professional-dark-navy-0a1628-background-and-white-text-for-the-dropdown-items-with-golden-yellow-hover-highlight-on-desktop-position-this-button-on-the-right-side-of-the-nav-alongside-the-phone-number-in-the-mobile-hamburger-menu-show-the-same-two-options-sign-up-and-login-as-separate-tappable-rows-without-a-dropdown-they-can-be-rendered-as-direct-links-in-the-expanded-mobile-menu-if-a-customer-session-is-active-sessionstorage-key-ymw-customer-session-is-set-hide-the-sign-up-dropdown-button-entirely-and-instead-show-a-my-account-link-pointing-to-customer-dashboard-consistent-with-the-existing-session-aware-logic",
+      "title": "In the Navigation component (frontend/src/components/Navigation.tsx), replace the current 'Sign Up' and 'Login' individual links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu with exactly two options: (1) 'Sign Up' (primary option, styled prominently) which navigates to /customer-signup, and (2) 'Login' (secondary option below Sign Up) which navigates to /customer-login. The dropdown should appear on click or hover with a clean, professional dark navy (#0a1628) background and white text for the dropdown items, with golden yellow hover highlight. On desktop, position this button on the right side of the nav alongside the phone number. In the mobile hamburger menu, show the same two options (Sign Up and Login) as separate tappable rows without a dropdown — they can be rendered as direct links in the expanded mobile menu. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button entirely and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic.",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-final-desktop-navigation-layout-in-frontend-src-components-navigation-tsx-follows-this-structure-logo-ymw-branding-on-the-far-left-navigation-links-home-services-about-blog-contact-centered-in-the-middle-phone-number-91-8102906339-and-the-sign-up-primary-cta-button-with-dropdown-on-the-far-right-no-other-top-level-links-should-appear-between-the-centered-nav-links-and-the-right-side-elements-the-layout-must-remain-fully-responsive-collapsing-into-the-hamburger-menu-on-mobile-screens",
+      "title": "Ensure the final desktop Navigation layout in frontend/src/components/Navigation.tsx follows this structure: Logo (YMW branding) on the far left; navigation links (Home, Services, About, Blog, Contact) centered in the middle; phone number (+91 8102906339) and the 'Sign Up' primary CTA button (with dropdown) on the far right. No other top-level links should appear between the centered nav links and the right-side elements. The layout must remain fully responsive — collapsing into the hamburger menu on mobile screens.",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -448,6 +609,68 @@
     {
       "id": "AR-29",
       "summary": "Update the 'Get in Touch' / CTA section on the Home page to match the user's screenshot exactly: heading 'Ready to Start Your Business Journey?', subheading '100% free consultation, no obligations', three CTA buttons: 'Get Free Consultation' (yellow), 'Call: +91 8102906339 / 9279242122' (dark outline), 'WhatsApp Us' (green), and three trust badges: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes'. Must use the same font and color scheme as the rest of the site (dark navy background, golden yellow accent, white text).",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Change the background of the 'Get in Touch' / CTA section writeup/text area to yellow (golden yellow #f5c518) for highlighting",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Add legal/policy pages: Terms & Conditions, Privacy Policy, Refund Policy, Confidentiality Policy, and Disclaimer — accessible from the footer or navigation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Customer Signup page with fields: Full Name, Mobile Number, Email Address, Password, Business Name — redirects to Login page after successful signup",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Customer Login page with Email and Password fields — redirects to Customer Dashboard after successful login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Protected Customer Dashboard showing: welcome message with customer name, profile info, service selection list (all 15 services), Upload Documents button, Contact Support via WhatsApp button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Persistent customer accounts stored in Motoko backend — customers can login anytime; secure authentication with protected dashboard access (only logged-in users can access dashboard)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Admin Panel to view all registered customers, customer details, and customer service requests",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Add Signup and Login links to website navigation menu; connect dashboard access after login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Extend the Motoko backend to store customer accounts with fields: fullName (Text), mobileNumber (Text), email (Text), passwordHash (Text), businessName (Text), createdAt (Int), and a unique customerId (Nat). Add stable storage (HashMap or TrieMap) for customer accounts keyed by email. Expose the following update/query functions: (1) signupCustomer(fullName, mobileNumber, email, password, businessName) → returns variant {#ok: Text; #err: Text} where Text is the customerId on success or an error message (e.g., 'Email already registered'); (2) loginCustomer(email, password) → returns variant {#ok: CustomerProfile; #err: Text} where CustomerProfile contains customerId, fullName, email, mobileNumber, businessName, createdAt; (3) getCustomerProfile(customerId: Text) → returns ?CustomerProfile; (4) getAllCustomers() → returns [CustomerProfile] (admin-only, restrict to a hardcoded admin principal or an isAdmin check); (5) submitServiceRequest(customerId: Text, serviceName: Text, notes: Text) → returns variant {#ok: Text; #err: Text} where the returned Text is a serviceRequestId; (6) getServiceRequestsByCustomer(customerId: Text) → returns [ServiceRequest] where ServiceRequest contains requestId, customerId, serviceName, notes, createdAt; (7) getAllServiceRequests() → returns [ServiceRequest] (admin-only). Store passwords as a simple hash (use a deterministic Text transformation since Motoko lacks bcrypt — concatenate a fixed salt string with the password and store it, comparing the same way on login). Do not use Internet Identity for this flow.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Update header navigation: remove 'Social Media' link and separate 'Login' link; add single 'Sign Up' primary CTA button with dropdown (Sign Up → /signup, Login → /login); nav links: Home, Services, About, Blog, Contact; phone number on right; logo on left",
       "reqIds": [],
       "status": "pending"
     }

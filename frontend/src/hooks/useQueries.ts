@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { BlogPost, ConsultationRequest, UserProfile, GrievanceCategory } from '../backend';
+import type { BlogPost, ConsultationRequest, UserProfile, GrievanceCategory, CustomerProfile, ServiceRequest } from '../backend';
 
 export function useGetCallerUserProfile() {
   const { actor, isFetching: actorFetching } = useActor();
@@ -145,5 +145,122 @@ export function useListConsultationRequests() {
       return actor.listConsultationRequests();
     },
     enabled: !!actor && !isFetching,
+  });
+}
+
+// --- Customer Portal Hooks ---
+
+export function useSignupCustomer() {
+  const { actor } = useActor();
+
+  return useMutation({
+    mutationFn: async (data: {
+      fullName: string;
+      mobileNumber: string;
+      email: string;
+      businessName: string;
+      password: string;
+    }) => {
+      if (!actor) throw new Error('Actor not available');
+      const result = await actor.signupCustomer(
+        data.fullName,
+        data.mobileNumber,
+        data.email,
+        data.businessName,
+        data.password
+      );
+      if (result.__kind__ === 'err') {
+        throw new Error(result.err);
+      }
+      return result.ok;
+    },
+  });
+}
+
+export function useLoginCustomer() {
+  const { actor } = useActor();
+
+  return useMutation({
+    mutationFn: async (data: { email: string; password: string }) => {
+      if (!actor) throw new Error('Actor not available');
+      const result = await actor.loginCustomer(data.email, data.password);
+      if (result.__kind__ === 'err') {
+        throw new Error(result.err);
+      }
+      return result.ok as CustomerProfile;
+    },
+  });
+}
+
+export function useCustomerProfile(customerId: bigint | null) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<CustomerProfile | null>({
+    queryKey: ['customerProfile', customerId?.toString()],
+    queryFn: async () => {
+      if (!actor || customerId === null) return null;
+      return actor.getCustomerProfile(customerId);
+    },
+    enabled: !!actor && !isFetching && customerId !== null,
+  });
+}
+
+export function useSubmitServiceRequest() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: { customerId: bigint; serviceName: string; notes: string }) => {
+      if (!actor) throw new Error('Actor not available');
+      const result = await actor.submitServiceRequest(data.customerId, data.serviceName, data.notes);
+      if (result.__kind__ === 'err') {
+        throw new Error(result.err);
+      }
+      return result.ok;
+    },
+    onSuccess: (_data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['serviceRequestsByCustomer', variables.customerId.toString()] });
+    },
+  });
+}
+
+export function useGetServiceRequestsByCustomer(customerId: bigint | null) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<ServiceRequest[]>({
+    queryKey: ['serviceRequestsByCustomer', customerId?.toString()],
+    queryFn: async () => {
+      if (!actor || customerId === null) return [];
+      return actor.getServiceRequestsByCustomer(customerId);
+    },
+    enabled: !!actor && !isFetching && customerId !== null,
+  });
+}
+
+export function useGetAllCustomers() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<CustomerProfile[]>({
+    queryKey: ['allCustomers'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllCustomers();
+    },
+    enabled: !!actor && !isFetching,
+    retry: false,
+  });
+}
+
+export function useGetAllServiceRequests() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<ServiceRequest[]>({
+    queryKey: ['allServiceRequests'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getAllServiceRequests();
+    },
+    enabled: !!actor && !isFetching,
+    retry: false,
   });
 }

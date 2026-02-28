@@ -1,18 +1,15 @@
 # Specification
 
 ## Summary
-**Goal:** Redesign the "Get in Touch" CTA section on the Home page to match the provided screenshot with a golden yellow background, bold navy heading, three CTA buttons, and trust badges.
+**Goal:** Update the header Navigation component to clean up top-level links and consolidate authentication actions into a single "Sign Up" dropdown button.
 
 **Planned changes:**
-- Replace the existing CTA/Get in Touch section background with solid golden yellow (`#f5c518`) full-width
-- Display bold dark navy (`#0a1628`) heading: "Ready to Start Your Business Journey?" using the site's existing Poppins/Inter font
-- Add subtitle in dark navy: "Get expert guidance today — 100% free consultation, no obligations"
-- Add three horizontally-arranged CTA buttons:
-  - "Get Free Consultation" — dark navy background, white text, phone icon
-  - "Call: +91 8102906339 / 9279242122" — dark navy background, white text, phone icon, links to `tel:9279242122`
-  - "WhatsApp Us" — green (`#22c55e`) background, white text, WhatsApp icon, links to `https://wa.me/918102906339` (opens in new tab)
-- Add three trust badge lines below buttons in dark navy: "✓ No registration fee", "✓ Expert advice", "✓ Response within 30 minutes"
-- On mobile screens (< 640px), buttons stack vertically
-- No other section on the Home page is modified
+- Remove "Social Media" link from both desktop nav and mobile hamburger menu
+- Remove the standalone "Login" link from both desktop nav and mobile hamburger menu
+- Add a golden yellow (#f5c518) "Sign Up" CTA button on the right side of the desktop nav that opens a dropdown with two options: "Sign Up" (→ /customer-signup) and "Login" (→ /customer-login)
+- Style the dropdown with a dark navy (#0a1628) background, white text, and golden yellow hover highlight
+- On mobile, render "Sign Up" and "Login" as direct tappable links in the hamburger menu (no dropdown)
+- If a customer session is active (sessionStorage key `ymw_customer_session`), hide the Sign Up dropdown and show a "My Account" link to /customer-dashboard instead
+- Finalize desktop layout: logo on far left, nav links (Home, Services, About, Blog, Contact) centered, phone number and Sign Up button on far right
 
-**User-visible outcome:** The Home page CTA section displays a vibrant golden yellow banner with a bold navy heading, subtitle, three action buttons (consultation, call, WhatsApp), and trust badges, fully responsive on all screen sizes.
+**User-visible outcome:** The header navigation is cleaner with only the core nav links centered, and authentication is accessible through a single prominent "Sign Up" dropdown button on the right side of the nav.

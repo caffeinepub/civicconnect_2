@@ -1,26 +1,77 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Redesign 'Get in Touch' CTA section on Home page to match uploaded screenshot",
+  "title": "Update header navigation: remove Social Media & Login links, add Sign Up dropdown with Login option",
   "requirements": [
     {
-      "id": "REQ-37",
-      "summary": "Redesign the 'Get in Touch' / CTA section on the Home page to exactly match the uploaded screenshot with golden yellow background, bold heading, three CTA buttons (consultation, call, WhatsApp), and trust badges, ensuring full responsiveness and consistent typography",
+      "id": "REQ-55",
+      "summary": "Remove 'Social Media' link from Navigation component entirely (both desktop nav and mobile hamburger menu)",
       "acceptanceCriteria": [
-        "The 'Get in Touch' / CTA section on the Home page has a solid golden yellow (#f5c518) background across its full width.",
-        "The heading 'Ready to Start Your Business Journey?' is displayed in bold dark navy (#0a1628) using the same Poppins/Inter font family as the rest of the site, matching the screenshot style.",
-        "The subtitle 'Get expert guidance today — 100% free consultation, no obligations' is displayed in dark navy below the heading.",
-        "Three CTA buttons are visible side-by-side on desktop: 'Get Free Consultation' (dark navy background, white text, phone icon), 'Call: +91 8102906339 / 9279242122' (dark navy background, white text, phone icon linking to tel:9279242122), and 'WhatsApp Us' (green #22c55e background, white text, WhatsApp icon linking to https://wa.me/918102906339 in a new tab).",
-        "Three trust badges are displayed below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text.",
-        "On mobile screens (< 640px), the three buttons stack vertically.",
-        "No other section on the Home page is modified.",
-        "Font family matches the global Inter/Poppins configuration with no overrides."
+        "The 'Social Media' link is absent from the desktop navigation bar.",
+        "The 'Social Media' link is absent from the mobile hamburger menu.",
+        "All other existing nav links (Home, Services, About, Blog, Contact) remain intact."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/Home.tsx",
+          "path": "frontend/src/components/Navigation.tsx",
           "operation": "modify",
-          "description": "Replace the existing 'Get in Touch' / CTA section with a redesigned version matching image-2.png: Apply a full-width golden yellow (#f5c518) background to the section container. Add the heading 'Ready to Start Your Business Journey?' in bold dark navy (#0a1628) text using the existing Poppins/Inter font family, followed by the subtitle 'Get expert guidance today — 100% free consultation, no obligations' in dark navy text. Render three CTA buttons horizontally on desktop: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text linking to tel:9279242122, and (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab. Below the buttons, display three trust badge lines: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. Use Tailwind responsive utilities to stack the buttons vertically on screens smaller than 640px. Ensure all text uses the global Poppins/Inter font configuration without introducing new font overrides. Do not modify any other sections on the Home page (hero, stats, services preview, strengths)."
+          "description": "Remove the 'Social Media' navigation link from both the desktop navigation array and the mobile menu rendering logic. Ensure the link does not appear in either the desktop nav bar or the mobile hamburger menu, while preserving all other nav links (Home, Services, About, Blog, Contact)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-56",
+      "summary": "Remove standalone 'Login' link from Navigation component (both desktop and mobile)",
+      "acceptanceCriteria": [
+        "No standalone 'Login' link exists in the desktop navigation bar.",
+        "No standalone 'Login' link exists in the mobile hamburger menu.",
+        "Removing it does not break any other navigation element."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "modify",
+          "description": "Remove the standalone 'Login' link from both the desktop navigation bar and the mobile hamburger menu. Ensure the removal does not affect other navigation elements or session-aware logic. The login option will only be accessible via the Sign Up dropdown created in REQ-57."
+        }
+      ]
+    },
+    {
+      "id": "REQ-57",
+      "summary": "Replace 'Sign Up' and 'Login' links with a single golden yellow 'Sign Up' primary CTA button with dropdown menu",
+      "acceptanceCriteria": [
+        "A single 'Sign Up' button with golden yellow (#f5c518) background appears on the right side of the desktop nav.",
+        "Clicking or hovering the 'Sign Up' button opens a dropdown with two options: 'Sign Up' and 'Login'.",
+        "Clicking 'Sign Up' in the dropdown navigates to /customer-signup.",
+        "Clicking 'Login' in the dropdown navigates to /customer-login.",
+        "The dropdown has a dark navy background with white text and golden yellow hover highlight.",
+        "On mobile, the hamburger menu contains 'Sign Up' and 'Login' as direct tappable links.",
+        "If a customer session is active, the Sign Up dropdown is replaced by a 'My Account' link to /customer-dashboard.",
+        "The phone number remains visible in the header to the right of the nav links.",
+        "The 'Get Free Consultation' button (if present in the existing nav) is unaffected."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "modify",
+          "description": "Replace the individual 'Sign Up' and 'Login' links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu on click or hover. The dropdown should display two options: (1) 'Sign Up' (styled prominently) linking to /customer-signup, and (2) 'Login' (secondary option) linking to /customer-login. Style the dropdown with a dark navy (#0a1628) background, white text, and golden yellow hover highlight. Position this button on the right side of the desktop nav alongside the phone number. In the mobile hamburger menu, render 'Sign Up' and 'Login' as separate tappable rows without a dropdown. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic. Verify that the phone number and any 'Get Free Consultation' button remain unaffected."
+        }
+      ]
+    },
+    {
+      "id": "REQ-58",
+      "summary": "Ensure final desktop Navigation layout follows the structure: Logo (left), nav links (center), phone number and Sign Up button (right), with full responsive support",
+      "acceptanceCriteria": [
+        "Logo is on the far left of the navigation bar.",
+        "Navigation links (Home, Services, About, Blog, Contact) are centered.",
+        "Phone number and Sign Up button are on the far right.",
+        "Layout is fully responsive and collapses into a hamburger menu on mobile.",
+        "No extra top-level links appear between the centered links and the right-side elements."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Navigation.tsx",
+          "operation": "modify",
+          "description": "Verify and ensure the final desktop Navigation layout follows this structure: YMW branding logo on the far left, navigation links (Home, Services, About, Blog, Contact) centered in the middle, and phone number (+91 8102906339) with the 'Sign Up' primary CTA button on the far right. Ensure no other top-level links appear between the centered nav links and the right-side elements. Confirm the layout remains fully responsive and collapses into the hamburger menu on mobile screens."
         }
       ]
     }

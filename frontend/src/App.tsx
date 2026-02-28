@@ -18,6 +18,15 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Grievance = lazy(() => import('./pages/Grievance'));
 const SocialMedia = lazy(() => import('./pages/SocialMedia'));
 const Signup = lazy(() => import('./pages/Signup'));
+const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const RefundPolicy = lazy(() => import('./pages/RefundPolicy'));
+const ConfidentialityPolicy = lazy(() => import('./pages/ConfidentialityPolicy'));
+const Disclaimer = lazy(() => import('./pages/Disclaimer'));
+const CustomerSignup = lazy(() => import('./pages/CustomerSignup'));
+const CustomerLogin = lazy(() => import('./pages/CustomerLogin'));
+const CustomerDashboard = lazy(() => import('./pages/CustomerDashboard'));
+const AdminPanel = lazy(() => import('./pages/AdminPanel'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -108,6 +117,60 @@ const signupRoute = createRoute({
   component: Signup,
 });
 
+const termsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/terms-and-conditions',
+  component: TermsAndConditions,
+});
+
+const privacyRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/privacy-policy',
+  component: PrivacyPolicy,
+});
+
+const refundRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/refund-policy',
+  component: RefundPolicy,
+});
+
+const confidentialityRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/confidentiality-policy',
+  component: ConfidentialityPolicy,
+});
+
+const disclaimerRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/disclaimer',
+  component: Disclaimer,
+});
+
+const customerSignupRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/customer-signup',
+  component: CustomerSignup,
+});
+
+const customerLoginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/customer-login',
+  component: CustomerLogin,
+});
+
+const customerDashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/customer-dashboard',
+  component: CustomerDashboard,
+});
+
+const adminPanelRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin-panel',
+  component: AdminPanel,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -117,6 +180,15 @@ const routeTree = rootRoute.addChildren([
   grievanceRoute,
   socialMediaRoute,
   signupRoute,
+  termsRoute,
+  privacyRoute,
+  refundRoute,
+  confidentialityRoute,
+  disclaimerRoute,
+  customerSignupRoute,
+  customerLoginRoute,
+  customerDashboardRoute,
+  adminPanelRoute,
 ]);
 
 const router = createRouter({ routeTree });

@@ -196,39 +196,26 @@ export function getSecretParameter(paramName: string): string | null {
     return getSecretFromHash(paramName);
 }
 
-// UTM parameter keys
-const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
-const UTM_STORAGE_KEY = 'ymw_utm_source';
+const UTM_PARAMS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+const UTM_STORAGE_PREFIX = 'ymw_utm_';
 
 /**
- * Captures UTM parameters from the current URL and persists them in sessionStorage.
- * Should be called once on app load to capture any UTM data from the landing URL.
+ * Captures all UTM parameters from the current URL and persists them in sessionStorage.
+ * Should be called once on app load.
  */
 export function captureUTMParams(): void {
-    for (const param of UTM_PARAMS) {
+    UTM_PARAMS.forEach((param) => {
         const value = getUrlParameter(param);
         if (value !== null) {
-            storeSessionParameter(param, value);
+            storeSessionParameter(UTM_STORAGE_PREFIX + param, value);
         }
-    }
-
-    // Also store utm_source specifically under our app key for easy retrieval
-    const utmSource = getUrlParameter('utm_source');
-    if (utmSource !== null) {
-        storeSessionParameter(UTM_STORAGE_KEY, utmSource);
-    }
+    });
 }
 
 /**
- * Retrieves the stored UTM source value.
- * Returns the value captured on initial page load, or null if none was present.
+ * Retrieves the stored UTM source value from sessionStorage.
+ * Returns null if no UTM source was captured.
  */
 export function getUTMSource(): string | null {
-    // Try the dedicated storage key first
-    const stored = getSessionParameter(UTM_STORAGE_KEY);
-    if (stored !== null) {
-        return stored;
-    }
-    // Fall back to the raw utm_source param
-    return getSessionParameter('utm_source');
+    return getSessionParameter(UTM_STORAGE_PREFIX + 'utm_source');
 }

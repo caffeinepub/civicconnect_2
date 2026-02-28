@@ -1,50 +1,108 @@
 {
   "kind": "build_request",
-  "title": "Redesign 'Get in Touch' CTA section on Home page to match uploaded screenshot",
+  "title": "Update header navigation: remove Social Media & Login links, add Sign Up dropdown with Login option",
   "projectName": "YMW Compliance Services",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-37",
-      "text": "Redesign the 'Get in Touch' / CTA section on the Home page (frontend/src/pages/Home.tsx) to exactly match the uploaded screenshot (image-2.png): solid golden yellow (#f5c518) full-width background, large bold dark navy (#0a1628) heading 'Ready to Start Your Business Journey?' using the same Poppins/Inter font as the rest of the site, a subtitle in dark navy 'Get expert guidance today — 100% free consultation, no obligations', three horizontally-arranged CTA buttons: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text — where the call button links to tel:9279242122, (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab, and three trust badge lines below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. All text, fonts, and button styles must be consistent with the rest of the site (Poppins/Inter font family). The section must be fully responsive — buttons stack vertically on mobile screens < 640px. Do not alter any other section on the Home page.",
+      "id": "REQ-55",
+      "text": "Update the Navigation component (frontend/src/components/Navigation.tsx) to remove 'Social Media' from the primary navigation links entirely — it must not appear in either the desktop nav or the mobile hamburger menu.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-3"
         ],
         "quotes": [
-          "Ready to Start Your Business Journey?",
-          "Get expert guidance today — 100% free consultation, no obligations",
-          "Get Free Consultation",
-          "Call: +91 8102906339 / 9279242122",
-          "WhatsApp Us",
-          "✓ No registration fee    ✓ Expert advice    ✓ Response within 30 minutes",
-          "Get in touch section ko upper maine jaisa screenshot diya h waisa likhe and same font and same colour ke saath"
+          "Remove \"Social Media\" from the top header navigation completely."
         ]
       },
       "acceptanceCriteria": [
-        "The 'Get in Touch' / CTA section on the Home page has a solid golden yellow (#f5c518) background across its full width.",
-        "The heading 'Ready to Start Your Business Journey?' is displayed in bold dark navy (#0a1628) using the same Poppins/Inter font family as the rest of the site, matching the screenshot style.",
-        "The subtitle 'Get expert guidance today — 100% free consultation, no obligations' is displayed in dark navy below the heading.",
-        "Three CTA buttons are visible side-by-side on desktop: 'Get Free Consultation' (dark navy background, white text, phone icon), 'Call: +91 8102906339 / 9279242122' (dark navy background, white text, phone icon linking to tel:9279242122), and 'WhatsApp Us' (green #22c55e background, white text, WhatsApp icon linking to https://wa.me/918102906339 in a new tab).",
-        "Three trust badges are displayed below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text.",
-        "On mobile screens (< 640px), the three buttons stack vertically.",
-        "No other section on the Home page is modified.",
-        "Font family matches the global Inter/Poppins configuration with no overrides."
+        "The 'Social Media' link is absent from the desktop navigation bar.",
+        "The 'Social Media' link is absent from the mobile hamburger menu.",
+        "All other existing nav links (Home, Services, About, Blog, Contact) remain intact."
+      ]
+    },
+    {
+      "id": "REQ-56",
+      "text": "Remove the separate standalone 'Login' link from the Navigation component (frontend/src/components/Navigation.tsx). The login option must only be accessible via the 'Sign Up' dropdown described in REQ-57, not as a top-level nav item. This applies to both the desktop nav and the mobile hamburger menu.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Remove the separate \"Login\" link from the main header."
+        ]
+      },
+      "acceptanceCriteria": [
+        "No standalone 'Login' link exists in the desktop navigation bar.",
+        "No standalone 'Login' link exists in the mobile hamburger menu.",
+        "Removing it does not break any other navigation element."
+      ]
+    },
+    {
+      "id": "REQ-57",
+      "text": "In the Navigation component (frontend/src/components/Navigation.tsx), replace the current 'Sign Up' and 'Login' individual links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu with exactly two options: (1) 'Sign Up' (primary option, styled prominently) which navigates to /customer-signup, and (2) 'Login' (secondary option below Sign Up) which navigates to /customer-login. The dropdown should appear on click or hover with a clean, professional dark navy (#0a1628) background and white text for the dropdown items, with golden yellow hover highlight. On desktop, position this button on the right side of the nav alongside the phone number. In the mobile hamburger menu, show the same two options (Sign Up and Login) as separate tappable rows without a dropdown — they can be rendered as direct links in the expanded mobile menu. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button entirely and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Keep only one primary button in the header named \"Sign Up\".",
+          "Create a dropdown under the \"Sign Up\" button with two options: Sign Up (primary option), Login (secondary option below Sign Up)",
+          "Sign Up → redirect to /signup page",
+          "Login → redirect to /login page",
+          "Make the Sign Up button highlighted as primary call-to-action."
+        ]
+      },
+      "acceptanceCriteria": [
+        "A single 'Sign Up' button with golden yellow (#f5c518) background appears on the right side of the desktop nav.",
+        "Clicking or hovering the 'Sign Up' button opens a dropdown with two options: 'Sign Up' and 'Login'.",
+        "Clicking 'Sign Up' in the dropdown navigates to /customer-signup.",
+        "Clicking 'Login' in the dropdown navigates to /customer-login.",
+        "The dropdown has a dark navy background with white text and golden yellow hover highlight.",
+        "On mobile, the hamburger menu contains 'Sign Up' and 'Login' as direct tappable links.",
+        "If a customer session is active, the Sign Up dropdown is replaced by a 'My Account' link to /customer-dashboard.",
+        "The phone number remains visible in the header to the right of the nav links.",
+        "The 'Get Free Consultation' button (if present in the existing nav) is unaffected."
+      ]
+    },
+    {
+      "id": "REQ-58",
+      "text": "Ensure the final desktop Navigation layout in frontend/src/components/Navigation.tsx follows this structure: Logo (YMW branding) on the far left; navigation links (Home, Services, About, Blog, Contact) centered in the middle; phone number (+91 8102906339) and the 'Sign Up' primary CTA button (with dropdown) on the far right. No other top-level links should appear between the centered nav links and the right-side elements. The layout must remain fully responsive — collapsing into the hamburger menu on mobile screens.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-3"
+        ],
+        "quotes": [
+          "Maintain a clean and professional layout with: Logo on left, Menu in center (Home, Services, About, Blog, Contact), Phone number and Sign Up button on right",
+          "Keep the phone number visible in the header."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Logo is on the far left of the navigation bar.",
+        "Navigation links (Home, Services, About, Blog, Contact) are centered.",
+        "Phone number and Sign Up button are on the far right.",
+        "Layout is fully responsive and collapses into a hamburger menu on mobile.",
+        "No extra top-level links appear between the centered links and the right-side elements."
       ]
     }
   ],
   "constraints": [
-    "Use only the existing global font family (Inter/Poppins) — do not introduce any new typeface.",
-    "Do not modify any other section on the Home page.",
-    "Do not change the dark navy (#0a1628) background of the rest of the site — this change is isolated to the CTA section which has a golden yellow background.",
-    "Do not edit any immutable frontend paths."
+    "Do not alter any existing navigation links: Home, Services, About, Blog, Contact must remain in the center nav.",
+    "Do not remove the phone number (+91 8102906339) from the header.",
+    "The /customer-signup and /customer-login routes must not be changed — only the nav links pointing to them are being updated.",
+    "Do not modify any files listed in frontend.immutablePaths.",
+    "The Social Media page (/social-media) must continue to exist as a route — only the nav link is removed."
   ],
   "nonGoals": [
-    "Changing any other page or component besides the Home page CTA section.",
-    "Adding new backend endpoints or data models.",
-    "Modifying the hero section, services preview, stats section, or strengths section on the Home page.",
-    "Changing the global color theme or font configuration."
+    "Changing the Social Media page itself.",
+    "Modifying the /signup (Internet Identity) page or route.",
+    "Altering the Footer component.",
+    "Changing any page content or layout outside the Navigation component.",
+    "Adding new backend endpoints."
   ],
   "imageRequirements": {
     "required": [],

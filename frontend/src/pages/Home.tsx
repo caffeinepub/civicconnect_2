@@ -222,14 +222,14 @@ export default function Home() {
 
             {/* Right Column - Consultation Form */}
             <div
-              className="rounded-2xl p-6 md:p-8 shadow-2xl"
+              className="rounded-2xl overflow-hidden shadow-2xl"
               style={{
                 backgroundColor: '#fff',
                 border: '1px solid rgba(245,197,24,0.3)',
               }}
             >
               {submitted ? (
-                <div className="flex flex-col items-center gap-4 py-8 text-center">
+                <div className="flex flex-col items-center gap-4 py-8 px-6 md:px-8 text-center">
                   <CheckCircle className="w-16 h-16 text-green-500" />
                   <h3 className="text-2xl font-bold" style={{ color: '#0a1628' }}>Thank You!</h3>
                   <p className="text-gray-600 max-w-sm">
@@ -246,122 +246,131 @@ export default function Home() {
                 </div>
               ) : (
                 <>
-                  <div className="mb-6">
+                  {/* Heading block with golden yellow background */}
+                  <div
+                    className="px-6 md:px-8 py-5"
+                    style={{ backgroundColor: '#f5c518' }}
+                  >
                     <h2 className="text-2xl font-bold mb-1" style={{ color: '#0a1628' }}>
                       Get Free Consultation
                     </h2>
-                    <p className="text-sm text-gray-500">Fill the form — our expert will call you back</p>
+                    <p className="text-sm font-medium" style={{ color: '#0a1628' }}>
+                      Fill the form — our expert will call you back
+                    </p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1">Full Name *</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="Enter your full name"
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
-                        style={{
-                          border: '1.5px solid #e5e7eb',
-                          color: '#0a1628',
-                          backgroundColor: '#f9fafb',
-                        }}
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1">Phone Number *</label>
-                      <div className="flex">
-                        <span
-                          className="flex items-center px-3 rounded-l-lg text-sm font-medium min-h-[44px]"
-                          style={{ backgroundColor: '#f3f4f6', border: '1.5px solid #e5e7eb', borderRight: 'none', color: '#374151' }}
-                        >
-                          +91
-                        </span>
+                  {/* Form fields */}
+                  <div className="px-6 md:px-8 py-6">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-600 mb-1">Full Name *</label>
                         <input
-                          type="tel"
+                          type="text"
                           required
-                          placeholder="10-digit mobile number"
-                          value={formData.phoneNumber}
-                          onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
-                          className="flex-1 px-4 py-3 rounded-r-lg text-sm outline-none min-h-[44px]"
+                          placeholder="Enter your full name"
+                          value={formData.fullName}
+                          onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
                           style={{
                             border: '1.5px solid #e5e7eb',
-                            borderLeft: 'none',
                             color: '#0a1628',
                             backgroundColor: '#f9fafb',
                           }}
-                          maxLength={10}
                         />
                       </div>
-                    </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1">Select Service *</label>
-                      <select
-                        required
-                        value={formData.selectedService}
-                        onChange={(e) => setFormData({ ...formData, selectedService: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
-                        style={{
-                          border: '1.5px solid #e5e7eb',
-                          color: formData.selectedService ? '#0a1628' : '#9ca3af',
-                          backgroundColor: '#f9fafb',
-                        }}
-                      >
-                        <option value="">Choose a service...</option>
-                        {SERVICES.map((service) => (
-                          <option key={service} value={service}>{service}</option>
-                        ))}
-                      </select>
-                    </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-600 mb-1">Phone Number *</label>
+                        <div className="flex">
+                          <span
+                            className="flex items-center px-3 rounded-l-lg text-sm font-medium min-h-[44px]"
+                            style={{ backgroundColor: '#f3f4f6', border: '1.5px solid #e5e7eb', borderRight: 'none', color: '#374151' }}
+                          >
+                            +91
+                          </span>
+                          <input
+                            type="tel"
+                            required
+                            placeholder="10-digit mobile number"
+                            value={formData.phoneNumber}
+                            onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                            className="flex-1 px-4 py-3 rounded-r-lg text-sm outline-none min-h-[44px]"
+                            style={{
+                              border: '1.5px solid #e5e7eb',
+                              borderLeft: 'none',
+                              color: '#0a1628',
+                              backgroundColor: '#f9fafb',
+                            }}
+                            maxLength={10}
+                          />
+                        </div>
+                      </div>
 
-                    <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1">City / State *</label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="e.g. Dhanbad, Jharkhand"
-                        value={formData.cityState}
-                        onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
-                        className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
-                        style={{
-                          border: '1.5px solid #e5e7eb',
-                          color: '#0a1628',
-                          backgroundColor: '#f9fafb',
-                        }}
-                      />
-                    </div>
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-600 mb-1">Select Service *</label>
+                        <select
+                          required
+                          value={formData.selectedService}
+                          onChange={(e) => setFormData({ ...formData, selectedService: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
+                          style={{
+                            border: '1.5px solid #e5e7eb',
+                            color: formData.selectedService ? '#0a1628' : '#9ca3af',
+                            backgroundColor: '#f9fafb',
+                          }}
+                        >
+                          <option value="">Choose a service...</option>
+                          {SERVICES.map((service) => (
+                            <option key={service} value={service}>{service}</option>
+                          ))}
+                        </select>
+                      </div>
 
-                    {submitMutation.isError && (
-                      <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
-                    )}
+                      <div>
+                        <label className="block text-xs font-semibold text-gray-600 mb-1">City / State *</label>
+                        <input
+                          type="text"
+                          required
+                          placeholder="e.g. Dhanbad, Jharkhand"
+                          value={formData.cityState}
+                          onChange={(e) => setFormData({ ...formData, cityState: e.target.value })}
+                          className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
+                          style={{
+                            border: '1.5px solid #e5e7eb',
+                            color: '#0a1628',
+                            backgroundColor: '#f9fafb',
+                          }}
+                        />
+                      </div>
 
-                    <button
-                      type="submit"
-                      disabled={submitMutation.isPending}
-                      className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60 min-h-[52px]"
-                      style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
-                    >
-                      {submitMutation.isPending ? (
-                        <>
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        <>
-                          Get Free Consultation
-                          <ArrowRight className="w-5 h-5" />
-                        </>
+                      {submitMutation.isError && (
+                        <p className="text-xs text-red-500">Something went wrong. Please try again.</p>
                       )}
-                    </button>
 
-                    <p className="text-center text-xs text-gray-400">
-                      🔒 100% Free &amp; Confidential. No spam, ever.
-                    </p>
-                  </form>
+                      <button
+                        type="submit"
+                        disabled={submitMutation.isPending}
+                        className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60 min-h-[52px]"
+                        style={{ backgroundColor: '#f5c518', color: '#0a1628' }}
+                      >
+                        {submitMutation.isPending ? (
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            Get Free Consultation
+                            <ArrowRight className="w-5 h-5" />
+                          </>
+                        )}
+                      </button>
+
+                      <p className="text-center text-xs text-gray-400">
+                        🔒 100% Free &amp; Confidential. No spam, ever.
+                      </p>
+                    </form>
+                  </div>
                 </>
               )}
             </div>
@@ -388,27 +397,33 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {FEATURED_SERVICES.map((service) => (
-              <div
-                key={service.title}
-                className="p-6 rounded-2xl hover:scale-105 transition-transform duration-200 cursor-pointer"
+            {FEATURED_SERVICES.map((s) => (
+              <Link
+                key={s.title}
+                to="/services"
+                className="group flex flex-col gap-3 p-5 rounded-xl transition-all hover:-translate-y-1 hover:shadow-xl cursor-pointer"
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <div className="flex items-start justify-between mb-3">
-                  <span className="text-3xl">{service.icon}</span>
+                <div className="flex items-start justify-between gap-2">
+                  <span className="text-3xl">{s.icon}</span>
                   <span
-                    className="text-xs font-bold px-2 py-1 rounded-full"
+                    className="text-xs font-bold px-2 py-0.5 rounded-full"
                     style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
                   >
-                    {service.badge}
+                    {s.badge}
                   </span>
                 </div>
-                <h3 className="font-bold text-white mb-1 text-sm leading-snug">{service.title}</h3>
-                <p className="text-xs text-gray-400 leading-relaxed">{service.desc}</p>
-              </div>
+                <div>
+                  <h3 className="font-bold text-white text-sm mb-1 group-hover:text-yellow-400 transition-colors">{s.title}</h3>
+                  <p className="text-xs text-gray-400 leading-relaxed">{s.desc}</p>
+                </div>
+                <div className="flex items-center gap-1 text-xs font-semibold mt-auto" style={{ color: '#f5c518' }}>
+                  Learn more <ArrowRight className="w-3 h-3" />
+                </div>
+              </Link>
             ))}
           </div>
 
@@ -425,8 +440,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Us / Stats Section */}
-      <section className="py-16 px-4" style={{ backgroundColor: '#0a1628' }}>
+      {/* Stats Section */}
+      <section className="py-14 px-4" style={{ backgroundColor: '#0a1628' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {STATS.map((stat) => (
+              <div
+                key={stat.label}
+                className="flex flex-col items-center gap-2 p-6 rounded-2xl text-center"
+                style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(245,197,24,0.15)' }}
+              >
+                <span style={{ color: '#f5c518' }}>{stat.icon}</span>
+                <span className="text-3xl font-extrabold text-white">{stat.value}</span>
+                <span className="text-sm text-gray-400">{stat.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span
@@ -436,150 +470,81 @@ export default function Home() {
               Why Choose Us
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              Trusted by <span style={{ color: '#f5c518' }}>15,000+ Businesses</span>
+              Our <span style={{ color: '#f5c518' }}>Strengths</span>
             </h2>
             <p className="text-gray-400 max-w-2xl mx-auto">
-              We combine expertise, technology, and dedication to deliver the best compliance experience
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {STATS.map((stat) => (
-              <div
-                key={stat.label}
-                className="flex flex-col items-center gap-3 p-6 rounded-2xl text-center"
-                style={{
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                }}
-              >
-                <span
-                  className="w-12 h-12 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
-                >
-                  {stat.icon}
-                </span>
-                <span className="text-3xl font-extrabold text-white">{stat.value}</span>
-                <span className="text-sm text-gray-400">{stat.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Our Strengths Section */}
-      <section className="py-16 px-4" style={{ backgroundColor: '#0d1f3c' }}>
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span
-              className="inline-block px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-4"
-              style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
-            >
-              Our Strengths
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              What Makes Us <span style={{ color: '#f5c518' }}>Different</span>
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Our commitment to excellence sets us apart from the rest
+              What makes YMW Compliance Services the preferred choice for thousands of businesses
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {STRENGTHS.map((strength) => (
+            {STRENGTHS.map((s) => (
               <div
-                key={strength.title}
-                className="flex flex-col gap-4 p-6 rounded-2xl"
+                key={s.title}
+                className="flex flex-col gap-3 p-6 rounded-xl"
                 style={{
                   backgroundColor: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <span
-                  className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(245,197,24,0.15)', color: '#f5c518' }}
-                >
-                  {strength.icon}
-                </span>
-                <div>
-                  <h3 className="font-bold text-white text-lg mb-1">{strength.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{strength.desc}</p>
-                </div>
+                <span style={{ color: '#f5c518' }}>{s.icon}</span>
+                <h3 className="font-bold text-white text-base">{s.title}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Get in Touch / CTA Section — Golden Yellow Banner */}
-      <section className="w-full py-16 px-4" style={{ backgroundColor: '#f5c518' }}>
-        <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
-          {/* Heading */}
-          <div className="flex flex-col gap-3">
-            <h2
-              className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight"
-              style={{ color: '#0a1628', fontFamily: 'Poppins, Inter, sans-serif' }}
-            >
-              Ready to Start Your Business Journey?
-            </h2>
-            <p
-              className="text-base sm:text-lg font-normal"
-              style={{ color: '#0a1628' }}
-            >
-              Get expert guidance today — 100% free consultation, no obligations
-            </p>
-          </div>
+      {/* CTA Section */}
+      <section className="py-16 px-4" style={{ backgroundColor: '#f5c518' }}>
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-4" style={{ color: '#0a1628' }}>
+            Ready to Start Your Business Journey?
+          </h2>
+          <p className="text-base font-medium mb-8 max-w-2xl mx-auto" style={{ color: '#0a1628', opacity: 0.8 }}>
+            Join 15,000+ businesses who trust YMW Compliance Services for all their regulatory needs. Get expert guidance today.
+          </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-            {/* Get Free Consultation */}
-            <a
-              href="tel:9279242122"
-              className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[54px] min-w-[220px]"
-              style={{ backgroundColor: '#0a1628', color: '#ffffff' }}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+            <Link
+              to="/"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[52px]"
+              style={{ backgroundColor: '#0a1628', color: '#f5c518' }}
             >
-              <Phone className="w-5 h-5 flex-shrink-0" />
+              <MessageCircle className="w-5 h-5" />
               Get Free Consultation
-            </a>
-
-            {/* Call Button */}
+            </Link>
             <a
               href="tel:9279242122"
-              className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[54px] min-w-[220px]"
-              style={{ backgroundColor: '#0d1f3c', color: '#ffffff' }}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[52px]"
+              style={{ backgroundColor: 'rgba(10,22,40,0.12)', color: '#0a1628', border: '2px solid #0a1628' }}
             >
-              <Phone className="w-5 h-5 flex-shrink-0" />
-              Call: +91 8102906339
+              <Phone className="w-5 h-5" />
+              Call: 9279242122
             </a>
-
-            {/* WhatsApp Button */}
             <a
               href="https://wa.me/918102906339"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 px-7 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[54px] min-w-[180px]"
-              style={{ backgroundColor: '#22c55e', color: '#ffffff' }}
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base hover:opacity-90 transition-all min-h-[52px]"
+              style={{ backgroundColor: '#25D366', color: '#fff' }}
             >
-              <WhatsAppIcon className="w-5 h-5 flex-shrink-0" />
+              <WhatsAppIcon className="w-5 h-5" />
               WhatsApp Us
             </a>
           </div>
 
-          {/* Trust Badges */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-8">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             {[
-              'No registration fee',
-              'Expert advice',
-              'Response within 30 minutes',
+              { icon: <CheckCircle className="w-5 h-5" />, text: '100% Free Consultation' },
+              { icon: <Shield className="w-5 h-5" />, text: 'Trusted by 15,000+ Clients' },
+              { icon: <Clock className="w-5 h-5" />, text: 'Quick Response Guaranteed' },
             ].map((badge) => (
-              <span
-                key={badge}
-                className="flex items-center gap-1.5 text-sm font-medium"
-                style={{ color: '#0a1628' }}
-              >
-                <span className="font-bold text-base">✓</span>
-                {badge}
-              </span>
+              <div key={badge.text} className="flex items-center gap-2 font-semibold text-sm" style={{ color: '#0a1628' }}>
+                {badge.icon}
+                {badge.text}
+              </div>
             ))}
           </div>
         </div>

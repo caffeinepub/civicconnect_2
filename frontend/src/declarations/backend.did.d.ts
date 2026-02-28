@@ -36,6 +36,14 @@ export interface ContactMessage {
   'email' : string,
   'message' : string,
 }
+export interface CustomerProfile {
+  'createdAt' : Timestamp,
+  'businessName' : string,
+  'fullName' : string,
+  'mobileNumber' : string,
+  'email' : string,
+  'customerId' : bigint,
+}
 export interface Grievance {
   'id' : string,
   'referenceNumber' : string,
@@ -50,6 +58,13 @@ export type GrievanceCategory = { 'safety' : null } |
   { 'noise' : null } |
   { 'maintenance' : null } |
   { 'cleanliness' : null };
+export interface ServiceRequest {
+  'serviceName' : string,
+  'requestId' : bigint,
+  'createdAt' : Timestamp,
+  'notes' : string,
+  'customerId' : bigint,
+}
 export type Timestamp = bigint;
 export interface UserProfile { 'name' : string, 'email' : string }
 export type UserRole = { 'admin' : null } |
@@ -85,17 +100,31 @@ export interface _SERVICE {
   '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
   'createBlogPost' : ActorMethod<[string, string, string, string], string>,
+  'getAllCustomers' : ActorMethod<[], Array<CustomerProfile>>,
+  'getAllServiceRequests' : ActorMethod<[], Array<ServiceRequest>>,
   'getBlogPost' : ActorMethod<[string], BlogPost>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getCustomerProfile' : ActorMethod<[bigint], [] | [CustomerProfile]>,
+  'getServiceRequestsByCustomer' : ActorMethod<[bigint], Array<ServiceRequest>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'listBlogPosts' : ActorMethod<[], Array<BlogPost>>,
   'listConsultationRequests' : ActorMethod<[], Array<ConsultationRequest>>,
   'listContactMessages' : ActorMethod<[], Array<ContactMessage>>,
   'listGrievances' : ActorMethod<[], Array<Grievance>>,
+  'loginCustomer' : ActorMethod<
+    [string, string],
+    { 'ok' : CustomerProfile } |
+      { 'err' : string }
+  >,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'signUpWithInternetIdentity' : ActorMethod<[], Principal>,
+  'signupCustomer' : ActorMethod<
+    [string, string, string, string, string],
+    { 'ok' : string } |
+      { 'err' : string }
+  >,
   'submitConsultationRequest' : ActorMethod<
     [string, string, string, string, [] | [string]],
     string
@@ -107,6 +136,11 @@ export interface _SERVICE {
   'submitGrievance' : ActorMethod<
     [string, string, GrievanceCategory, string],
     string
+  >,
+  'submitServiceRequest' : ActorMethod<
+    [bigint, string, string],
+    { 'ok' : string } |
+      { 'err' : string }
   >,
 }
 export declare const idlService: IDL.ServiceClass;

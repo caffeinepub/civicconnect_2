@@ -1,24 +1,57 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-28T09:00:49.892Z",
+  "generatedAt": "2026-02-28T10:57:39.664Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-37",
-        "summary": "Redesign the 'Get in Touch' / CTA section on the Home page (frontend/src/pages/Home.tsx) to exactly match the uploaded screenshot (image-2.png): solid golden yellow (#f5c518) full-width background, large bold dark navy (#0a1628) heading 'Ready to Start Your Business Journey?' using the same Poppins/Inter font as the rest of the site, a subtitle in dark navy 'Get expert guidance today — 100% free consultation, no obligations', three horizontally-arranged CTA buttons: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text — where the call button links to tel:9279242122, (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab, and three trust badge lines below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. All text, fonts, and button styles must be consistent with the rest of the site (Poppins/Inter font family). The section must be fully responsive — buttons stack vertically on mobile screens < 640px. Do not alter any other section on the Home page.",
+        "id": "REQ-55",
+        "summary": "Update the Navigation component (frontend/src/components/Navigation.tsx) to remove 'Social Media' from the primary navigation links entirely — it must not appear in either the desktop nav or the mobile hamburger menu.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/Home.tsx"
+          "frontend/src/components/Navigation.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/Home.tsx"
+          "frontend/src/components/Navigation.tsx"
+        ]
+      },
+      {
+        "id": "REQ-56",
+        "summary": "Remove the separate standalone 'Login' link from the Navigation component (frontend/src/components/Navigation.tsx). The login option must only be accessible via the 'Sign Up' dropdown described in REQ-57, not as a top-level nav item. This applies to both the desktop nav and the mobile hamburger menu.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Navigation.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Navigation.tsx"
+        ]
+      },
+      {
+        "id": "REQ-57",
+        "summary": "In the Navigation component (frontend/src/components/Navigation.tsx), replace the current 'Sign Up' and 'Login' individual links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu with exactly two options: (1) 'Sign Up' (primary option, styled prominently) which navigates to /customer-signup, and (2) 'Login' (secondary option below Sign Up) which navigates to /customer-login. The dropdown should appear on click or hover with a clean, professional dark navy (#0a1628) background and white text for the dropdown items, with golden yellow hover highlight. On desktop, position this button on the right side of the nav alongside the phone number. In the mobile hamburger menu, show the same two options (Sign Up and Login) as separate tappable rows without a dropdown — they can be rendered as direct links in the expanded mobile menu. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button entirely and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Navigation.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Navigation.tsx"
+        ]
+      },
+      {
+        "id": "REQ-58",
+        "summary": "Ensure the final desktop Navigation layout in frontend/src/components/Navigation.tsx follows this structure: Logo (YMW branding) on the far left; navigation links (Home, Services, About, Blog, Contact) centered in the middle; phone number (+91 8102906339) and the 'Sign Up' primary CTA button (with dropdown) on the far right. No other top-level links should appear between the centered nav links and the right-side elements. The layout must remain fully responsive — collapsing into the hamburger menu on mobile screens.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Navigation.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Navigation.tsx"
         ]
       }
     ]
@@ -28,7 +61,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/pages/Home.tsx",
+    "frontend/src/components/Navigation.tsx",
     "frontend/src/utils/urlParams.ts",
     "project_state.json",
     "scratch/component-selection.json",

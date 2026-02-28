@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-redesign-the-get-in-touch-cta-section-on-the-home-page-frontend-src-pages-home-tsx-to-exactly-match-the-uploaded-screenshot-image-2-png-solid-golden-yellow-f5c518-full-width-background-large-bold-dark-navy-0a1628-heading-ready-to-start-your-business-journey-using-the-same-poppins-inter-font-as-the-rest-of-the-site-a-subtitle-in-dark-navy-get-expert-guidance-today-100-free-consultation-no-obligations-three-horizontally-arranged-cta-buttons-1-get-free-consultation-with-a-phone-icon-on-dark-navy-0a1628-background-with-white-text-2-call-91-8102906339-9279242122-with-a-phone-icon-on-dark-navy-0a1628-background-with-white-text-where-the-call-button-links-to-tel-9279242122-3-whatsapp-us-with-a-whatsapp-message-icon-on-green-22c55e-background-with-white-text-linking-to-https-wa-me-918102906339-opening-in-a-new-tab-and-three-trust-badge-lines-below-the-buttons-no-registration-fee-expert-advice-response-within-30-minutes-in-dark-navy-text-all-text-fonts-and-button-styles-must-be-consistent-with-the-rest-of-the-site-poppins-inter-font-family-the-section-must-be-fully-responsive-buttons-stack-vertically-on-mobile-screens-640px-do-not-alter-any-other-section-on-the-home-page",
-      "featureTitle": "Redesign the 'Get in Touch' / CTA section on the Home page (frontend/src/pages/Home.tsx) to exactly match the uploaded screenshot (image-2.png): solid golden yellow (#f5c518) full-width background, large bold dark navy (#0a1628) heading 'Ready to Start Your Business Journey?' using the same Poppins/Inter font as the rest of the site, a subtitle in dark navy 'Get expert guidance today — 100% free consultation, no obligations', three horizontally-arranged CTA buttons: (1) 'Get Free Consultation' with a phone icon on dark navy (#0a1628) background with white text, (2) 'Call: +91 8102906339 / 9279242122' with a phone icon on dark navy (#0a1628) background with white text — where the call button links to tel:9279242122, (3) 'WhatsApp Us' with a WhatsApp/message icon on green (#22c55e) background with white text linking to https://wa.me/918102906339 opening in a new tab, and three trust badge lines below the buttons: '✓ No registration fee', '✓ Expert advice', '✓ Response within 30 minutes' in dark navy text. All text, fonts, and button styles must be consistent with the rest of the site (Poppins/Inter font family). The section must be fully responsive — buttons stack vertically on mobile screens < 640px. Do not alter any other section on the Home page.",
+      "featureId": "feature-update-the-navigation-component-frontend-src-components-navigation-tsx-to-remove-social-media-from-the-primary-navigation-links-entirely-it-must-not-appear-in-either-the-desktop-nav-or-the-mobile-hamburger-menu",
+      "featureTitle": "Update the Navigation component (frontend/src/components/Navigation.tsx) to remove 'Social Media' from the primary navigation links entirely — it must not appear in either the desktop nav or the mobile hamburger menu.",
       "files": [
-        "frontend/src/pages/Home.tsx"
+        "frontend/src/components/Navigation.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -17,7 +17,67 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-37"
+        "REQ-55"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-the-separate-standalone-login-link-from-the-navigation-component-frontend-src-components-navigation-tsx-the-login-option-must-only-be-accessible-via-the-sign-up-dropdown-described-in-req-57-not-as-a-top-level-nav-item-this-applies-to-both-the-desktop-nav-and-the-mobile-hamburger-menu",
+      "featureTitle": "Remove the separate standalone 'Login' link from the Navigation component (frontend/src/components/Navigation.tsx). The login option must only be accessible via the 'Sign Up' dropdown described in REQ-57, not as a top-level nav item. This applies to both the desktop nav and the mobile hamburger menu.",
+      "files": [
+        "frontend/src/components/Navigation.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-56"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-in-the-navigation-component-frontend-src-components-navigation-tsx-replace-the-current-sign-up-and-login-individual-links-with-a-single-golden-yellow-f5c518-primary-cta-button-labeled-sign-up-that-opens-a-dropdown-menu-with-exactly-two-options-1-sign-up-primary-option-styled-prominently-which-navigates-to-customer-signup-and-2-login-secondary-option-below-sign-up-which-navigates-to-customer-login-the-dropdown-should-appear-on-click-or-hover-with-a-clean-professional-dark-navy-0a1628-background-and-white-text-for-the-dropdown-items-with-golden-yellow-hover-highlight-on-desktop-position-this-button-on-the-right-side-of-the-nav-alongside-the-phone-number-in-the-mobile-hamburger-menu-show-the-same-two-options-sign-up-and-login-as-separate-tappable-rows-without-a-dropdown-they-can-be-rendered-as-direct-links-in-the-expanded-mobile-menu-if-a-customer-session-is-active-sessionstorage-key-ymw-customer-session-is-set-hide-the-sign-up-dropdown-button-entirely-and-instead-show-a-my-account-link-pointing-to-customer-dashboard-consistent-with-the-existing-session-aware-logic",
+      "featureTitle": "In the Navigation component (frontend/src/components/Navigation.tsx), replace the current 'Sign Up' and 'Login' individual links with a single golden yellow (#f5c518) primary CTA button labeled 'Sign Up' that opens a dropdown menu with exactly two options: (1) 'Sign Up' (primary option, styled prominently) which navigates to /customer-signup, and (2) 'Login' (secondary option below Sign Up) which navigates to /customer-login. The dropdown should appear on click or hover with a clean, professional dark navy (#0a1628) background and white text for the dropdown items, with golden yellow hover highlight. On desktop, position this button on the right side of the nav alongside the phone number. In the mobile hamburger menu, show the same two options (Sign Up and Login) as separate tappable rows without a dropdown — they can be rendered as direct links in the expanded mobile menu. If a customer session is active (sessionStorage key 'ymw_customer_session' is set), hide the Sign Up dropdown button entirely and instead show a 'My Account' link pointing to /customer-dashboard, consistent with the existing session-aware logic.",
+      "files": [
+        "frontend/src/components/Navigation.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-57"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-final-desktop-navigation-layout-in-frontend-src-components-navigation-tsx-follows-this-structure-logo-ymw-branding-on-the-far-left-navigation-links-home-services-about-blog-contact-centered-in-the-middle-phone-number-91-8102906339-and-the-sign-up-primary-cta-button-with-dropdown-on-the-far-right-no-other-top-level-links-should-appear-between-the-centered-nav-links-and-the-right-side-elements-the-layout-must-remain-fully-responsive-collapsing-into-the-hamburger-menu-on-mobile-screens",
+      "featureTitle": "Ensure the final desktop Navigation layout in frontend/src/components/Navigation.tsx follows this structure: Logo (YMW branding) on the far left; navigation links (Home, Services, About, Blog, Contact) centered in the middle; phone number (+91 8102906339) and the 'Sign Up' primary CTA button (with dropdown) on the far right. No other top-level links should appear between the centered nav links and the right-side elements. The layout must remain fully responsive — collapsing into the hamburger menu on mobile screens.",
+      "files": [
+        "frontend/src/components/Navigation.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-58"
       ],
       "confidence": "high"
     }

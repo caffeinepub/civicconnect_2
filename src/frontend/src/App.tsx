@@ -13,6 +13,7 @@ import FloatingCTA from "./components/FloatingCTA";
 import Footer from "./components/Footer";
 import LoadingFallback from "./components/LoadingFallback";
 import Navigation from "./components/Navigation";
+import StickyContactBar from "./components/StickyContactBar";
 import { captureUTMParams } from "./utils/urlParams";
 
 // Lazy-loaded page components
@@ -45,6 +46,9 @@ const queryClient = new QueryClient({
   },
 });
 
+// Height of the sticky contact bar in px
+const STICKY_BAR_HEIGHT = 64;
+
 function Layout() {
   useEffect(() => {
     captureUTMParams();
@@ -53,14 +57,21 @@ function Layout() {
   return (
     <div
       style={{
-        backgroundColor: "#0a1628",
+        backgroundColor: "#dbeafe",
         fontFamily: "'Inter', 'Poppins', sans-serif",
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
+        // Push everything below the fixed sticky bar
+        paddingTop: STICKY_BAR_HEIGHT,
       }}
     >
-      <Navigation />
+      {/* Fixed sticky contact bar — always on top */}
+      <StickyContactBar />
+
+      {/* Navigation sticks just below the contact bar */}
+      <Navigation stickyTopOffset={STICKY_BAR_HEIGHT} />
+
       <main style={{ flex: 1 }}>
         <Suspense fallback={<LoadingFallback />}>
           <Outlet />

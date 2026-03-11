@@ -39,7 +39,11 @@ const navLinks = [
 
 const secondaryLinks = [{ label: "Grievance", path: "/grievance" }];
 
-export default function Navigation() {
+interface NavigationProps {
+  stickyTopOffset?: number;
+}
+
+export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [servicesHovered, setServicesHovered] = useState(false);
@@ -95,8 +99,13 @@ export default function Navigation() {
 
   return (
     <header
-      className="sticky top-0 z-50 border-b border-white/10 shadow-lg"
-      style={{ backgroundColor: "oklch(0.14 0.06 255)" }}
+      className="border-b border-white/10 shadow-lg"
+      style={{
+        backgroundColor: "oklch(0.14 0.06 255)",
+        position: "sticky",
+        top: stickyTopOffset,
+        zIndex: 50,
+      }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">

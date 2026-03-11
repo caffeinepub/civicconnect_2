@@ -7,12 +7,12 @@ export function getUrlParameter(paramName: string): string | null {
   const urlParams = new URLSearchParams(window.location.search);
   const regularParam = urlParams.get(paramName);
   if (regularParam !== null) return regularParam;
+
   const hash = window.location.hash;
   const queryStartIndex = hash.indexOf("?");
   if (queryStartIndex !== -1) {
     const hashQuery = hash.substring(queryStartIndex + 1);
-    const hashParams = new URLSearchParams(hashQuery);
-    return hashParams.get(paramName);
+    return new URLSearchParams(hashQuery).get(paramName);
   }
   return null;
 }
@@ -81,8 +81,7 @@ export function getSecretFromHash(paramName: string): string | null {
   if (existingSecret !== null) return existingSecret;
   const hash = window.location.hash;
   if (!hash || hash.length <= 1) return null;
-  const hashContent = hash.substring(1);
-  const params = new URLSearchParams(hashContent);
+  const params = new URLSearchParams(hash.substring(1));
   const secret = params.get(paramName);
   if (secret) {
     storeSessionParameter(paramName, secret);
@@ -96,26 +95,22 @@ export function getSecretParameter(paramName: string): string | null {
   return getSecretFromHash(paramName);
 }
 
-/**
- * Captures UTM parameters from URL and stores them in sessionStorage
- */
+/** Captures UTM parameters from the URL and stores them in sessionStorage */
 export function captureUTMParams(): void {
-  const utmParams = [
+  const utmKeys = [
     "utm_source",
     "utm_medium",
     "utm_campaign",
     "utm_term",
     "utm_content",
   ];
-  for (const param of utmParams) {
-    const value = getUrlParameter(param);
-    if (value) storeSessionParameter(param, value);
+  for (const key of utmKeys) {
+    const value = getUrlParameter(key);
+    if (value) storeSessionParameter(key, value);
   }
 }
 
-/**
- * Returns the UTM source from session storage
- */
-export function getUTMSource(): string {
-  return getSessionParameter("utm_source") || "direct";
+/** Returns the stored UTM source or null */
+export function getUTMSource(): string | null {
+  return getSessionParameter("utm_source");
 }

@@ -71,8 +71,8 @@ export default function Grievance() {
             Submit a <span style={{ color: "#f5c518" }}>Grievance</span>
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            We take all complaints seriously. Submit your grievance and we'll
-            address it promptly.
+            We take all complaints seriously. Submit your grievance and
+            we&apos;ll address it promptly.
           </p>
         </div>
       </section>
@@ -144,48 +144,98 @@ export default function Grievance() {
             ))}
           </div>
 
-          {/* Grievance Form */}
+          {/* Grievance Form Card */}
           <div
-            className="p-6 md:p-8 rounded-2xl"
-            style={{
-              backgroundColor: "rgba(255,255,255,0.04)",
-              border: "1px solid rgba(255,255,255,0.08)",
-            }}
+            className="rounded-2xl overflow-hidden"
+            style={{ border: "1px solid rgba(245,197,24,0.3)" }}
           >
-            {submitted ? (
-              <div className="flex flex-col items-center gap-4 py-8 text-center">
-                <CheckCircle
-                  className="w-16 h-16"
-                  style={{ color: "#f5c518" }}
-                />
-                <h3 className="text-2xl font-bold text-white">
-                  Grievance Submitted!
-                </h3>
-                <p className="text-gray-300">
-                  We'll address your concern within 3 business days.
-                </p>
-                {referenceNumber && (
-                  <div
-                    className="px-4 py-2 rounded-lg text-sm"
-                    style={{
-                      backgroundColor: "rgba(245,197,24,0.1)",
-                      color: "#f5c518",
-                    }}
+            {/* Card Header — dark navy */}
+            <div
+              className="px-6 pt-6 pb-5"
+              style={{ backgroundColor: "#0a1628" }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "rgba(245,197,24,0.15)" }}
+                >
+                  <AlertTriangle
+                    className="w-5 h-5"
+                    style={{ color: "#f5c518" }}
+                  />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold text-white leading-tight">
+                    Submit Your Grievance
+                  </h2>
+                  <p
+                    className="text-xs font-medium mt-0.5"
+                    style={{ color: "#f5c518" }}
                   >
-                    Reference Number: {referenceNumber.slice(-8)}
-                  </div>
+                    Our team will respond within 3 business days.
+                  </p>
+                </div>
+              </div>
+              {/* Badges */}
+              <div className="flex flex-wrap gap-2 mt-3">
+                {["⚡ Quick Response", "🛡️ Secure Process", "✅ 100% Free"].map(
+                  (badge) => (
+                    <span
+                      key={badge}
+                      className="px-3 py-1 rounded-full text-xs font-semibold"
+                      style={{
+                        backgroundColor: "rgba(245,197,24,0.15)",
+                        color: "#f5c518",
+                      }}
+                    >
+                      {badge}
+                    </span>
+                  ),
                 )}
               </div>
-            ) : (
-              <>
-                <h2 className="text-xl font-bold text-white mb-6">
-                  Submit Your Grievance
-                </h2>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            </div>
+
+            {/* Card Body — white */}
+            <div className="px-6 py-6" style={{ backgroundColor: "#ffffff" }}>
+              {submitted ? (
+                <div className="flex flex-col items-center gap-4 py-8 text-center">
+                  <CheckCircle
+                    className="w-16 h-16"
+                    style={{ color: "#f5c518" }}
+                  />
+                  <h3
+                    className="text-2xl font-bold"
+                    style={{ color: "#0a1628" }}
+                  >
+                    Grievance Submitted!
+                  </h3>
+                  <p style={{ color: "#4b5563" }}>
+                    We&apos;ll address your concern within 3 business days.
+                  </p>
+                  {referenceNumber && (
+                    <div
+                      className="px-4 py-2 rounded-lg text-sm font-semibold"
+                      style={{
+                        backgroundColor: "rgba(245,197,24,0.12)",
+                        color: "#92710a",
+                        border: "1px solid rgba(245,197,24,0.3)",
+                      }}
+                    >
+                      Reference Number: {referenceNumber.slice(-8)}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <form
+                  onSubmit={handleSubmit}
+                  className="flex flex-col gap-4"
+                  data-ocid="grievance.panel"
+                >
                   <div>
                     <label
                       htmlFor="grievance-name"
-                      className="block text-xs font-semibold text-gray-300 mb-1"
+                      className="block text-xs font-bold mb-1"
+                      style={{ color: "#1e293b" }}
                     >
                       Full Name *
                     </label>
@@ -198,17 +248,20 @@ export default function Grievance() {
                       onChange={(e) =>
                         setFormData({ ...formData, name: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 outline-none min-h-[44px]"
+                      data-ocid="grievance.input"
+                      className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px] transition-colors"
                       style={{
-                        backgroundColor: "rgba(255,255,255,0.07)",
-                        border: "1px solid rgba(255,255,255,0.12)",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #d1d5db",
+                        color: "#1e293b",
                       }}
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="grievance-email"
-                      className="block text-xs font-semibold text-gray-300 mb-1"
+                      className="block text-xs font-bold mb-1"
+                      style={{ color: "#1e293b" }}
                     >
                       Email Address *
                     </label>
@@ -221,17 +274,19 @@ export default function Grievance() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 outline-none min-h-[44px]"
+                      className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px] transition-colors"
                       style={{
-                        backgroundColor: "rgba(255,255,255,0.07)",
-                        border: "1px solid rgba(255,255,255,0.12)",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #d1d5db",
+                        color: "#1e293b",
                       }}
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="grievance-category"
-                      className="block text-xs font-semibold text-gray-300 mb-1"
+                      className="block text-xs font-bold mb-1"
+                      style={{ color: "#1e293b" }}
                     >
                       Category *
                     </label>
@@ -245,20 +300,22 @@ export default function Grievance() {
                           category: e.target.value as GrievanceCategory,
                         })
                       }
-                      className="w-full px-4 py-3 rounded-lg text-sm text-white outline-none min-h-[44px]"
+                      data-ocid="grievance.select"
+                      className="w-full px-4 py-3 rounded-lg text-sm outline-none min-h-[44px]"
                       style={{
-                        backgroundColor: "rgba(255,255,255,0.07)",
-                        border: "1px solid rgba(255,255,255,0.12)",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #d1d5db",
+                        color: "#1e293b",
                       }}
                     >
-                      <option value="" style={{ backgroundColor: "#0d1f3c" }}>
+                      <option value="" style={{ color: "#9ca3af" }}>
                         Select category...
                       </option>
                       {CATEGORIES.map((cat) => (
                         <option
                           key={cat.value}
                           value={cat.value}
-                          style={{ backgroundColor: "#0d1f3c" }}
+                          style={{ color: "#1e293b" }}
                         >
                           {cat.label}
                         </option>
@@ -268,7 +325,8 @@ export default function Grievance() {
                   <div>
                     <label
                       htmlFor="grievance-description"
-                      className="block text-xs font-semibold text-gray-300 mb-1"
+                      className="block text-xs font-bold mb-1"
+                      style={{ color: "#1e293b" }}
                     >
                       Description *
                     </label>
@@ -284,21 +342,28 @@ export default function Grievance() {
                           description: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 rounded-lg text-sm text-white placeholder-gray-400 outline-none resize-none"
+                      data-ocid="grievance.textarea"
+                      className="w-full px-4 py-3 rounded-lg text-sm outline-none resize-none"
                       style={{
-                        backgroundColor: "rgba(255,255,255,0.07)",
-                        border: "1px solid rgba(255,255,255,0.12)",
+                        backgroundColor: "#ffffff",
+                        border: "1px solid #d1d5db",
+                        color: "#1e293b",
                       }}
                     />
                   </div>
                   {submitMutation.isError && (
-                    <p className="text-xs text-red-400">
+                    <p
+                      className="text-xs"
+                      data-ocid="grievance.error_state"
+                      style={{ color: "#ef4444" }}
+                    >
                       Something went wrong. Please try again.
                     </p>
                   )}
                   <button
                     type="submit"
                     disabled={submitMutation.isPending}
+                    data-ocid="grievance.submit_button"
                     className="w-full py-4 rounded-xl font-bold text-base flex items-center justify-center gap-2 hover:opacity-90 transition-opacity disabled:opacity-60 min-h-[52px]"
                     style={{ backgroundColor: "#f5c518", color: "#0a1628" }}
                   >
@@ -311,9 +376,15 @@ export default function Grievance() {
                       "Submit Grievance"
                     )}
                   </button>
+                  <p
+                    className="text-center text-xs"
+                    style={{ color: "#9ca3af" }}
+                  >
+                    🔒 100% Free &amp; Confidential
+                  </p>
                 </form>
-              </>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </section>

@@ -47,7 +47,7 @@ const SECTIONS = [
   {
     title: "9. Contact Information",
     content:
-      "For any questions regarding these Terms & Conditions, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: info@ymwcompliance.com",
+      "For any questions regarding these Terms & Conditions, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: ymwcompliances@gmail.com",
   },
 ];
 

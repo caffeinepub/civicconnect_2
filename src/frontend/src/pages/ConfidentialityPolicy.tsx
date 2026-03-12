@@ -42,7 +42,7 @@ const SECTIONS = [
   {
     title: "8. Contact Us",
     content:
-      "For any questions or concerns regarding our Confidentiality Policy, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: info@ymwcompliance.com",
+      "For any questions or concerns regarding our Confidentiality Policy, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: ymwcompliances@gmail.com",
   },
 ];
 

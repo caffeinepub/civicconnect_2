@@ -88,8 +88,8 @@ export default function Contact() {
               {
                 icon: <Mail className="w-5 h-5" />,
                 label: "Email",
-                value: "ymwcompliance@gmail.com",
-                href: "mailto:ymwcompliance@gmail.com",
+                value: "ymwcompliances@gmail.com",
+                href: "mailto:ymwcompliances@gmail.com",
               },
               {
                 icon: <MapPin className="w-5 h-5" />,

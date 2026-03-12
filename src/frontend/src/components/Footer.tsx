@@ -92,6 +92,8 @@ export default function Footer() {
                 { label: "Grievance Section", path: "/grievance" },
                 { label: "Social Media", path: "/social-media" },
                 { label: "Sign Up", path: "/signup" },
+                { label: "Become an Affiliate", path: "/affiliate" },
+                { label: "Partner Dashboard", path: "/affiliate-dashboard" },
               ].map((link) => (
                 <li key={link.path}>
                   <Link
@@ -181,11 +183,11 @@ export default function Footer() {
                   style={{ color: "oklch(0.82 0.18 85)" }}
                 />
                 <a
-                  href="mailto:ymwcomplianceservices@gmail.com"
+                  href="mailto:ymwcompliances@gmail.com"
                   className="text-sm hover:text-white transition-colors"
                   style={{ color: "oklch(0.65 0.02 255)" }}
                 >
-                  ymwcomplianceservices@gmail.com
+                  ymwcompliances@gmail.com
                 </a>
               </li>
             </ul>

@@ -436,6 +436,49 @@ actor {
     consultationRequestState.values().toArray();
   };
 
+  // --- Affiliate Application Types and State ---
+  public type AffiliateApplication = {
+    id : Text;
+    name : Text;
+    email : Text;
+    phone : Text;
+    city : Text;
+    businessType : Text;
+    createdAt : Timestamp;
+  };
+
+  let affiliateApplicationState = Map.empty<Text, AffiliateApplication>();
+
+  // Public: submit an affiliate application (no auth required)
+  public shared func submitAffiliateApplication(
+    name : Text,
+    email : Text,
+    phone : Text,
+    city : Text,
+    businessType : Text,
+  ) : async Text {
+    let id = Time.now().toText();
+    let application : AffiliateApplication = {
+      id;
+      name;
+      email;
+      phone;
+      city;
+      businessType;
+      createdAt = Time.now();
+    };
+    affiliateApplicationState.add(id, application);
+    id;
+  };
+
+  // Admin-only: list all affiliate applications
+  public shared ({ caller }) func listAffiliateApplications() : async [AffiliateApplication] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admins can view affiliate applications");
+    };
+    affiliateApplicationState.values().toArray();
+  };
+
   // --- Authentication - Account Creation / Sign Up with Internet Identity ---
   public shared ({ caller }) func signUpWithInternetIdentity() : async Principal {
     if (caller.isAnonymous()) {

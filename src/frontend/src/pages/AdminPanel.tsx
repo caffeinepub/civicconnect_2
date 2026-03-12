@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import {
   AlertCircle,
   Eye,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
+import { useActor } from "../hooks/useActor";
 import {
   useGetAllCustomers,
   useGetAllServiceRequests,
@@ -20,7 +22,7 @@ import { formatTimestampShort } from "../utils/dateUtils";
 const ADMIN_PASSWORD = "YMWAdmin@2024";
 const ADMIN_SESSION_KEY = "ymw_admin_auth";
 
-type Tab = "customers" | "requests";
+type Tab = "customers" | "requests" | "affiliates";
 
 export default function AdminPanel() {
   const [isAdminAuth, setIsAdminAuth] = useState(
@@ -43,6 +45,21 @@ export default function AdminPanel() {
     isLoading: requestsLoading,
     error: requestsError,
   } = useGetAllServiceRequests();
+
+  const { actor, isFetching: actorFetching } = useActor();
+  const {
+    data: affiliates,
+    isLoading: affiliatesLoading,
+    error: affiliatesError,
+  } = useQuery({
+    queryKey: ["affiliateApplications"],
+    queryFn: async () => {
+      if (!actor) return [];
+      return (actor as any).listAffiliateApplications();
+    },
+    enabled: !!actor && !actorFetching && isAdminAuth,
+    retry: false,
+  });
 
   const handleAdminLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -321,6 +338,26 @@ export default function AdminPanel() {
           >
             <FileText className="w-4 h-4" />
             Service Requests
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("affiliates")}
+            data-ocid="admin.affiliates.tab"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm transition-all"
+            style={{
+              backgroundColor:
+                activeTab === "affiliates"
+                  ? "#f5c518"
+                  : "rgba(255,255,255,0.06)",
+              color: activeTab === "affiliates" ? "#0a1628" : "white",
+              border:
+                activeTab === "affiliates"
+                  ? "none"
+                  : "1px solid rgba(255,255,255,0.12)",
+            }}
+          >
+            <Users className="w-4 h-4" />
+            Affiliate Applications
           </button>
         </div>
 
@@ -674,6 +711,168 @@ export default function AdminPanel() {
           </div>
         )}
       </div>
+
+      {/* Affiliates Tab */}
+      {activeTab === "affiliates" && (
+        <div
+          data-ocid="admin.affiliates.panel"
+          className="rounded-2xl overflow-hidden"
+          style={{
+            backgroundColor: "rgba(255,255,255,0.04)",
+            border: "1px solid rgba(255,255,255,0.10)",
+          }}
+        >
+          <div className="p-5 border-b border-white/10">
+            <h3 className="text-sm font-semibold text-white">
+              Affiliate Applications
+            </h3>
+            <p
+              className="text-xs mt-1"
+              style={{ color: "oklch(0.60 0.03 255)" }}
+            >
+              All partner applications submitted through the affiliate signup
+              form
+            </p>
+          </div>
+
+          {affiliatesLoading ? (
+            <div className="flex items-center justify-center py-16">
+              <Loader2
+                data-ocid="admin.affiliates.loading_state"
+                className="w-7 h-7 animate-spin"
+                style={{ color: "#f5c518" }}
+              />
+            </div>
+          ) : affiliatesError ? (
+            <div
+              data-ocid="admin.affiliates.error_state"
+              className="flex items-center justify-center gap-2 py-16"
+            >
+              <AlertCircle className="w-5 h-5" style={{ color: "#ef4444" }} />
+              <p className="text-sm" style={{ color: "#ef4444" }}>
+                Failed to load applications. Admin access required.
+              </p>
+            </div>
+          ) : !affiliates || affiliates.length === 0 ? (
+            <p
+              data-ocid="admin.affiliates.empty_state"
+              className="text-center py-16 text-sm"
+              style={{ color: "oklch(0.55 0.02 255)" }}
+            >
+              No affiliate applications submitted yet.
+            </p>
+          ) : (
+            <>
+              {/* Desktop Table */}
+              <div className="hidden md:block overflow-x-auto">
+                <table className="w-full" data-ocid="admin.affiliates.table">
+                  <thead>
+                    <tr style={{ backgroundColor: "rgba(255,255,255,0.03)" }}>
+                      {[
+                        "Name",
+                        "Email",
+                        "Phone",
+                        "City",
+                        "Business Type",
+                        "Applied On",
+                      ].map((h) => (
+                        <th
+                          key={h}
+                          className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide"
+                          style={{ color: "oklch(0.55 0.02 255)" }}
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/5">
+                    {affiliates.map((a: any, idx: number) => (
+                      <tr
+                        key={a.id}
+                        data-ocid={`admin.affiliates.row.${idx + 1}`}
+                        className="transition-colors hover:bg-white/[0.03]"
+                      >
+                        <td className="px-5 py-4 text-sm font-medium text-white">
+                          {a.name}
+                        </td>
+                        <td
+                          className="px-5 py-4 text-sm"
+                          style={{ color: "oklch(0.65 0.03 255)" }}
+                        >
+                          {a.email}
+                        </td>
+                        <td
+                          className="px-5 py-4 text-sm"
+                          style={{ color: "oklch(0.65 0.03 255)" }}
+                        >
+                          {a.phone}
+                        </td>
+                        <td
+                          className="px-5 py-4 text-sm"
+                          style={{ color: "oklch(0.65 0.03 255)" }}
+                        >
+                          {a.city}
+                        </td>
+                        <td
+                          className="px-5 py-4 text-sm"
+                          style={{ color: "oklch(0.65 0.03 255)" }}
+                        >
+                          {a.businessType}
+                        </td>
+                        <td
+                          className="px-5 py-4 text-xs"
+                          style={{ color: "oklch(0.60 0.03 255)" }}
+                        >
+                          {formatTimestampShort(a.createdAt)}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Mobile Cards */}
+              <div className="md:hidden divide-y divide-white/10">
+                {affiliates.map((a: any, idx: number) => (
+                  <div
+                    key={a.id}
+                    data-ocid={`admin.affiliates.row.${idx + 1}`}
+                    className="p-4 space-y-2"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-bold text-white">
+                        {a.name}
+                      </span>
+                      <span className="text-xs" style={{ color: "#f5c518" }}>
+                        {a.businessType}
+                      </span>
+                    </div>
+                    <p
+                      className="text-xs"
+                      style={{ color: "oklch(0.65 0.03 255)" }}
+                    >
+                      {a.email}
+                    </p>
+                    <p
+                      className="text-xs"
+                      style={{ color: "oklch(0.65 0.03 255)" }}
+                    >
+                      {a.phone} · {a.city}
+                    </p>
+                    <p
+                      className="text-xs"
+                      style={{ color: "oklch(0.55 0.02 255)" }}
+                    >
+                      Applied: {formatTimestampShort(a.createdAt)}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 }

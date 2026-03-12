@@ -27,7 +27,7 @@ const SECTIONS = [
   {
     title: "5. Your Rights",
     content:
-      "You have the following rights regarding your personal data:\n\n• Right to Access: Request a copy of the personal data we hold about you\n• Right to Correction: Request correction of inaccurate or incomplete data\n• Right to Deletion: Request deletion of your personal data (subject to legal obligations)\n• Right to Withdraw Consent: Withdraw consent for data processing at any time\n\nTo exercise these rights, please contact us at info@ymwcompliance.com.",
+      "You have the following rights regarding your personal data:\n\n• Right to Access: Request a copy of the personal data we hold about you\n• Right to Correction: Request correction of inaccurate or incomplete data\n• Right to Deletion: Request deletion of your personal data (subject to legal obligations)\n• Right to Withdraw Consent: Withdraw consent for data processing at any time\n\nTo exercise these rights, please contact us at ymwcompliances@gmail.com.",
   },
   {
     title: "6. Cookies Policy",
@@ -42,7 +42,7 @@ const SECTIONS = [
   {
     title: "8. Contact Us",
     content:
-      "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: info@ymwcompliance.com",
+      "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: ymwcompliances@gmail.com",
   },
 ];
 

@@ -36,6 +36,8 @@ const CustomerSignup = lazy(() => import("./pages/CustomerSignup"));
 const CustomerLogin = lazy(() => import("./pages/CustomerLogin"));
 const CustomerDashboard = lazy(() => import("./pages/CustomerDashboard"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
+const Affiliate = lazy(() => import("./pages/Affiliate"));
+const AffiliateDashboard = lazy(() => import("./pages/AffiliateDashboard"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,7 +49,7 @@ const queryClient = new QueryClient({
 });
 
 // Height of the sticky contact bar in px
-const STICKY_BAR_HEIGHT = 64;
+const STICKY_BAR_HEIGHT = 65;
 
 function Layout() {
   useEffect(() => {
@@ -62,15 +64,12 @@ function Layout() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        // Push everything below the fixed sticky bar
-        paddingTop: STICKY_BAR_HEIGHT,
+        // Add bottom padding so content isn't hidden behind the fixed bottom bar
+        paddingBottom: STICKY_BAR_HEIGHT,
       }}
     >
-      {/* Fixed sticky contact bar — always on top */}
-      <StickyContactBar />
-
-      {/* Navigation sticks just below the contact bar */}
-      <Navigation stickyTopOffset={STICKY_BAR_HEIGHT} />
+      {/* Navigation at the top */}
+      <Navigation stickyTopOffset={0} />
 
       <main style={{ flex: 1 }}>
         <Suspense fallback={<LoadingFallback />}>
@@ -80,6 +79,9 @@ function Layout() {
       <Footer />
       <FloatingCTA />
       <ConsultationPopup />
+
+      {/* Fixed sticky contact bar at the bottom */}
+      <StickyContactBar />
     </div>
   );
 }
@@ -190,6 +192,18 @@ const adminPanelRoute = createRoute({
   component: AdminPanel,
 });
 
+const affiliateRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/affiliate",
+  component: Affiliate,
+});
+
+const affiliateDashboardRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/affiliate-dashboard",
+  component: AffiliateDashboard,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -208,6 +222,8 @@ const routeTree = rootRoute.addChildren([
   customerLoginRoute,
   customerDashboardRoute,
   adminPanelRoute,
+  affiliateRoute,
+  affiliateDashboardRoute,
 ]);
 
 const router = createRouter({ routeTree });

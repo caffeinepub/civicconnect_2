@@ -116,7 +116,7 @@ export default function CustomerDashboard() {
     const subject = encodeURIComponent(
       `Document Upload - ${session.businessName}`,
     );
-    window.location.href = `mailto:ymwcomplianceservices@gmail.com?subject=${subject}`;
+    window.location.href = `mailto:ymwcompliances@gmail.com?subject=${subject}`;
   };
 
   return (

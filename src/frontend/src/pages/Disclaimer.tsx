@@ -42,7 +42,7 @@ const SECTIONS = [
   {
     title: "8. Contact Us",
     content:
-      "If you have any questions about this Disclaimer or our services, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: info@ymwcompliance.com",
+      "If you have any questions about this Disclaimer or our services, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: ymwcompliances@gmail.com",
   },
 ];
 

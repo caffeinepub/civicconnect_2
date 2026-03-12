@@ -22,7 +22,7 @@ const SECTIONS = [
   {
     title: "4. Refund Request Process",
     content:
-      'To request a refund, please follow these steps:\n\n1. Send an email to info@ymwcompliance.com with subject "Refund Request"\n2. Include your full name, contact number, service name, and payment details\n3. Provide the reason for the refund request\n4. Attach proof of payment (receipt or transaction ID)\n\nOur team will review your request within 3-5 working days and respond with a decision.',
+      'To request a refund, please follow these steps:\n\n1. Send an email to ymwcompliances@gmail.com with subject "Refund Request"\n2. Include your full name, contact number, service name, and payment details\n3. Provide the reason for the refund request\n4. Attach proof of payment (receipt or transaction ID)\n\nOur team will review your request within 3-5 working days and respond with a decision.',
   },
   {
     title: "5. Refund Timeline",
@@ -37,12 +37,12 @@ const SECTIONS = [
   {
     title: "7. Cancellation Policy",
     content:
-      "If you wish to cancel a service:\n\n• Cancellation before work commencement: Full refund of professional fees (government fees excluded)\n• Cancellation after work commencement: Partial refund based on work completed\n• Cancellation after service completion: No refund applicable\n\nTo cancel a service, please contact us immediately at +91 8102906339 or info@ymwcompliance.com.",
+      "If you wish to cancel a service:\n\n• Cancellation before work commencement: Full refund of professional fees (government fees excluded)\n• Cancellation after work commencement: Partial refund based on work completed\n• Cancellation after service completion: No refund applicable\n\nTo cancel a service, please contact us immediately at +91 8102906339 or ymwcompliances@gmail.com.",
   },
   {
     title: "8. Contact Us",
     content:
-      "For refund-related queries, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: info@ymwcompliance.com",
+      "For refund-related queries, please contact us:\n\nYMW Compliance Services LLP\nDhanbad, Jharkhand, India\nPhone: +91 8102906339\nEmail: ymwcompliances@gmail.com",
   },
 ];
 

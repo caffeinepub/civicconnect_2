@@ -40,6 +40,12 @@ const Affiliate = lazy(() => import("./pages/Affiliate"));
 const AffiliateDashboard = lazy(() => import("./pages/AffiliateDashboard"));
 const BusinessRegistration = lazy(() => import("./pages/BusinessRegistration"));
 const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage"));
+const TaxGst = lazy(() => import("./pages/TaxGst"));
+const TaxGstDetailPage = lazy(() => import("./pages/TaxGstDetailPage"));
+const GovernmentLicenses = lazy(() => import("./pages/GovernmentLicenses"));
+const GovernmentLicensesDetailPage = lazy(
+  () => import("./pages/GovernmentLicensesDetailPage"),
+);
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -116,6 +122,30 @@ const serviceDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/business-registration/$serviceSlug",
   component: ServiceDetailPage,
+});
+
+const taxGstRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/tax-gst",
+  component: TaxGst,
+});
+
+const taxGstDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/tax-gst/$serviceSlug",
+  component: TaxGstDetailPage,
+});
+
+const governmentLicensesRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/government-licenses",
+  component: GovernmentLicenses,
+});
+
+const governmentLicensesDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/government-licenses/$serviceSlug",
+  component: GovernmentLicensesDetailPage,
 });
 
 const blogRoute = createRoute({
@@ -220,6 +250,10 @@ const routeTree = rootRoute.addChildren([
   servicesRoute,
   businessRegistrationRoute,
   serviceDetailRoute,
+  taxGstRoute,
+  taxGstDetailRoute,
+  governmentLicensesRoute,
+  governmentLicensesDetailRoute,
   blogRoute,
   contactRoute,
   grievanceRoute,

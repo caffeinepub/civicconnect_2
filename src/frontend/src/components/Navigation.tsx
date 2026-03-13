@@ -12,22 +12,23 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { useCustomerSession } from "../hooks/useCustomerSession";
 
-const SERVICE_ITEMS = [
-  "Business Registration",
-  "Tax & GST",
-  "ISO Certification",
-  "Compliance Service",
-  "Government License",
-  "Government Registration",
-  "Labour Department",
-  "Startup Service",
-  "FSSAI License",
-  "Trademark Registration",
-  "Pollution Control Board",
-  "Tender Services",
-  "Digital Signature Certificate",
-  "Agreement & Contract",
-  "Small Business Support Service",
+// Service items with optional dedicated routes
+const SERVICE_ITEMS: { label: string; path: string }[] = [
+  { label: "Business Registration", path: "/services/business-registration" },
+  { label: "Tax & GST", path: "/services/tax-gst" },
+  { label: "ISO Certification", path: "/services" },
+  { label: "Compliance Service", path: "/services" },
+  { label: "Government License", path: "/services/government-licenses" },
+  { label: "Government Registration", path: "/services" },
+  { label: "Labour Department", path: "/services" },
+  { label: "Startup Service", path: "/services" },
+  { label: "FSSAI License", path: "/services" },
+  { label: "Trademark Registration", path: "/services" },
+  { label: "Pollution Control Board", path: "/services" },
+  { label: "Tender Services", path: "/services" },
+  { label: "Digital Signature Certificate", path: "/services" },
+  { label: "Agreement & Contract", path: "/services" },
+  { label: "Small Business Support Service", path: "/services" },
 ];
 
 const navLinks = [
@@ -182,7 +183,7 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
                     {/* Services dropdown */}
                     {servicesHovered && (
                       <div
-                        className="absolute left-0 top-full mt-1 w-64 rounded-xl shadow-2xl border border-white/10 overflow-hidden z-50"
+                        className="absolute left-0 top-full mt-1 w-72 rounded-xl shadow-2xl border border-white/10 overflow-hidden z-50"
                         style={{ backgroundColor: "oklch(0.14 0.06 255)" }}
                         onMouseEnter={handleServicesMouseEnter}
                         onMouseLeave={handleServicesMouseLeave}
@@ -190,11 +191,10 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
                         <div className="py-1">
                           {SERVICE_ITEMS.map((service) => (
                             <Link
-                              key={service}
-                              to="/services"
+                              key={service.label}
+                              to={service.path as any}
                               onClick={() => setServicesHovered(false)}
-                              className="block px-4 py-2.5 text-sm font-medium text-white transition-all duration-150"
-                              style={{}}
+                              className="flex items-center justify-between px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 group"
                               onMouseEnter={(e) => {
                                 (
                                   e.currentTarget as HTMLAnchorElement
@@ -219,7 +219,12 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
                                 ).style.paddingLeft = "";
                               }}
                             >
-                              {service}
+                              <span>{service.label}</span>
+                              {service.path !== "/services" && (
+                                <span className="text-xs opacity-60 ml-2">
+                                  ›
+                                </span>
+                              )}
                             </Link>
                           ))}
                         </div>
@@ -435,13 +440,13 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
                       >
                         {SERVICE_ITEMS.map((service, idx) => (
                           <Link
-                            key={service}
-                            to="/services"
+                            key={service.label}
+                            to={service.path as any}
                             onClick={() => {
                               setMobileServicesOpen(false);
                               setMobileOpen(false);
                             }}
-                            className={`block px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-white/10 ${
+                            className={`flex items-center justify-between px-4 py-2.5 text-sm font-medium text-white transition-all duration-150 hover:bg-white/10 ${
                               idx < SERVICE_ITEMS.length - 1
                                 ? "border-b border-white/5"
                                 : ""
@@ -457,7 +462,15 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
                               ).style.color = "white";
                             }}
                           >
-                            {service}
+                            <span>{service.label}</span>
+                            {service.path !== "/services" && (
+                              <span
+                                className="text-xs"
+                                style={{ color: "#f5c518" }}
+                              >
+                                ›
+                              </span>
+                            )}
                           </Link>
                         ))}
                       </div>

@@ -214,7 +214,8 @@ export function getSecretParameter(paramName: string): string | null {
 }
 
 /**
- * Captures UTM parameters from the URL and stores them in sessionStorage
+ * Captures UTM parameters from the current URL and stores them in sessionStorage
+ * Called on app load to preserve marketing attribution data
  */
 export function captureUTMParams(): void {
   const utmParams = [
@@ -226,14 +227,15 @@ export function captureUTMParams(): void {
   ];
   for (const param of utmParams) {
     const value = getUrlParameter(param);
-    if (value) {
+    if (value !== null) {
       storeSessionParameter(param, value);
     }
   }
 }
 
 /**
- * Gets the UTM source from sessionStorage or URL
+ * Returns the current UTM source if available
+ * @returns utm_source value or null
  */
 export function getUTMSource(): string | null {
   return getSessionParameter("utm_source") ?? getUrlParameter("utm_source");

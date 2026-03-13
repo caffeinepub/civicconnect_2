@@ -213,10 +213,28 @@ export function getSecretParameter(paramName: string): string | null {
   return getSecretFromHash(paramName);
 }
 
-export function getUTMSource(): string | null {
-  return getUrlParameter("utm_source");
+/**
+ * Captures UTM parameters from the URL and stores them in sessionStorage
+ */
+export function captureUTMParams(): void {
+  const utmParams = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_term",
+    "utm_content",
+  ];
+  for (const param of utmParams) {
+    const value = getUrlParameter(param);
+    if (value !== null) {
+      storeSessionParameter(param, value);
+    }
+  }
 }
 
-export function captureUTMParams(): void {
-  // No-op: UTM params are captured on page load via URL
+/**
+ * Returns the UTM source, falling back to sessionStorage
+ */
+export function getUTMSource(): string | null {
+  return getUrlParameter("utm_source") || getSessionParameter("utm_source");
 }

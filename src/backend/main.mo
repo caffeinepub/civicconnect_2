@@ -479,6 +479,46 @@ actor {
     affiliateApplicationState.values().toArray();
   };
 
+  // --- Company Search ---
+  public type Company = {
+    cin : Text;
+    company_name : Text;
+    roc : Text;
+    status : Text;
+  };
+
+  let companiesState = Map.empty<Text, Company>();
+
+  // Public: search companies by name (case-insensitive substring, max 10)
+  // Note: parameter is 'searchTerm' because 'query' is a reserved keyword in Motoko
+  public query func searchCompanies(searchTerm : Text) : async [Company] {
+    if (searchTerm.size() == 0) return [];
+    let q = searchTerm.toLower();
+    let allMatches = companiesState.values().filter(
+      func(c : Company) : Bool {
+        c.company_name.toLower().contains(#text q)
+      }
+    ).toArray();
+    if (allMatches.size() <= 10) {
+      allMatches;
+    } else {
+      Array.tabulate<Company>(10, func(i : Nat) : Company { allMatches[i] });
+    };
+  };
+
+  // Public: add a company
+  public shared func addCompany(cin : Text, company_name : Text, roc : Text, status : Text) : async () {
+    companiesState.add(cin, { cin; company_name; roc; status });
+  };
+
+  // Admin-only: get all companies
+  public query ({ caller }) func getAllCompanies() : async [Company] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #admin))) {
+      Runtime.trap("Unauthorized: Only admin can access all companies");
+    };
+    companiesState.values().toArray();
+  };
+
   // --- Authentication - Account Creation / Sign Up with Internet Identity ---
   public shared ({ caller }) func signUpWithInternetIdentity() : async Principal {
     if (caller.isAnonymous()) {

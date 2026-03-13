@@ -19,16 +19,25 @@ const SERVICE_ITEMS: { label: string; path: string }[] = [
   { label: "ISO Certification", path: "/services/iso-certification" },
   { label: "Compliance Service", path: "/services/compliance-service" },
   { label: "Government License", path: "/services/government-licenses" },
-  { label: "Government Registration", path: "/services" },
-  { label: "Labour Department", path: "/services" },
-  { label: "Startup Service", path: "/services" },
+  {
+    label: "Government Registration",
+    path: "/services/government-registration",
+  },
+  { label: "Labour Department", path: "/services/labour-dept" },
+  { label: "Startup Service", path: "/services/startup-service" },
   { label: "FSSAI License", path: "/services/fssai-license" },
   { label: "Trademark Registration", path: "/services/trademark-registration" },
   { label: "Pollution Control Board", path: "/services/pollution-control" },
-  { label: "Tender Services", path: "/services" },
-  { label: "Digital Signature Certificate", path: "/services" },
-  { label: "Agreement & Contract", path: "/services" },
-  { label: "Small Business Support Service", path: "/services" },
+  { label: "Tender Services", path: "/services/tender-service" },
+  {
+    label: "Digital Signature Certificate",
+    path: "/services/digital-signature",
+  },
+  { label: "Agreement & Contract", path: "/services/agreement-contract" },
+  {
+    label: "Small Business Support Service",
+    path: "/services/small-business-support",
+  },
 ];
 
 const navLinks = [

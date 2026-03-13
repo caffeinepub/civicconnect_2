@@ -45,90 +45,105 @@ const FEATURED_SERVICES = [
     title: "Business Registration",
     desc: "Private Ltd, LLP, OPC, Partnership & more",
     badge: "Most Popular",
+    link: "/services/business-registration",
   },
   {
     icon: "📊",
     title: "Tax & GST",
     desc: "GST registration, filing & tax compliance",
     badge: "Fast Track",
+    link: "/services/tax-gst",
   },
   {
     icon: "🏆",
     title: "ISO Certification",
     desc: "ISO 9001, 14001, 22000 & more",
     badge: "Certified",
+    link: "/services/iso-certification",
   },
   {
     icon: "📋",
     title: "Compliance Service",
     desc: "Annual filings & statutory compliance",
     badge: "Annual",
+    link: "/services/compliance-service",
   },
   {
     icon: "🏛️",
     title: "Government License",
     desc: "Trade, drug, shop & establishment licenses",
     badge: "Official",
+    link: "/services/government-licenses",
   },
   {
     icon: "📝",
     title: "Government Registration",
     desc: "MSME/Udyam, DPIIT & statutory registrations",
     badge: "Required",
+    link: "/services/government-registration",
   },
   {
     icon: "👷",
     title: "Labour Department",
     desc: "PF, ESI, labour license & compliance",
     badge: "Mandatory",
+    link: "/services/labour-department",
   },
   {
     icon: "🚀",
     title: "Startup Service",
     desc: "End-to-end startup support & compliance",
     badge: "New",
+    link: "/services/startup-service",
   },
   {
     icon: "🍽️",
     title: "FSSAI License",
     desc: "Food business license & compliance",
     badge: "Food Safety",
+    link: "/services/fssai-license",
   },
   {
     icon: "™️",
     title: "Trademark Registration",
     desc: "Protect your brand identity",
     badge: "Legal",
+    link: "/services/trademark-registration",
   },
   {
     icon: "🌿",
     title: "Pollution Control Board",
     desc: "CTE & CTO certificates for industries",
     badge: "Environment",
+    link: "/services/pollution-control",
   },
   {
     icon: "📑",
     title: "Tender Services",
     desc: "Government tender filing & bid management",
     badge: "Government",
+    link: "/services/tender-services",
   },
   {
     icon: "🔐",
     title: "Digital Signature Certificate",
     desc: "Class 2 & Class 3 DSC for all needs",
     badge: "DSC",
+    link: "/services/digital-signature-certificate",
   },
   {
     icon: "📜",
     title: "Agreement & Contract",
     desc: "Drafting & registration of legal documents",
     badge: "Legal",
+    link: "/services/agreement-contract",
   },
   {
     icon: "🤝",
     title: "Small Business Support Service",
     desc: "Comprehensive support for SMEs & micro-enterprises",
     badge: "SME",
+    link: "/services/small-business-support",
   },
 ];
 
@@ -611,39 +626,67 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {FEATURED_SERVICES.map((service) => (
-              <div
+            {FEATURED_SERVICES.map((service, index) => (
+              <Link
                 key={service.title}
-                className="group p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer"
-                style={{
-                  backgroundColor: "rgba(255,255,255,0.04)",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                }}
+                to={service.link}
+                className="block group"
+                data-ocid={`home.service.card.${index + 1}`}
               >
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl flex-shrink-0">{service.icon}</span>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1 flex-wrap">
-                      <h3 className="font-bold text-white text-base">
-                        {service.title}
-                      </h3>
-                      <span
-                        className="text-xs px-2 py-0.5 rounded-full font-semibold flex-shrink-0"
-                        style={{
-                          backgroundColor: "rgba(245,197,24,0.15)",
-                          color: "#f5c518",
-                        }}
-                      >
-                        {service.badge}
-                      </span>
+                <div
+                  className="group p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1 relative h-full"
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.04)",
+                    border: "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="text-3xl flex-shrink-0">
+                      {service.icon}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <h3 className="font-bold text-white text-base">
+                          {service.title}
+                        </h3>
+                        <span
+                          className="text-xs px-2 py-0.5 rounded-full font-semibold flex-shrink-0"
+                          style={{
+                            backgroundColor: "rgba(245,197,24,0.15)",
+                            color: "#f5c518",
+                          }}
+                        >
+                          {service.badge}
+                        </span>
+                      </div>
+                      <p className="text-sm text-gray-400">{service.desc}</p>
                     </div>
-                    <p className="text-sm text-gray-400">{service.desc}</p>
+                  </div>
+                  <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <ArrowRight
+                      className="w-4 h-4"
+                      style={{ color: "#f5c518" }}
+                    />
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
+          <div className="mt-6 flex justify-center">
+            <Link
+              to="/company-search"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base border-2 hover:opacity-90 transition-all"
+              style={{
+                borderColor: "#f5c518",
+                color: "#0a1628",
+                backgroundColor: "rgba(245,197,24,0.1)",
+              }}
+              data-ocid="home.company_search.link"
+            >
+              🔍 Search Company Name &amp; CIN
+            </Link>
+          </div>
           <div className="text-center mt-10">
             <Link
               to="/services"

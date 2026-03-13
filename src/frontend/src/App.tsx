@@ -37,6 +37,7 @@ const CustomerDashboard = lazy(() => import("./pages/CustomerDashboard"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Affiliate = lazy(() => import("./pages/Affiliate"));
 const AffiliateDashboard = lazy(() => import("./pages/AffiliateDashboard"));
+const CompanySearch = lazy(() => import("./pages/CompanySearch"));
 const BusinessRegistration = lazy(() => import("./pages/BusinessRegistration"));
 const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage"));
 const TaxGst = lazy(() => import("./pages/TaxGst"));
@@ -66,6 +67,38 @@ const ComplianceService = lazy(() => import("./pages/ComplianceService"));
 const ComplianceServiceDetailPage = lazy(
   () => import("./pages/ComplianceServiceDetailPage"),
 );
+const LabourDept = lazy(() => import("./pages/LabourDept"));
+const LabourDeptDetailPage = lazy(() => import("./pages/LabourDeptDetailPage"));
+const StartupService = lazy(() => import("./pages/StartupService"));
+const StartupServiceDetailPage = lazy(
+  () => import("./pages/StartupServiceDetailPage"),
+);
+const TenderService = lazy(() => import("./pages/TenderService"));
+const TenderServiceDetailPage = lazy(
+  () => import("./pages/TenderServiceDetailPage"),
+);
+const GovernmentRegistration = lazy(
+  () => import("./pages/GovernmentRegistration"),
+);
+const GovernmentRegistrationDetailPage = lazy(
+  () => import("./pages/GovernmentRegistrationDetailPage"),
+);
+const DigitalSignatureCertificate = lazy(
+  () => import("./pages/DigitalSignatureCertificate"),
+);
+const DigitalSignatureDetailPage = lazy(
+  () => import("./pages/DigitalSignatureDetailPage"),
+);
+const AgreementContract = lazy(() => import("./pages/AgreementContract"));
+const AgreementContractDetailPage = lazy(
+  () => import("./pages/AgreementContractDetailPage"),
+);
+
+const SmallBusinessSupport = lazy(() => import("./pages/SmallBusinessSupport"));
+const SmallBusinessSupportDetailPage = lazy(
+  () => import("./pages/SmallBusinessSupportDetailPage"),
+);
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
 });
@@ -197,6 +230,76 @@ const complianceServiceDetailRoute = createRoute({
   path: "/services/compliance-service/$serviceSlug",
   component: ComplianceServiceDetailPage,
 });
+const labourDeptRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/labour-dept",
+  component: LabourDept,
+});
+const labourDeptDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/labour-dept/$serviceSlug",
+  component: LabourDeptDetailPage,
+});
+const startupServiceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/startup-service",
+  component: StartupService,
+});
+const startupServiceDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/startup-service/$serviceSlug",
+  component: StartupServiceDetailPage,
+});
+const tenderServiceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/tender-service",
+  component: TenderService,
+});
+const tenderServiceDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/tender-service/$serviceSlug",
+  component: TenderServiceDetailPage,
+});
+const governmentRegistrationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/government-registration",
+  component: GovernmentRegistration,
+});
+const governmentRegistrationDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/government-registration/$serviceSlug",
+  component: GovernmentRegistrationDetailPage,
+});
+const digitalSignatureRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/digital-signature",
+  component: DigitalSignatureCertificate,
+});
+const digitalSignatureDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/digital-signature/$serviceSlug",
+  component: DigitalSignatureDetailPage,
+});
+const agreementContractRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/agreement-contract",
+  component: AgreementContract,
+});
+const agreementContractDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/agreement-contract/$serviceSlug",
+  component: AgreementContractDetailPage,
+});
+const smallBusinessSupportRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/small-business-support",
+  component: SmallBusinessSupport,
+});
+const smallBusinessSupportDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/small-business-support/$serviceSlug",
+  component: SmallBusinessSupportDetailPage,
+});
 const blogRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/blog",
@@ -278,6 +381,12 @@ const affiliateDashboardRoute = createRoute({
   component: AffiliateDashboard,
 });
 
+const companySearchRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/company-search",
+  component: CompanySearch,
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
@@ -298,6 +407,20 @@ const routeTree = rootRoute.addChildren([
   trademarkDetailRoute,
   complianceServiceRoute,
   complianceServiceDetailRoute,
+  labourDeptRoute,
+  labourDeptDetailRoute,
+  startupServiceRoute,
+  startupServiceDetailRoute,
+  tenderServiceRoute,
+  tenderServiceDetailRoute,
+  governmentRegistrationRoute,
+  governmentRegistrationDetailRoute,
+  digitalSignatureRoute,
+  digitalSignatureDetailRoute,
+  agreementContractRoute,
+  agreementContractDetailRoute,
+  smallBusinessSupportRoute,
+  smallBusinessSupportDetailRoute,
   blogRoute,
   contactRoute,
   grievanceRoute,
@@ -314,6 +437,7 @@ const routeTree = rootRoute.addChildren([
   adminPanelRoute,
   affiliateRoute,
   affiliateDashboardRoute,
+  companySearchRoute,
 ]);
 
 const router = createRouter({ routeTree });

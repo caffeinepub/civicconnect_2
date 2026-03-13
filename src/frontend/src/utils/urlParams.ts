@@ -238,4 +238,3 @@ export function captureUTMParams(): void {
 export function getUTMSource(): string | null {
   return getSessionParameter("utm_source") ?? getUrlParameter("utm_source");
 }
-// biome-ignore lint/complexity/noForEach: simple param capture loop

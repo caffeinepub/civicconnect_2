@@ -226,15 +226,16 @@ export function captureUTMParams(): void {
   ];
   for (const param of utmParams) {
     const value = getUrlParameter(param);
-    if (value !== null) {
+    if (value) {
       storeSessionParameter(param, value);
     }
   }
 }
 
 /**
- * Retrieves the UTM source from sessionStorage or URL
+ * Gets the UTM source from sessionStorage or URL
  */
 export function getUTMSource(): string | null {
-  return getSessionParameter("utm_source") || getUrlParameter("utm_source");
+  return getSessionParameter("utm_source") ?? getUrlParameter("utm_source");
 }
+// biome-ignore lint/complexity/noForEach: simple param capture loop

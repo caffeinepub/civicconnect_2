@@ -4,6 +4,7 @@ import {
   LogIn,
   Menu,
   Phone,
+  Shield,
   User,
   UserPlus,
   X,
@@ -258,6 +259,21 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
               <span>+91 8102906339</span>
             </a>
 
+            {/* Admin Panel Link */}
+            <Link
+              to="/admin-panel"
+              data-ocid="nav.admin_panel.link"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-150 hover:bg-white/10"
+              style={{
+                color: isActive("/admin-panel")
+                  ? "oklch(0.82 0.18 85)"
+                  : "#f5c518",
+              }}
+            >
+              <Shield size={15} style={{ color: "#f5c518" }} />
+              Admin Panel
+            </Link>
+
             {/* Auth: My Account (if session) or Sign Up dropdown */}
             {session ? (
               <Link
@@ -489,6 +505,22 @@ export default function Navigation({ stickyTopOffset = 0 }: NavigationProps) {
                 {link.label}
               </Link>
             ))}
+
+            {/* Admin Panel Link - Mobile */}
+            <Link
+              to="/admin-panel"
+              onClick={() => setMobileOpen(false)}
+              data-ocid="nav.admin_panel.link"
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-150 ${
+                isActive("/admin-panel")
+                  ? "font-semibold bg-white/10"
+                  : "hover:bg-white/10"
+              }`}
+              style={{ color: "#f5c518" }}
+            >
+              <Shield size={15} style={{ color: "#f5c518" }} />
+              Admin Panel
+            </Link>
 
             {/* Mobile Auth Links */}
             {session ? (

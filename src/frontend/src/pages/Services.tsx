@@ -17,15 +17,16 @@ const SERVICES = [
       "Partnership Firm Registration",
       "Farmer Producer Company Registration",
       "Section 8 Company Registration",
-      "NGO Registration",
+      "NGO (Non-Government Organization)",
       "Society Registration",
       "Charitable Trust Registration",
       "CSR1 Registration",
-      "12A Registration",
-      "80G Registration",
-      "NGO Darpan Registration",
-      "Niti Aayog Registration",
+      "12 A Registration",
+      "80 G Registration",
+      "NGO Darpan",
+      "Niti Ayog Registration",
     ],
+    viewAllLink: "/services/business-registration",
   },
   {
     icon: "📊",
@@ -350,7 +351,7 @@ export default function Services() {
                 <p className="text-sm text-gray-400 mb-4">{service.desc}</p>
 
                 {/* Features List */}
-                <ul className="space-y-2">
+                <ul className="space-y-2 flex-1">
                   {service.features.map((feature) => (
                     <li
                       key={feature}
@@ -364,6 +365,20 @@ export default function Services() {
                     </li>
                   ))}
                 </ul>
+
+                {/* View All Services Link — only for Business Registration */}
+                {"viewAllLink" in service && service.viewAllLink && (
+                  <Link
+                    to={
+                      service.viewAllLink as "/services/business-registration"
+                    }
+                    className="mt-5 block w-full text-center py-2.5 rounded-lg font-bold text-sm hover:opacity-90 transition-opacity"
+                    style={{ backgroundColor: "#f5c518", color: "#0a1628" }}
+                    data-ocid="business_registration.view_all.link"
+                  >
+                    View All Services →
+                  </Link>
+                )}
               </div>
             ))}
           </div>
@@ -383,7 +398,8 @@ export default function Services() {
             className="text-base mb-6"
             style={{ color: "#0a1628", opacity: 0.8 }}
           >
-            Talk to our experts for free — we'll guide you to the right solution
+            Talk to our experts for free — we&apos;ll guide you to the right
+            solution
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

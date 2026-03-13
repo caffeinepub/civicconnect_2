@@ -38,6 +38,8 @@ const CustomerDashboard = lazy(() => import("./pages/CustomerDashboard"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
 const Affiliate = lazy(() => import("./pages/Affiliate"));
 const AffiliateDashboard = lazy(() => import("./pages/AffiliateDashboard"));
+const BusinessRegistration = lazy(() => import("./pages/BusinessRegistration"));
+const ServiceDetailPage = lazy(() => import("./pages/ServiceDetailPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,11 +66,9 @@ function Layout() {
         minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
-        // Add bottom padding so content isn't hidden behind the fixed bottom bar
         paddingBottom: STICKY_BAR_HEIGHT,
       }}
     >
-      {/* Navigation at the top */}
       <Navigation stickyTopOffset={0} />
 
       <main style={{ flex: 1 }}>
@@ -79,8 +79,6 @@ function Layout() {
       <Footer />
       <FloatingCTA />
       <ConsultationPopup />
-
-      {/* Fixed sticky contact bar at the bottom */}
       <StickyContactBar />
     </div>
   );
@@ -106,6 +104,18 @@ const servicesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services",
   component: Services,
+});
+
+const businessRegistrationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/business-registration",
+  component: BusinessRegistration,
+});
+
+const serviceDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/business-registration/$serviceSlug",
+  component: ServiceDetailPage,
 });
 
 const blogRoute = createRoute({
@@ -208,6 +218,8 @@ const routeTree = rootRoute.addChildren([
   indexRoute,
   aboutRoute,
   servicesRoute,
+  businessRegistrationRoute,
+  serviceDetailRoute,
   blogRoute,
   contactRoute,
   grievanceRoute,

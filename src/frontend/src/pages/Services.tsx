@@ -50,6 +50,7 @@ const SERVICES = [
     title: "ISO Certification",
     badge: "Certified",
     desc: "Get ISO 9001, 14001, 22000, 27001 and other certifications for your business.",
+    viewAllLink: "/services/iso-certification",
     features: [
       "ISO Registration",
       "ISO 9001:2015",
@@ -191,6 +192,7 @@ const SERVICES = [
     title: "Pollution Control Board",
     badge: "Environment",
     desc: "Obtain Consent to Establish (CTE) and Consent to Operate (CTO) from Pollution Control Board.",
+    viewAllLink: "/services/pollution-control",
     features: [
       "CGWA Water Boring",
       "CTE / CTO Certificate",
@@ -366,7 +368,7 @@ export default function Services() {
                   ))}
                 </ul>
 
-                {/* View All Services Link — only for Business Registration */}
+                {/* View All Services Link */}
                 {"viewAllLink" in service && service.viewAllLink && (
                   <Link
                     to={

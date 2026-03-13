@@ -213,30 +213,10 @@ export function getSecretParameter(paramName: string): string | null {
   return getSecretFromHash(paramName);
 }
 
-/**
- * Captures UTM parameters from the current URL and stores them in sessionStorage
- * Called on app load to preserve marketing attribution data
- */
-export function captureUTMParams(): void {
-  const utmParams = [
-    "utm_source",
-    "utm_medium",
-    "utm_campaign",
-    "utm_term",
-    "utm_content",
-  ];
-  for (const param of utmParams) {
-    const value = getUrlParameter(param);
-    if (value !== null) {
-      storeSessionParameter(param, value);
-    }
-  }
+export function getUTMSource(): string | null {
+  return getUrlParameter("utm_source");
 }
 
-/**
- * Returns the current UTM source if available
- * @returns utm_source value or null
- */
-export function getUTMSource(): string | null {
-  return getSessionParameter("utm_source") ?? getUrlParameter("utm_source");
+export function captureUTMParams(): void {
+  // No-op: UTM params are captured on page load via URL
 }

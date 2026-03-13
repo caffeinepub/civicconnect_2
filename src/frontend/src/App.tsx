@@ -16,7 +16,6 @@ import Navigation from "./components/Navigation";
 import StickyContactBar from "./components/StickyContactBar";
 import { captureUTMParams } from "./utils/urlParams";
 
-// Lazy-loaded page components
 const Home = lazy(() => import("./pages/Home"));
 const About = lazy(() => import("./pages/About"));
 const Services = lazy(() => import("./pages/Services"));
@@ -46,24 +45,37 @@ const GovernmentLicenses = lazy(() => import("./pages/GovernmentLicenses"));
 const GovernmentLicensesDetailPage = lazy(
   () => import("./pages/GovernmentLicensesDetailPage"),
 );
+const IsoCertification = lazy(() => import("./pages/IsoCertification"));
+const IsoCertificationDetailPage = lazy(
+  () => import("./pages/IsoCertificationDetailPage"),
+);
+const PollutionControl = lazy(() => import("./pages/PollutionControl"));
+const PollutionControlDetailPage = lazy(
+  () => import("./pages/PollutionControlDetailPage"),
+);
+const FssaiLicense = lazy(() => import("./pages/FssaiLicense"));
+const FssaiLicenseDetailPage = lazy(
+  () => import("./pages/FssaiLicenseDetailPage"),
+);
+const TrademarkRegistration = lazy(
+  () => import("./pages/TrademarkRegistration"),
+);
+const TrademarkDetailPage = lazy(() => import("./pages/TrademarkDetailPage"));
 
+const ComplianceService = lazy(() => import("./pages/ComplianceService"));
+const ComplianceServiceDetailPage = lazy(
+  () => import("./pages/ComplianceServiceDetailPage"),
+);
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5,
-      retry: 1,
-    },
-  },
+  defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 1 } },
 });
 
-// Height of the sticky contact bar in px
 const STICKY_BAR_HEIGHT = 65;
 
 function Layout() {
   useEffect(() => {
     captureUTMParams();
   }, []);
-
   return (
     <div
       style={{
@@ -76,7 +88,6 @@ function Layout() {
       }}
     >
       <Navigation stickyTopOffset={0} />
-
       <main style={{ flex: 1 }}>
         <Suspense fallback={<LoadingFallback />}>
           <Outlet />
@@ -90,154 +101,177 @@ function Layout() {
   );
 }
 
-const rootRoute = createRootRoute({
-  component: Layout,
-});
-
+const rootRoute = createRootRoute({ component: Layout });
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
   component: Home,
 });
-
 const aboutRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/about",
   component: About,
 });
-
 const servicesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services",
   component: Services,
 });
-
 const businessRegistrationRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/business-registration",
   component: BusinessRegistration,
 });
-
 const serviceDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/business-registration/$serviceSlug",
   component: ServiceDetailPage,
 });
-
 const taxGstRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/tax-gst",
   component: TaxGst,
 });
-
 const taxGstDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/tax-gst/$serviceSlug",
   component: TaxGstDetailPage,
 });
-
 const governmentLicensesRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/government-licenses",
   component: GovernmentLicenses,
 });
-
 const governmentLicensesDetailRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/services/government-licenses/$serviceSlug",
   component: GovernmentLicensesDetailPage,
 });
-
+const isoCertificationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/iso-certification",
+  component: IsoCertification,
+});
+const isoCertificationDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/iso-certification/$serviceSlug",
+  component: IsoCertificationDetailPage,
+});
+const pollutionControlRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/pollution-control",
+  component: PollutionControl,
+});
+const pollutionControlDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/pollution-control/$serviceSlug",
+  component: PollutionControlDetailPage,
+});
+const fssaiLicenseRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/fssai-license",
+  component: FssaiLicense,
+});
+const fssaiLicenseDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/fssai-license/$serviceSlug",
+  component: FssaiLicenseDetailPage,
+});
+const trademarkRegistrationRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/trademark-registration",
+  component: TrademarkRegistration,
+});
+const trademarkDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/trademark-registration/$serviceSlug",
+  component: TrademarkDetailPage,
+});
+const complianceServiceRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/compliance-service",
+  component: ComplianceService,
+});
+const complianceServiceDetailRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/services/compliance-service/$serviceSlug",
+  component: ComplianceServiceDetailPage,
+});
 const blogRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/blog",
   component: Blog,
 });
-
 const contactRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/contact",
   component: Contact,
 });
-
 const grievanceRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/grievance",
   component: Grievance,
 });
-
 const socialMediaRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/social-media",
   component: SocialMedia,
 });
-
 const signupRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/signup",
   component: Signup,
 });
-
 const termsRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/terms-and-conditions",
   component: TermsAndConditions,
 });
-
 const privacyRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/privacy-policy",
   component: PrivacyPolicy,
 });
-
 const refundRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/refund-policy",
   component: RefundPolicy,
 });
-
 const confidentialityRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/confidentiality-policy",
   component: ConfidentialityPolicy,
 });
-
 const disclaimerRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/disclaimer",
   component: Disclaimer,
 });
-
 const customerSignupRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/customer-signup",
   component: CustomerSignup,
 });
-
 const customerLoginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/customer-login",
   component: CustomerLogin,
 });
-
 const customerDashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/customer-dashboard",
   component: CustomerDashboard,
 });
-
 const adminPanelRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/admin-panel",
   component: AdminPanel,
 });
-
 const affiliateRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/affiliate",
   component: Affiliate,
 });
-
 const affiliateDashboardRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/affiliate-dashboard",
@@ -254,6 +288,16 @@ const routeTree = rootRoute.addChildren([
   taxGstDetailRoute,
   governmentLicensesRoute,
   governmentLicensesDetailRoute,
+  isoCertificationRoute,
+  isoCertificationDetailRoute,
+  pollutionControlRoute,
+  pollutionControlDetailRoute,
+  fssaiLicenseRoute,
+  fssaiLicenseDetailRoute,
+  trademarkRegistrationRoute,
+  trademarkDetailRoute,
+  complianceServiceRoute,
+  complianceServiceDetailRoute,
   blogRoute,
   contactRoute,
   grievanceRoute,
